@@ -1,0 +1,505 @@
+/* Kronos: struttura delle pagine. */
+
+.contenitore {
+    width: 100%;
+    max-width: 75rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+.pagina-stretta {
+    max-width: 48rem;
+    margin-inline: auto;
+    padding: 3rem clamp(1rem, 4vw, 3rem);
+}
+
+/* --- Testata ---------------------------------------------------------------- */
+
+.testata {
+    position: relative;
+    z-index: 10;
+    color: var(--testo);
+}
+.sopra-immagine .testata {
+    position: absolute;
+    inset: 0 0 auto;
+    background: linear-gradient(to bottom, rgb(0 0 0 / 0.55), transparent);
+}
+.sopra-immagine .testata,
+.sopra-immagine .testata .marchio { color: #ffffff; }
+.sopra-immagine .testata .menu a:not(.bottone) { color: #ffffff; }
+
+.testata-interno {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    max-width: 75rem;
+    margin-inline: auto;
+    padding: 1rem clamp(1rem, 4vw, 3rem);
+}
+
+.marchio {
+    display: flex;
+    flex-direction: column;
+    color: var(--testo);
+    text-decoration: none;
+    line-height: 1.1;
+}
+.marchio-nome { font-size: 1.875rem; margin: 0; }
+.marchio-sotto { font-size: 0.9375rem; }
+
+.menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.menu li { max-width: none; }
+.menu a:not(.bottone) {
+    display: inline-block;
+    padding: 0.5rem 0;
+    color: var(--testo);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+.menu a:not(.bottone):hover { border-bottom-color: currentColor; }
+.menu a[aria-current="page"] { border-bottom-color: currentColor; font-weight: 700; }
+.sopra-immagine .menu .bottone { --bottone-sfondo: #ffffff; --bottone-testo: #14213d; }
+
+.apri-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.9rem;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+.apri-menu-icona,
+.apri-menu-icona::before,
+.apri-menu-icona::after {
+    display: block;
+    width: 1.1rem;
+    height: 2px;
+    background: currentColor;
+}
+.apri-menu-icona { position: relative; }
+.apri-menu-icona::before, .apri-menu-icona::after { content: ""; position: absolute; left: 0; }
+.apri-menu-icona::before { top: -6px; }
+.apri-menu-icona::after { top: 6px; }
+.apri-menu[aria-expanded="true"] .apri-menu-icona { background: transparent; }
+.apri-menu[aria-expanded="true"] .apri-menu-icona::before { top: 0; transform: rotate(45deg); }
+.apri-menu[aria-expanded="true"] .apri-menu-icona::after { top: 0; transform: rotate(-45deg); }
+
+/* Sotto i 56rem il menu diventa un pannello che si apre con il bottone (solo con JS attivo) */
+@media (max-width: 56rem) {
+    .js .menu { flex-basis: 100%; }
+    .js .menu[hidden] { display: none; }
+    .menu ul { flex-direction: column; align-items: flex-start; gap: 0; }
+    .menu li { width: 100%; }
+    .menu a:not(.bottone) { display: block; padding: 0.75rem 0; }
+    .menu-prenota { margin-top: 0.75rem; }
+    .js .sopra-immagine .testata:has(.menu:not([hidden])) { background: #14213d; }
+}
+@media (min-width: 56.0625rem) {
+    .apri-menu { display: none; }
+}
+
+/* --- Piè di pagina ---------------------------------------------------------- */
+
+.piede {
+    background: var(--sfondo);
+    color: var(--testo);
+    padding-top: 4rem;
+}
+.piede-interno {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 2.5rem;
+    max-width: 75rem;
+    margin-inline: auto;
+    padding: 0 clamp(1rem, 4vw, 3rem) 3rem;
+}
+.piede h2 { font-size: 1.5rem; }
+.orari-brevi div { display: flex; justify-content: space-between; gap: 1rem; max-width: 18rem; }
+.orari-brevi dt { font-weight: 400; }
+.orari-brevi dd { margin: 0; }
+.riga-campo { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.riga-campo input { flex: 1 1 12rem; }
+.piede-fondo {
+    max-width: none;
+    margin: 0;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem);
+    border-top: 1px solid var(--bordo);
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* --- Home: la discesa dal cielo all'abisso ---------------------------------- */
+
+.ingresso {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding: 9rem 0 4rem;
+    isolation: isolate;
+    overflow: hidden;
+}
+.ingresso-immagine {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+.ingresso-immagine img { width: 100%; height: 100%; object-fit: cover; }
+.ingresso-immagine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgb(20 33 61 / 0) 30%, #14213d 92%);
+}
+.ingresso h1 { font-size: clamp(4rem, 2rem + 10vw, 9rem); margin-bottom: 0.25em; }
+.ingresso .introduzione { margin-bottom: 1.5rem; }
+.azioni { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
+.oggi { font-weight: 700; margin: 0; }
+
+.percorso {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+}
+.percorso a { color: var(--testo); }
+
+.mondo {
+    background: linear-gradient(to bottom, var(--da, var(--sfondo)), var(--sfondo) 16rem);
+    padding: 7rem 0;
+}
+.mondo-interno {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+}
+.mondo h2 { font-size: clamp(2.5rem, 1.5rem + 3.5vw, 4.5rem); }
+.mondo-sottotitolo { font-size: 1.3125rem; color: var(--testo-tenue); }
+.mondo-dove { font-size: 1rem; color: var(--testo-tenue); }
+.mondo .bottone { margin-top: 0.5rem; }
+.nota-speciale {
+    border-left: 4px solid var(--accento);
+    padding: 0.25rem 0 0.25rem 1rem;
+    margin: 1.5rem 0;
+}
+.nota-speciale h3 { margin-bottom: 0.25rem; }
+
+/* Cornice ad arco: il motivo delle nicchie museali, usato per tutte le immagini delle mostre */
+.arco {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: 50% 50% 4px 4px / 32% 32% 4px 4px;
+    overflow: hidden;
+    background: var(--superficie);
+}
+.arco img { width: 100%; height: 100%; object-fit: cover; }
+
+.dopo-discesa {
+    background: linear-gradient(to bottom, var(--sfondo), var(--sfondo-profondo) 12rem);
+    padding: 5rem 0 6rem;
+}
+
+@media (max-width: 48rem) {
+    .mondo-interno { grid-template-columns: 1fr; }
+    .mondo .arco { max-width: 22rem; order: -1; }
+    .mondo { padding: 5rem 0; }
+}
+
+/* --- Elenco eventi ------------------------------------------------------------ */
+
+.eventi {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--bordo);
+}
+.evento {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 0.5rem 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--bordo);
+    max-width: none;
+}
+.evento h3 { margin-bottom: 0.25rem; }
+.evento-quando { font-weight: 700; }
+.evento-quando span { display: block; font-weight: 400; }
+.evento-dettagli { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; margin: 0; font-size: 1rem; color: var(--testo-tenue); }
+.evento-dettagli div { display: flex; gap: 0.35rem; }
+.evento-dettagli dt { font-weight: 700; }
+.evento-dettagli dd { margin: 0; }
+.evento p { margin-bottom: 0.5rem; }
+@media (max-width: 36rem) {
+    .evento { grid-template-columns: 1fr; }
+}
+
+/* --- Pagina mostra: immagine che sfuma nel colore della mostra ----------------- */
+
+.sfondo-mostra {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--sfondo);
+}
+.sfondo-mostra img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: 50% 100%;
+    transform: translateY(calc(var(--p, 0) * -6vh)) scale(calc(1.03 + var(--p, 0) * 0.07));
+    will-change: transform;
+}
+/* Sfumatura fissa in basso, per leggere il titolo */
+.sfondo-mostra::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 35%, var(--sfondo) 96%);
+}
+/* Velo che cresce scorrendo: con JS, --p va da 0 a 1 nella prima schermata */
+.sfondo-mostra::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--sfondo);
+    opacity: calc(var(--p, 0) * 0.9);
+}
+
+.apertura {
+    min-height: 92svh;
+    display: flex;
+    align-items: flex-end;
+    padding: 9rem 0 3rem;
+}
+.apertura h1 { max-width: 14ch; text-shadow: 0 2px 24px rgb(0 0 0 / 0.35); }
+.apertura .sottotitolo { font-size: clamp(1.3125rem, 1rem + 1vw, 1.875rem); max-width: 30ch; margin: 0; }
+
+.dati-mostra {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2.5rem;
+    margin: 2rem 0 0;
+}
+.dati-mostra dt { font-size: 1rem; color: var(--testo-tenue); }
+.dati-mostra dd { margin: 0; font-weight: 700; }
+
+.corpo-mostra {
+    background: linear-gradient(to bottom,
+        transparent 0,
+        var(--sfondo) 14rem,
+        var(--sfondo) 70%,
+        var(--sfondo-profondo) 100%);
+    padding: 14rem 0 6rem;
+    margin-top: -10rem;
+}
+.corpo-mostra .contenitore > section { margin-top: 5rem; }
+
+.sezioni-mostra { display: grid; gap: 3rem; margin-top: 3rem; }
+.sezione-mostra { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1rem 3rem; }
+.sezione-mostra h2 { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); }
+@media (max-width: 48rem) {
+    .sezione-mostra { grid-template-columns: 1fr; }
+}
+
+/* Cartellini dei reperti, come le didascalie in sala */
+.cartellini {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.cartellino {
+    padding: 1.25rem 1.25rem 1.5rem;
+    background: var(--superficie);
+    border: 1px solid var(--bordo);
+    border-top: 4px solid var(--accento);
+}
+.cartellino h3 { font-family: "Atkinson Hyperlegible", sans-serif; font-weight: 700; font-size: 1.125rem; margin-bottom: 0.15rem; }
+.cartellino-data { color: var(--testo-tenue); font-size: 1rem; margin-bottom: 0.75rem; }
+.cartellino p:last-child { margin-bottom: 0; }
+
+.invito {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 2rem;
+    border: 2px solid var(--bordo);
+    border-radius: 4px;
+}
+.invito h2 { font-size: 2rem; margin: 0; }
+.invito p { margin: 0.25rem 0 0; }
+
+/* --- Pagina Mostre ed eventi --------------------------------------------------- */
+
+.intestazione-pagina { padding: 3rem 0 2rem; }
+.intestazione-pagina h1 { font-size: clamp(2.75rem, 1.75rem + 4vw, 5rem); }
+
+.elenco-mostre {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0 0 4rem;
+    padding: 0;
+    list-style: none;
+}
+.voce-mostra {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: 1.5rem 3rem;
+    align-items: center;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    background: var(--sfondo);
+    border-radius: 4px;
+    max-width: none;
+}
+.voce-mostra h2 { font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.75rem); margin-bottom: 0.25rem; }
+.voce-mostra h2 a { color: var(--testo); text-decoration: none; }
+.voce-mostra h2 a:hover { text-decoration: underline; }
+.voce-mostra .arco { aspect-ratio: 3 / 4; }
+.etichetta-speciale {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.15rem 0.6rem;
+    border: 2px solid var(--accento);
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+@media (max-width: 40rem) {
+    .voce-mostra { grid-template-columns: 1fr; }
+    .voce-mostra .arco { max-width: 12rem; }
+}
+
+.filtro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem 1rem;
+    margin-bottom: 2rem;
+}
+.filtro .campo { margin: 0; flex: 1 1 16rem; max-width: 24rem; }
+
+/* --- Visita, Sostienici, Shop, Chi siamo ---------------------------------------- */
+
+.griglia-due {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.blocco-form {
+    background: var(--superficie);
+    padding: clamp(1.25rem, 4vw, 3rem);
+    border-radius: 4px;
+    margin-bottom: 4rem;
+}
+
+.quantita-biglietti { display: grid; gap: 0.75rem; }
+.quantita-biglietti .riga {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--bordo);
+}
+.quantita-biglietti label { margin: 0; }
+.quantita-biglietti .suggerimento { margin: 0; }
+.totale { font-size: 1.3125rem; font-weight: 700; }
+
+.scelte { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+.scelta {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border: 2px solid var(--bordo-campo);
+    border-radius: 4px;
+    background: var(--superficie);
+}
+.scelta:has(input:checked) { border-color: var(--testo); box-shadow: inset 0 0 0 2px var(--testo); }
+.scelta label { margin: 0; font-size: 1.3125rem; font-family: "Marcellus", serif; font-weight: 400; }
+.scelta .prezzo-livello { display: block; font-family: "Atkinson Hyperlegible", sans-serif; font-weight: 700; font-size: 1.125rem; }
+.scelta ul { margin: 0.75rem 0 0; padding-left: 1.1rem; font-size: 1rem; }
+
+.prodotti {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 2.5rem 1.5rem;
+    margin: 0 0 4rem;
+    padding: 0;
+    list-style: none;
+}
+.prodotto { display: flex; flex-direction: column; max-width: none; }
+.prodotto-immagine {
+    aspect-ratio: 4 / 3;
+    margin: 0 0 1rem;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--superficie);
+}
+.prodotto-immagine img { width: 100%; height: 100%; object-fit: cover; }
+.prodotto h3 { font-size: 1.3125rem; margin-bottom: 0.25rem; }
+.prodotto-mostra { font-size: 1rem; color: var(--testo-tenue); margin-bottom: 0.5rem; }
+.prodotto-prezzo { font-weight: 700; font-size: 1.3125rem; margin: auto 0 0.5rem; }
+.prodotto form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem; }
+.prodotto form .campo { margin: 0; }
+.esaurito { font-weight: 700; }
+
+.carrello { margin-bottom: 4rem; }
+.carrello table { max-width: none; }
+.carrello td form { margin: 0; }
+
+.squadra {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem;
+    margin: 0 0 4rem;
+    padding: 0;
+    list-style: none;
+}
+.squadra h3 { margin-bottom: 0.15rem; }
+.squadra .ruolo { font-weight: 700; margin-bottom: 0.5rem; }
+
+.temi { display: grid; gap: 0.75rem; margin: 0 0 4rem; padding: 0; list-style: none; }
+.temi li { padding: 1rem 1.25rem; border-radius: 4px; background: var(--sfondo); max-width: 48rem; }
+.temi a { color: var(--testo); font-weight: 700; }
+
+/* Chi preferisce meno movimento vede solo la dissolvenza, senza zoom né spostamento */
+@media (prefers-reduced-motion: reduce) {
+    .sfondo-mostra img { transform: none; }
+}
+
+/* Inquadratura delle illustrazioni nelle cornici strette: tiene in vista il soggetto */
+.tema-celeste .arco img { object-position: 76% 50%; }
+.tema-mitologia .arco img { object-position: 58% 50%; }
+.tema-dinosauri .arco img { object-position: 74% 50%; }
+.tema-glaciale .arco img { object-position: 66% 50%; }

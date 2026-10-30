@@ -1,0 +1,508 @@
+{
+ "checks": [
+  {
+   "id": "casa-testo-sfondo",
+   "foreground": "#14213d",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-tenue-sfondo",
+   "foreground": "#14213d",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-link-sfondo",
+   "foreground": "#14213d",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-focus-sfondo",
+   "foreground": "#14213d",
+   "background": "#e5e5e5",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "casa-testo-superficie",
+   "foreground": "#14213d",
+   "background": "#ffffff",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-errore-sfondo",
+   "foreground": "#5e0b15",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-errore-superficie",
+   "foreground": "#5e0b15",
+   "background": "#ffffff",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-bordo-campo",
+   "foreground": "#14213d",
+   "background": "#ffffff",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "casa-bottone",
+   "foreground": "#ffffff",
+   "background": "#14213d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-bottone-hover",
+   "foreground": "#14213d",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-accento-su-blu",
+   "foreground": "#fca311",
+   "background": "#14213d",
+   "type": "graphic",
+   "notes": "Bottoni e avvisi blu"
+  },
+  {
+   "id": "testata-su-immagine",
+   "foreground": "#ffffff",
+   "background": "#14213d",
+   "type": "text-normal",
+   "notes": "Menu bianco su testata blu (mobile aperto)"
+  },
+  {
+   "id": "celeste-testo-sfondo",
+   "foreground": "#ffffff",
+   "background": "#14213d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-tenue-sfondo",
+   "foreground": "#e5e5e5",
+   "background": "#14213d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-link-sfondo",
+   "foreground": "#fca311",
+   "background": "#14213d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-focus-sfondo",
+   "foreground": "#ffffff",
+   "background": "#14213d",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "celeste-testo-superficie",
+   "foreground": "#ffffff",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-tenue-superficie",
+   "foreground": "#e5e5e5",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": "Data del reperto nel cartellino"
+  },
+  {
+   "id": "celeste-testo-profondo",
+   "foreground": "#ffffff",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-link-profondo",
+   "foreground": "#fca311",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-accento-sfondo",
+   "foreground": "#fca311",
+   "background": "#14213d",
+   "type": "graphic",
+   "notes": "Bordo superiore dei cartellini e note"
+  },
+  {
+   "id": "celeste-bottone",
+   "foreground": "#14213d",
+   "background": "#ffffff",
+   "type": "text-normal",
+   "notes": "Testo del bottone pieno"
+  },
+  {
+   "id": "celeste-campo",
+   "foreground": "#14213d",
+   "background": "#ffffff",
+   "type": "text-normal",
+   "notes": "Testo dentro i campi"
+  },
+  {
+   "id": "celeste-campo-bordo",
+   "foreground": "#ffffff",
+   "background": "#14213d",
+   "type": "ui",
+   "notes": "Campo chiaro su fondo scuro"
+  },
+  {
+   "id": "mitologia-testo-sfondo",
+   "foreground": "#d9cab3",
+   "background": "#5e0b15",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-tenue-sfondo",
+   "foreground": "#d9cab3",
+   "background": "#5e0b15",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-link-sfondo",
+   "foreground": "#d9cab3",
+   "background": "#5e0b15",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-focus-sfondo",
+   "foreground": "#d9cab3",
+   "background": "#5e0b15",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-testo-superficie",
+   "foreground": "#d9cab3",
+   "background": "#90323d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-tenue-superficie",
+   "foreground": "#d9cab3",
+   "background": "#90323d",
+   "type": "text-normal",
+   "notes": "Data del reperto nel cartellino"
+  },
+  {
+   "id": "mitologia-testo-profondo",
+   "foreground": "#d9cab3",
+   "background": "#90323d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-link-profondo",
+   "foreground": "#d9cab3",
+   "background": "#90323d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-accento-sfondo",
+   "foreground": "#bc8034",
+   "background": "#5e0b15",
+   "type": "graphic",
+   "notes": "Bordo superiore dei cartellini e note"
+  },
+  {
+   "id": "mitologia-bottone",
+   "foreground": "#5e0b15",
+   "background": "#d9cab3",
+   "type": "text-normal",
+   "notes": "Testo del bottone pieno"
+  },
+  {
+   "id": "mitologia-campo",
+   "foreground": "#5e0b15",
+   "background": "#d9cab3",
+   "type": "text-normal",
+   "notes": "Testo dentro i campi"
+  },
+  {
+   "id": "mitologia-campo-bordo",
+   "foreground": "#d9cab3",
+   "background": "#5e0b15",
+   "type": "ui",
+   "notes": "Campo chiaro su fondo scuro"
+  },
+  {
+   "id": "dinosauri-testo-sfondo",
+   "foreground": "#fefae0",
+   "background": "#283618",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-tenue-sfondo",
+   "foreground": "#fefae0",
+   "background": "#283618",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-link-sfondo",
+   "foreground": "#dda15e",
+   "background": "#283618",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-focus-sfondo",
+   "foreground": "#fefae0",
+   "background": "#283618",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-testo-superficie",
+   "foreground": "#fefae0",
+   "background": "#606c38",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-tenue-superficie",
+   "foreground": "#fefae0",
+   "background": "#606c38",
+   "type": "text-normal",
+   "notes": "Data del reperto nel cartellino"
+  },
+  {
+   "id": "dinosauri-testo-profondo",
+   "foreground": "#fefae0",
+   "background": "#283618",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-link-profondo",
+   "foreground": "#dda15e",
+   "background": "#283618",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-accento-sfondo",
+   "foreground": "#dda15e",
+   "background": "#283618",
+   "type": "graphic",
+   "notes": "Bordo superiore dei cartellini e note"
+  },
+  {
+   "id": "dinosauri-bottone",
+   "foreground": "#283618",
+   "background": "#fefae0",
+   "type": "text-normal",
+   "notes": "Testo del bottone pieno"
+  },
+  {
+   "id": "dinosauri-campo",
+   "foreground": "#283618",
+   "background": "#fefae0",
+   "type": "text-normal",
+   "notes": "Testo dentro i campi"
+  },
+  {
+   "id": "dinosauri-campo-bordo",
+   "foreground": "#fefae0",
+   "background": "#283618",
+   "type": "ui",
+   "notes": "Campo chiaro su fondo scuro"
+  },
+  {
+   "id": "glaciale-testo-sfondo",
+   "foreground": "#dcedf6",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-tenue-sfondo",
+   "foreground": "#a5d6f1",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-link-sfondo",
+   "foreground": "#88ccf1",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-focus-sfondo",
+   "foreground": "#dcedf6",
+   "background": "#243640",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-testo-superficie",
+   "foreground": "#dcedf6",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-tenue-superficie",
+   "foreground": "#a5d6f1",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": "Data del reperto nel cartellino"
+  },
+  {
+   "id": "glaciale-testo-profondo",
+   "foreground": "#dcedf6",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-link-profondo",
+   "foreground": "#88ccf1",
+   "background": "#243640",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-accento-sfondo",
+   "foreground": "#88ccf1",
+   "background": "#243640",
+   "type": "graphic",
+   "notes": "Bordo superiore dei cartellini e note"
+  },
+  {
+   "id": "glaciale-bottone",
+   "foreground": "#243640",
+   "background": "#dcedf6",
+   "type": "text-normal",
+   "notes": "Testo del bottone pieno"
+  },
+  {
+   "id": "glaciale-campo",
+   "foreground": "#243640",
+   "background": "#dcedf6",
+   "type": "text-normal",
+   "notes": "Testo dentro i campi"
+  },
+  {
+   "id": "glaciale-campo-bordo",
+   "foreground": "#dcedf6",
+   "background": "#243640",
+   "type": "ui",
+   "notes": "Campo chiaro su fondo scuro"
+  },
+  {
+   "id": "atlantide-testo-sfondo",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-tenue-sfondo",
+   "foreground": "#b5e48c",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-link-sfondo",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-focus-sfondo",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "ui",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-testo-superficie",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-tenue-superficie",
+   "foreground": "#b5e48c",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": "Data del reperto nel cartellino"
+  },
+  {
+   "id": "atlantide-testo-profondo",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-link-profondo",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-accento-sfondo",
+   "foreground": "#52b69a",
+   "background": "#184e77",
+   "type": "graphic",
+   "notes": "Bordo superiore dei cartellini e note"
+  },
+  {
+   "id": "atlantide-bottone",
+   "foreground": "#184e77",
+   "background": "#d9ed92",
+   "type": "text-normal",
+   "notes": "Testo del bottone pieno"
+  },
+  {
+   "id": "atlantide-campo",
+   "foreground": "#184e77",
+   "background": "#d9ed92",
+   "type": "text-normal",
+   "notes": "Testo dentro i campi"
+  },
+  {
+   "id": "atlantide-campo-bordo",
+   "foreground": "#d9ed92",
+   "background": "#184e77",
+   "type": "ui",
+   "notes": "Campo chiaro su fondo scuro"
+  }
+ ]
+}

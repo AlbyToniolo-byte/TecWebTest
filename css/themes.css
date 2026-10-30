@@ -1,0 +1,104 @@
+/* Palette di Kronos e delle cinque mostre: solo i colori di refs.md.
+   Ogni classe .tema-* può stare sul <body> o su una singola sezione.
+   Le coppie testo/sfondo sono verificate in docs/contrasto.json.
+   Dove nessun colore della palette regge il contrasto come superficie,
+   --superficie e --sfondo-profondo coincidono con --sfondo. */
+
+/* Pagine generali (Visita, Shop, ...): colori del Mondo Celeste su fondo chiaro.
+   Gli errori usano il bordeaux della Mitologia. */
+.tema-casa {
+    --sfondo: #e5e5e5;
+    --superficie: #ffffff;
+    --testo: #14213d;
+    --testo-tenue: #14213d;
+    --link: #14213d;
+    --accento: #fca311;
+    --bordo: #14213d;
+    --focus: #14213d;
+    --bottone-sfondo: #14213d;
+    --bottone-testo: #ffffff;
+    --campo: #ffffff;
+    --testo-campo: #14213d;
+    --bordo-campo: #14213d;
+    --errore: #5e0b15;
+    --avviso-sfondo: #14213d;
+    --avviso-testo: #ffffff;
+}
+
+/* Mondo Celeste: nero, blu scuro, arancione, grigio, bianco */
+.tema-celeste {
+    --sfondo: #14213d;
+    --sfondo-profondo: #000000;
+    --superficie: #000000;
+    --testo: #ffffff;
+    --testo-tenue: #e5e5e5;
+    --link: #fca311;
+    --accento: #fca311;
+    --bordo: #e5e5e5;
+}
+
+/* Mitologia: bordeaux, rosa scuro, beige, bronzo, tortora */
+.tema-mitologia {
+    --sfondo: #5e0b15;
+    --sfondo-profondo: #90323d;
+    --superficie: #90323d;
+    --testo: #d9cab3;
+    --testo-tenue: #d9cab3;
+    --link: #d9cab3;
+    --accento: #bc8034;
+    --bordo: #8c7a6b;
+}
+
+/* Dinosauri: foresta negra, verde oliva, ossa, caramello, rame */
+.tema-dinosauri {
+    --sfondo: #283618;
+    --sfondo-profondo: #283618;
+    --superficie: #606c38;
+    --testo: #fefae0;
+    --testo-tenue: #fefae0;
+    --link: #dda15e;
+    --accento: #dda15e;
+    --bordo: #bc6c25;
+}
+
+/* Era glaciale: jet black, blu, baby blue, icy blue, azzurro chiaro */
+.tema-glaciale {
+    --sfondo: #243640;
+    --sfondo-profondo: #243640;
+    --superficie: #243640;
+    --testo: #dcedf6;
+    --testo-tenue: #a5d6f1;
+    --link: #88ccf1;
+    --accento: #88ccf1;
+    --bordo: #557e96;
+}
+
+/* Atlantide: avocado, avocado maturo, verde acqua, teal, bonnie blue, blu */
+.tema-atlantide {
+    --sfondo: #184e77;
+    --sfondo-profondo: #184e77;
+    --superficie: #184e77;
+    --testo: #d9ed92;
+    --testo-tenue: #b5e48c;
+    --link: #d9ed92;
+    --accento: #52b69a;
+    --bordo: #52b69a;
+}
+
+/* Valori comuni ai temi scuri: bottoni e campi usano il colore del testo come fondo */
+.tema-celeste, .tema-mitologia, .tema-dinosauri, .tema-glaciale, .tema-atlantide {
+    --focus: var(--testo);
+    --bottone-sfondo: var(--testo);
+    --bottone-testo: var(--sfondo);
+    --campo: var(--testo);
+    --testo-campo: var(--sfondo);
+    --bordo-campo: var(--testo);
+    --errore: var(--testo);
+    --avviso-sfondo: var(--testo);
+    --avviso-testo: var(--sfondo);
+}
+
+/* Le sezioni a tema dentro pagine chiare (home, elenchi) ridefiniscono anche i colori di base */
+[class*="tema-"] {
+    color: var(--testo);
+}

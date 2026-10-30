@@ -1,0 +1,204 @@
+/* Kronos: base, tipografia, controlli.
+   I colori arrivano da css/themes.css tramite variabili (--sfondo, --testo, ...). */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+}
+
+body {
+    margin: 0;
+    background: var(--sfondo);
+    color: var(--testo);
+    font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+/* Scala tipografica (Bringhurst): 18 · 24 · 30 · 36 · 48 · 72 · 96 */
+h1, h2, h3, .marchio-nome {
+    font-family: "Marcellus", "Times New Roman", serif;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 0 0.5em;
+    text-wrap: balance;
+}
+h1 { font-size: clamp(3rem, 2rem + 5vw, 6rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(2rem, 1.5rem + 2vw, 3rem); }
+h3 { font-size: 1.5rem; line-height: 1.25; }
+
+p, ul, ol, dl, address, table { margin: 0 0 1em; }
+address { font-style: normal; }
+p, li, dd { max-width: 65ch; }
+
+.introduzione {
+    font-size: 1.3125rem;
+    line-height: 1.55;
+    max-width: 52ch;
+}
+
+a {
+    color: var(--link);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+main:focus { outline: none; }
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.salta {
+    position: absolute;
+    left: 1rem;
+    top: -10rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: #ffffff;
+    color: #14213d;
+    font-weight: 700;
+}
+.salta:focus { top: 1rem; }
+
+/* --- Bottoni ---------------------------------------------------------------- */
+
+.bottone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.25rem;
+    border: 2px solid var(--bottone-sfondo);
+    border-radius: 4px;
+    background: var(--bottone-sfondo);
+    color: var(--bottone-testo);
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Al passaggio il bottone si svuota: resta il bordo, il testo prende il colore del fondo pieno */
+.bottone:hover { background: transparent; color: var(--bottone-sfondo); }
+
+.bottone-secondario {
+    background: transparent;
+    color: var(--testo);
+    border-color: var(--testo);
+}
+.bottone-secondario:hover { background: var(--testo); color: var(--sfondo); }
+
+.bottone-testo {
+    border: 0;
+    background: none;
+    padding: 0.25rem 0;
+    color: var(--link);
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+}
+
+/* --- Form ------------------------------------------------------------------- */
+
+label, legend {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    min-width: 0;
+}
+legend { font-size: 1.3125rem; margin-bottom: 0.75rem; }
+
+input[type="text"], input[type="email"], input[type="date"],
+input[type="number"], select, textarea {
+    width: 100%;
+    max-width: 28rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid var(--bordo-campo);
+    border-radius: 4px;
+    background: var(--campo);
+    color: var(--testo-campo);
+    font: inherit;
+}
+input[type="number"] { max-width: 6rem; }
+input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--errore); border-width: 3px; }
+
+input[type="radio"], input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0.2rem 0 0;
+    accent-color: var(--testo);
+    flex: none;
+}
+
+.campo { margin-bottom: 1.25rem; }
+.suggerimento { margin: 0 0 0.35rem; font-size: 1rem; color: var(--testo-tenue); }
+.obbligatorio { color: var(--testo-tenue); font-weight: 400; }
+
+.errore {
+    margin: 0.35rem 0 0;
+    color: var(--errore);
+    font-weight: 700;
+    font-size: 1rem;
+}
+.errore::before { content: "Errore: "; }
+
+.riepilogo-errori {
+    border: 3px solid var(--errore);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    background: var(--superficie);
+}
+.riepilogo-errori h2 { font-size: 1.5rem; }
+.riepilogo-errori a { color: var(--errore); font-weight: 700; }
+
+.avviso-conferma {
+    padding: 1rem clamp(1rem, 4vw, 3rem);
+    background: var(--avviso-sfondo);
+    color: var(--avviso-testo);
+    font-weight: 700;
+}
+.avviso-conferma p { margin: 0 auto; max-width: 75rem; }
+
+/* --- Tabelle ---------------------------------------------------------------- */
+
+table { border-collapse: collapse; width: 100%; max-width: 40rem; }
+caption { text-align: left; font-family: "Marcellus", serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+th, td { text-align: left; padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--bordo); vertical-align: top; }
+thead th { border-bottom-width: 2px; }
+td.numero, th.numero { text-align: right; padding-right: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

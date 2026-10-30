@@ -1,0 +1,20 @@
+# Log e temporanei di sistema
+*.log
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# Configurazione IDE
+.vscode/
+.idea/
+
+# Impostazioni di Claude
+.claude/
+
+# File di configurazione locale del database (per credenziali e password sensibili)
+config.php
+db_config.php
+
+# Eventuali dump o backup temporanei del DB
+*.sql.gz
+*.bak

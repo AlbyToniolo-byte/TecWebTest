@@ -1,0 +1,138 @@
+/* Kronos: animazioni.
+   Tutto è dentro prefers-reduced-motion: no-preference, quindi chi chiede meno movimento
+   vede le pagine ferme. Gli stati si cambiano solo con classi (aggiunte da js/main.js).
+   Gli elementi nascosti in attesa di comparire restano nell'albero di accessibilità:
+   si nasconde solo l'aspetto (opacity), mai il contenuto (visibility o display). */
+
+:root {
+    --molla: cubic-bezier(0.34, 1.56, 0.64, 1);   /* rimbalzo leggero */
+    --morbida: cubic-bezier(0.22, 1, 0.36, 1);    /* frenata lunga, senza rimbalzo */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* --- Ingresso della home: l'unico momento orchestrato ---------------------- */
+
+    .titolo-lettere span {
+        display: inline-block;
+        animation: lettera-sale 0.9s var(--molla) both;
+    }
+    .titolo-lettere span:nth-child(1) { animation-delay: 0.10s; }
+    .titolo-lettere span:nth-child(2) { animation-delay: 0.16s; }
+    .titolo-lettere span:nth-child(3) { animation-delay: 0.22s; }
+    .titolo-lettere span:nth-child(4) { animation-delay: 0.28s; }
+    .titolo-lettere span:nth-child(5) { animation-delay: 0.34s; }
+    .titolo-lettere span:nth-child(6) { animation-delay: 0.40s; }
+
+    .ingresso .introduzione,
+    .ingresso .azioni,
+    .ingresso nav,
+    .ingresso .oggi { animation: emerge 0.8s var(--morbida) both; }
+    .ingresso .introduzione { animation-delay: 0.55s; }
+    .ingresso .azioni       { animation-delay: 0.65s; }
+    .ingresso nav           { animation-delay: 0.75s; }
+    .ingresso .oggi         { animation-delay: 0.85s; }
+
+    /* Il cielo si accende: l'immagine parte scura e un po' più vicina */
+    .ingresso-immagine img { animation: cielo-si-apre 2.4s var(--morbida) both; }
+
+    /* --- Apertura delle pagine mostra ------------------------------------------ */
+
+    .apertura .etichetta-speciale,
+    .apertura h1,
+    .apertura .sottotitolo,
+    .apertura .dati-mostra { animation: emerge 0.9s var(--morbida) both; }
+    .apertura .etichetta-speciale { animation-delay: 0.10s; }
+    .apertura h1                  { animation-delay: 0.20s; }
+    .apertura .sottotitolo        { animation-delay: 0.38s; }
+    .apertura .dati-mostra        { animation-delay: 0.50s; }
+
+    /* --- Comparsa allo scorrimento (solo con JavaScript attivo) --------------------- */
+
+    .js [data-rivela] {
+        opacity: 0;
+        transform: translateY(2.5rem);
+        transition: opacity 0.7s ease-out, transform 0.9s var(--morbida);
+    }
+    .js [data-rivela].visibile { opacity: 1; transform: none; }
+
+    /* Le nicchie ad arco si riempiono dal basso, come una teca che si illumina */
+    .js .arco[data-rivela] {
+        opacity: 1;
+        transform: none;
+        clip-path: inset(100% 0 0 0);
+        transition: clip-path 1.1s var(--morbida);
+    }
+    .js .arco[data-rivela] img {
+        transform: scale(1.18);
+        transition: transform 1.6s var(--morbida);
+    }
+    .js .arco[data-rivela].visibile { clip-path: inset(0 0 0 0); }
+    .js .arco[data-rivela].visibile img { transform: none; }
+
+    /* Gruppi: i figli entrano uno dopo l'altro (cartellini dei reperti) */
+    .js [data-rivela-gruppo] > * {
+        opacity: 0;
+        transform: translateY(1.5rem) scale(0.97);
+        transition: opacity 0.5s ease-out, transform 0.7s var(--molla);
+    }
+    .js [data-rivela-gruppo].visibile > * { opacity: 1; transform: none; }
+    .js [data-rivela-gruppo].visibile > :nth-child(2) { transition-delay: 0.08s; }
+    .js [data-rivela-gruppo].visibile > :nth-child(3) { transition-delay: 0.16s; }
+    .js [data-rivela-gruppo].visibile > :nth-child(4) { transition-delay: 0.24s; }
+    .js [data-rivela-gruppo].visibile > :nth-child(5) { transition-delay: 0.32s; }
+    .js [data-rivela-gruppo].visibile > :nth-child(n+6) { transition-delay: 0.40s; }
+
+    /* --- Risposte alle azioni ---------------------------------------------------- */
+
+    /* Messaggio di conferma dopo un invio */
+    .avviso-conferma { animation: cala 0.6s var(--molla) both; }
+
+    /* Riga appena aggiunta al carrello */
+    .appena-aggiunto th, .appena-aggiunto td { animation: evidenzia 1.8s ease-out both; }
+
+    /* Il totale dei biglietti "batte" quando cambia */
+    .totale.aggiornato { animation: battito 0.45s var(--molla); }
+
+    /* Errori dei form: entrano scivolando, senza scuotere */
+    .errore:not([hidden]), .riepilogo-errori { animation: emerge-breve 0.35s var(--morbida) both; }
+
+    /* Pannello del menu su schermi stretti */
+    @media (max-width: 56rem) {
+        .js .menu:not([hidden]) { animation: cala 0.45s var(--molla) both; }
+    }
+
+    /* Bottoni e scelte rispondono alla pressione */
+    .bottone, .bottone-testo { transition: transform 0.15s var(--molla); }
+    .bottone:active { transform: scale(0.96); }
+    .scelta { transition: border-color 0.2s, box-shadow 0.3s var(--molla), transform 0.4s var(--molla); }
+    .scelta:has(input:checked) { transform: translateY(-3px); }
+}
+
+@keyframes lettera-sale {
+    from { opacity: 0; transform: translateY(0.6em) rotate(6deg); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes emerge {
+    from { opacity: 0; transform: translateY(1.5rem); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes emerge-breve {
+    from { opacity: 0; transform: translateY(-0.4rem); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes cielo-si-apre {
+    from { opacity: 0.2; transform: scale(1.08); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes cala {
+    from { opacity: 0; transform: translateY(-0.75rem); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes evidenzia {
+    from { background-color: rgb(252 163 17 / 0.45); }   /* arancione #fca311 */
+    to   { background-color: transparent; }
+}
+@keyframes battito {
+    50% { transform: scale(1.06); }
+}
