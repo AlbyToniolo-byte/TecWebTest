@@ -152,7 +152,7 @@ pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kro
                     </div>
                     <div class="campo">
                         <label for="email">Email <span class="obbligatorio" aria-hidden="true">*</span></label>
-                        <input type="email" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required aria-required="true"
+                        <input type="email" spellcheck="false" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required aria-required="true"
                                data-msg-vuoto="Inserisci il tuo indirizzo email"<?= attr_campo('email', $errori) ?>>
                         <?= errore_campo('email', $errori) ?>
                     </div>

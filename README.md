@@ -33,7 +33,10 @@ php -S localhost:8000
 | `css/layout.css` | Struttura delle pagine |
 | `css/themes.css` | Le palette delle cinque mostre (da `refs.md`) |
 | `css/animazioni.css` | Effetti di movimento, tutti disattivati se il sistema chiede meno movimento |
-| `js/main.js` | Menu mobile, sfumatura allo scorrimento, totale biglietti |
+| `js/main.js` | Menu mobile, comparse allo scorrimento, totale biglietti |
+| `js/scorrimento.js` | Effetti legati allo scorrimento con GSAP (home e pagine mostra) |
+| `js/armilla.js` | Sfera armillare 3D della home con Three.js |
+| `js/vendor/` | Librerie GSAP 3.13 e Three.js r186, salvate in locale |
 | `js/validation.js` | Validazione dei form lato client (ripetuta in PHP) |
 | `img/mostre/` | Illustrazioni di apertura nei colori di `refs.md`, generate con `python3 docs/genera_svg.py img/mostre`; si possono sostituire con foto aggiornando `mostre.immagine` |
 | `img/prodotti/` | Immagini dei prodotti dello shop nei colori della mostra collegata, generate con `python3 docs/genera_prodotti.py img/prodotti` |

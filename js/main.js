@@ -1,11 +1,11 @@
 // Kronos: comportamenti di pagina. Il sito funziona anche senza JavaScript;
-// qui si aggiungono il menu a scomparsa, la sfumatura allo scorrimento e il totale dei biglietti.
+// qui si aggiungono il menu a scomparsa, le comparse allo scorrimento e il totale dei biglietti.
+// Gli effetti legati alla posizione di scorrimento sono in js/scorrimento.js.
 
 document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
     menuMobile();
-    sfumaturaMostra();
     totaleBiglietti();
     rivelaAlloScorrimento();
 });
@@ -79,29 +79,6 @@ function menuMobile() {
 
     stretto.addEventListener('change', adatta);
     adatta();
-}
-
-// Pagina mostra: scorrendo la prima schermata l'immagine sfuma nel colore della mostra.
-function sfumaturaMostra() {
-    if (!document.querySelector('.sfondo-mostra')) return;
-
-    const radice = document.documentElement;
-    let inAttesa = false;
-
-    const aggiorna = () => {
-        const p = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.9)));
-        radice.style.setProperty('--p', p.toFixed(3));
-        inAttesa = false;
-    };
-
-    window.addEventListener('scroll', () => {
-        if (!inAttesa) {
-            inAttesa = true;
-            requestAnimationFrame(aggiorna);
-        }
-    }, { passive: true });
-    window.addEventListener('resize', aggiorna);
-    aggiorna();
 }
 
 // Prenotazione: aggiorna il totale mentre si scelgono le quantità.

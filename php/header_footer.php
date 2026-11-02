@@ -9,14 +9,24 @@ const VOCI_MENU = [
     'shop'       => ['shop.php', 'Shop'],
 ];
 
+// Colore di fondo di ogni tema per <meta name="theme-color">: deve combaciare con --sfondo in css/themes.css
+const SFONDO_TEMA = [
+    'casa' => '#e5e5e5', 'neutro' => '#e5e5e5', 'celeste' => '#14213d', 'mitologia' => '#5e0b15',
+    'dinosauri' => '#283618', 'glaciale' => '#243640', 'atlantide' => '#184e77',
+];
+
+// Script per gli effetti allo scorrimento (GSAP), usati dalla home e dalle pagine mostra
+const SCRIPT_SCORRIMENTO = ['vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'scorrimento.js'];
+
 /**
  * @param string      $titolo      parte specifica del <title>
  * @param string      $descrizione meta description
  * @param string      $attiva      chiave di VOCI_MENU della pagina corrente
  * @param string|null $tema        palette di una mostra (vedi css/themes.css)
  * @param bool        $sopraImmagine la testata è sovrapposta a un'immagine di apertura
+ * @param string[]    $script      script in più della pagina, relativi a js/
  */
-function pagina_inizio(string $titolo, string $descrizione, string $attiva = '', ?string $tema = null, bool $sopraImmagine = false): void
+function pagina_inizio(string $titolo, string $descrizione, string $attiva = '', ?string $tema = null, bool $sopraImmagine = false, array $script = []): void
 {
     $classi = trim(($tema ? 'tema-' . $tema : 'tema-casa') . ($sopraImmagine ? ' sopra-immagine' : ''));
     ?>
@@ -27,6 +37,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($titolo) ?> | Kronos, Museo dei Mondi Perduti</title>
     <meta name="description" content="<?= e($descrizione) ?>">
+    <meta name="theme-color" content="<?= e(SFONDO_TEMA[$tema ?? 'casa'] ?? SFONDO_TEMA['casa']) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Marcellus&display=swap">
@@ -39,13 +50,31 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     <script>document.documentElement.classList.add('js');</script>
     <script src="../js/main.js" defer></script>
     <script src="../js/validation.js" defer></script>
+    <?php foreach ($script as $s): ?>
+    <script src="../js/<?= e($s) ?>" defer></script>
+    <?php endforeach; ?>
 </head>
 <body class="<?= e($classi) ?>">
 <a class="salta" href="#contenuto">Vai al contenuto</a>
 <header class="testata">
     <div class="testata-interno">
         <a class="marchio" href="index.php"<?= $attiva === 'home' ? ' aria-current="page"' : '' ?>>
-            <span class="marchio-nome">Kronos</span>
+            <!-- Sfera armillare, la stessa della prima schermata della home. Usa il colore del testo, quindi segue ogni tema -->
+            <svg class="marchio-sfera" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true" focusable="false">
+                <g fill="none" stroke="currentColor" stroke-linecap="round">
+                    <circle cx="24" cy="24" r="20" stroke-width="2.5"/>
+                    <ellipse cx="24" cy="24" rx="23" ry="5" stroke-width="2"/>
+                    <g transform="rotate(-35 24 24)">
+                        <line x1="24" y1="1" x2="24" y2="47" stroke-width="1.5"/>
+                        <g class="marchio-gira">
+                            <circle cx="24" cy="24" r="14" stroke-width="2"/>
+                            <circle cx="33.9" cy="14.1" r="2.6" fill="currentColor" stroke="none"/>
+                        </g>
+                    </g>
+                    <circle cx="24" cy="24" r="4" fill="currentColor" stroke="none"/>
+                </g>
+            </svg>
+            <span class="marchio-nome" translate="no">Kronos</span>
             <span class="marchio-sotto">Museo dei Mondi Perduti</span>
         </a>
         <button class="apri-menu" type="button" aria-expanded="false" aria-controls="menu-principale" hidden>
@@ -69,12 +98,13 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
 <?php endif;
 }
 
+// Il piè di pagina non ha un tema suo: prende i colori della pagina dal <body>
 function pagina_fine(): void
 {
     $orari = query('SELECT giorno, apertura, chiusura FROM orari ORDER BY giorno');
     ?>
 </main>
-<footer class="piede tema-celeste">
+<footer class="piede">
     <div class="piede-interno">
         <section class="piede-blocco" aria-labelledby="piede-dove">
             <h2 id="piede-dove">Dove siamo</h2>
@@ -99,7 +129,7 @@ function pagina_fine(): void
                 <input type="hidden" name="torna" value="<?= e(basename($_SERVER['REQUEST_URI'] ?? 'index.php')) ?>">
                 <label for="news-email">Indirizzo email</label>
                 <div class="riga-campo">
-                    <input type="email" id="news-email" name="email" autocomplete="email" required aria-required="true" aria-describedby="news-email-errore">
+                    <input type="email" spellcheck="false" id="news-email" name="email" autocomplete="email" required aria-required="true" aria-describedby="news-email-errore">
                     <button class="bottone" type="submit">Iscriviti</button>
                 </div>
                 <p class="errore" id="news-email-errore" hidden></p>

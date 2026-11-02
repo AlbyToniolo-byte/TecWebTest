@@ -10,32 +10,35 @@ $eventi = query('SELECT e.titolo, e.descrizione, e.inizio, e.luogo, e.prezzo, m.
 $prezzoMin = query_riga('SELECT MIN(prezzo) AS p FROM tipi_biglietto WHERE prezzo > 0')['p'];
 $oggi = stato_apertura_oggi();
 
-pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologia greca, era glaciale, Atlantide e mondo celeste in un unico percorso.', 'home', 'celeste', true);
+pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologia greca, era glaciale, Atlantide e mondo celeste in un unico percorso.', 'home', 'neutro', false, [...SCRIPT_SCORRIMENTO, 'armilla.js']);
 ?>
 <section class="ingresso" aria-labelledby="titolo-home">
-    <div class="ingresso-immagine"><img src="<?= e(asset('img/mostre/mondo-celeste.svg')) ?>" alt="" width="1600" height="1000"></div>
-    <div class="contenitore">
-        <h1 id="titolo-home"><span class="visually-hidden">Kronos</span><span class="titolo-lettere" aria-hidden="true"><span>K</span><span>r</span><span>o</span><span>n</span><span>o</span><span>s</span></span></h1>
-        <p class="introduzione">Il museo dei mondi perduti. Cinque mondi scomparsi, o mai esistiti, da percorrere in discesa: si parte dalle stelle e si arriva in fondo al mare.</p>
-        <div class="azioni">
-            <a class="bottone" href="visit.php#prenota">Prenota la visita</a>
-            <a class="bottone bottone-secondario" href="esibizioni.php">Vedi mostre ed eventi</a>
+    <div class="contenitore ingresso-griglia">
+        <div class="ingresso-testo">
+            <h1 id="titolo-home" translate="no"><span class="visually-hidden">Kronos</span><span class="titolo-lettere" aria-hidden="true"><span>K</span><span>r</span><span>o</span><span>n</span><span>o</span><span>s</span></span></h1>
+            <p class="introduzione">Il museo dei mondi perduti. Cinque mondi scomparsi, o mai esistiti, da percorrere in discesa: si parte dalle stelle e si arriva in fondo al mare.</p>
+            <div class="azioni">
+                <a class="bottone" href="visit.php#prenota">Prenota la visita</a>
+                <a class="bottone bottone-secondario" href="esibizioni.php">Vedi mostre ed eventi</a>
+            </div>
+            <nav aria-label="Il percorso, dal cielo all'abisso">
+                <ol class="percorso">
+                    <?php foreach ($mostre as $m): ?>
+                        <li><a href="#mondo-<?= e($m['slug']) ?>"><?= e($m['titolo']) ?></a></li>
+                    <?php endforeach; ?>
+                </ol>
+            </nav>
+            <p class="oggi"><?= e($oggi) ?></p>
         </div>
-        <nav aria-label="Il percorso, dal cielo all'abisso">
-            <ol class="percorso">
-                <?php foreach ($mostre as $m): ?>
-                    <li><a href="#mondo-<?= e($m['slug']) ?>"><?= e($m['titolo']) ?></a></li>
-                <?php endforeach; ?>
-            </ol>
-        </nav>
-        <p class="oggi"><?= e($oggi) ?></p>
+        <!-- Sfera armillare in 3D (js/armilla.js): decorativa, compare solo se WebGL funziona -->
+        <div class="ingresso-scena" hidden>
+            <button class="bottone-testo" type="button" data-ferma-sfera>Ferma l'animazione</button>
+        </div>
     </div>
 </section>
 
-<?php
-$precedente = COLORE_TEMA['celeste'];
-foreach ($mostre as $m): ?>
-<section id="mondo-<?= e($m['slug']) ?>" class="mondo tema-<?= e($m['tema']) ?>" style="--da: <?= e($precedente) ?>" aria-labelledby="titolo-<?= e($m['slug']) ?>">
+<?php foreach ($mostre as $m): ?>
+<section id="mondo-<?= e($m['slug']) ?>" class="mondo" data-tema="<?= e($m['tema']) ?>" aria-labelledby="titolo-<?= e($m['slug']) ?>">
     <div class="contenitore mondo-interno">
         <div data-rivela>
             <h2 id="titolo-<?= e($m['slug']) ?>"><?= e($m['titolo']) ?></h2>
@@ -55,11 +58,9 @@ foreach ($mostre as $m): ?>
         </figure>
     </div>
 </section>
-<?php
-    $precedente = COLORE_TEMA[$m['tema']];
-endforeach; ?>
+<?php endforeach; ?>
 
-<section class="dopo-discesa tema-atlantide" aria-labelledby="titolo-eventi">
+<section class="dopo-discesa" aria-labelledby="titolo-eventi">
     <div class="contenitore">
         <div class="griglia-due">
             <div>

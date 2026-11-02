@@ -5,16 +5,6 @@ session_start();
 
 require_once __DIR__ . '/connection.php';
 
-// Colore di sfondo di ogni tema: deve combaciare con --sfondo in css/themes.css.
-// Serve alla home per sfumare ogni mondo nel successivo.
-const COLORE_TEMA = [
-    'celeste'   => '#14213d',
-    'mitologia' => '#5e0b15',
-    'dinosauri' => '#283618',
-    'glaciale'  => '#243640',
-    'atlantide' => '#184e77',
-];
-
 // Escape per l'output HTML.
 function e(?string $s): string
 {

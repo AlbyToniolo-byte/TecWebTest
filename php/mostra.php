@@ -26,9 +26,9 @@ $eventi = query('SELECT titolo, descrizione, inizio, durata_min, luogo, prezzo F
                  WHERE mostra_id = :id AND inizio >= NOW() ORDER BY inizio', ['id' => $id]);
 $prodotti = query('SELECT nome, prezzo FROM prodotti WHERE mostra_id = :id ORDER BY nome', ['id' => $id]);
 
-pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tema'], true);
+pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tema'], true, SCRIPT_SCORRIMENTO);
 ?>
-<div class="sfondo-mostra"><img src="<?= e(asset($mostra['immagine'])) ?>" alt="" width="1600" height="1000"></div>
+<div class="sfondo-mostra"><img src="<?= e(asset($mostra['immagine'])) ?>" alt="" width="1600" height="1000" fetchpriority="high"></div>
 
 <header class="apertura">
     <div class="contenitore">

@@ -49,6 +49,12 @@ a {
 }
 a:hover { text-decoration-thickness: 2px; }
 
+/* Niente ritardo del doppio tocco sui comandi */
+a, button, label, input, select, textarea { touch-action: manipulation; }
+
+/* Cifre della stessa larghezza dove si confrontano numeri (orari, prezzi, totali) */
+td, .totale, .orari-brevi dd { font-variant-numeric: tabular-nums; }
+
 :focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 3px;

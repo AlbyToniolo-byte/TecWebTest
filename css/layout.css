@@ -41,14 +41,23 @@
 }
 
 .marchio {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.65rem;
+    align-items: center;
     color: var(--testo);
     text-decoration: none;
     line-height: 1.1;
 }
 .marchio-nome { font-size: 1.875rem; margin: 0; }
 .marchio-sotto { font-size: 0.9375rem; }
+.marchio-sfera { grid-row: span 2; overflow: visible; }
+@media (max-width: 24rem) {
+    .marchio-sfera { width: 32px; height: 32px; }
+    .testata-interno { column-gap: 1rem; } /* logo e bottone Menu restano sulla stessa riga */
+}
+/* L'anello interno gira attorno all'asse inclinato: scaleX da 1 a -1 imita la rotazione in 3D */
+.marchio-gira { transform-box: fill-box; transform-origin: center; }
 
 .menu ul {
     display: flex;
@@ -120,6 +129,7 @@
 .piede {
     background: var(--sfondo);
     color: var(--testo);
+    border-top: 1px solid var(--bordo);
     padding-top: 4rem;
 }
 .piede-interno {
@@ -148,26 +158,24 @@
 /* --- Home: la discesa dal cielo all'abisso ---------------------------------- */
 
 .ingresso {
-    position: relative;
-    min-height: 100svh;
+    min-height: calc(100svh - 5rem);
     display: flex;
-    align-items: flex-end;
-    padding: 9rem 0 4rem;
-    isolation: isolate;
-    overflow: hidden;
+    align-items: center;
+    padding: 2rem 0 4rem;
 }
-.ingresso-immagine {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
+.ingresso-griglia {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: center;
 }
-.ingresso-immagine img { width: 100%; height: 100%; object-fit: cover; }
-.ingresso-immagine::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgb(20 33 61 / 0) 30%, #14213d 92%);
+.ingresso-scena { display: grid; justify-items: end; gap: 0.5rem; }
+.ingresso-scena canvas { display: block; width: 100%; aspect-ratio: 1; height: auto; }
+@media (max-width: 48rem) {
+    .ingresso-griglia { grid-template-columns: 1fr; }
+    .ingresso-scena { order: -1; max-width: 26rem; justify-self: center; width: 100%; }
 }
+
 .ingresso h1 { font-size: clamp(4rem, 2rem + 10vw, 9rem); margin-bottom: 0.25em; }
 .ingresso .introduzione { margin-bottom: 1.5rem; }
 .azioni { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
@@ -185,9 +193,17 @@
 .percorso a { color: var(--testo); }
 
 .mondo {
-    background: linear-gradient(to bottom, var(--da, var(--sfondo)), var(--sfondo) 16rem);
+    background: var(--sfondo);
     padding: 7rem 0;
 }
+/* Ogni mondo è un piano più in basso: una linea sottile li separa */
+.mondo + .mondo { border-top: 2px solid var(--testo); }
+
+/* Home a due colori: il contrasto viene dal nero pieno, con linee e cornici marcate */
+.tema-neutro .ingresso { border-bottom: 2px solid var(--testo); }
+.tema-neutro .mondo h2 { font-size: clamp(3rem, 1.5rem + 5vw, 6rem); line-height: 1; }
+.tema-neutro .mondo-dove { font-weight: 700; }
+.tema-neutro .arco { border: 3px solid var(--testo); }
 .mondo-interno {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -499,7 +515,7 @@
 }
 
 /* Inquadratura delle illustrazioni nelle cornici strette: tiene in vista il soggetto */
-.tema-celeste .arco img { object-position: 76% 50%; }
-.tema-mitologia .arco img { object-position: 58% 50%; }
-.tema-dinosauri .arco img { object-position: 74% 50%; }
-.tema-glaciale .arco img { object-position: 66% 50%; }
+.tema-celeste .arco img, [data-tema=celeste] .arco img { object-position: 76% 50%; }
+.tema-mitologia .arco img, [data-tema=mitologia] .arco img { object-position: 58% 50%; }
+.tema-dinosauri .arco img, [data-tema=dinosauri] .arco img { object-position: 74% 50%; }
+.tema-glaciale .arco img, [data-tema=glaciale] .arco img { object-position: 66% 50%; }

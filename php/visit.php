@@ -185,7 +185,7 @@ pagina_inizio('Visita', 'Orari, biglietti, come arrivare e prenotazione della vi
             <div class="campo">
                 <label for="email">Email <span class="obbligatorio" aria-hidden="true">*</span></label>
                 <p class="suggerimento" id="email-aiuto">La usiamo solo per eventuali cambi di orario.</p>
-                <input type="email" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required aria-required="true"
+                <input type="email" spellcheck="false" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required aria-required="true"
                        data-msg-vuoto="Inserisci il tuo indirizzo email"<?= attr_campo('email', $errori, 'email-aiuto') ?>>
                 <?= errore_campo('email', $errori) ?>
             </div>

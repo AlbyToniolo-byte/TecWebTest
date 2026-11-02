@@ -33,8 +33,8 @@
     .ingresso nav           { animation-delay: 0.75s; }
     .ingresso .oggi         { animation-delay: 0.85s; }
 
-    /* Il cielo si accende: l'immagine parte scura e un po' più vicina */
-    .ingresso-immagine img { animation: cielo-si-apre 2.4s var(--morbida) both; }
+    /* La sfera armillare compare dal fondo */
+    .ingresso-scena canvas { animation: cielo-si-apre 2.4s var(--morbida) both; }
 
     /* --- Apertura delle pagine mostra ------------------------------------------ */
 
@@ -85,6 +85,10 @@
 
     /* --- Risposte alle azioni ---------------------------------------------------- */
 
+    /* Logo: passandoci sopra (o con il focus) la sfera armillare gira, come nella home */
+    .marchio:hover .marchio-gira,
+    .marchio:focus-visible .marchio-gira { animation: gira 2.4s ease-in-out infinite; }
+
     /* Messaggio di conferma dopo un invio */
     .avviso-conferma { animation: cala 0.6s var(--molla) both; }
 
@@ -132,6 +136,9 @@
 @keyframes evidenzia {
     from { background-color: rgb(252 163 17 / 0.45); }   /* arancione #fca311 */
     to   { background-color: transparent; }
+}
+@keyframes gira {
+    50% { transform: scaleX(-1); }
 }
 @keyframes battito {
     50% { transform: scale(1.06); }

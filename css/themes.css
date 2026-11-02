@@ -85,6 +85,30 @@
     --bordo: #52b69a;
 }
 
+/* Temi scuri: barre di scorrimento e controlli nativi scuri */
+:root:has(> body:not(.tema-casa, .tema-neutro)) { color-scheme: dark; }
+
+/* Home: solo due colori neutri, grigio chiaro e nero, che non appartengono a nessun mondo */
+.tema-neutro {
+    --sfondo: #e5e5e5;
+    --sfondo-profondo: #e5e5e5;
+    --superficie: #e5e5e5;
+    --testo: #000000;
+    --testo-tenue: #000000;
+    --link: #000000;
+    --accento: #000000;
+    --bordo: #000000;
+    --focus: #000000;
+    --bottone-sfondo: #000000;
+    --bottone-testo: #e5e5e5;
+    --campo: #e5e5e5;
+    --testo-campo: #000000;
+    --bordo-campo: #000000;
+    --errore: #000000;
+    --avviso-sfondo: #000000;
+    --avviso-testo: #e5e5e5;
+}
+
 /* Valori comuni ai temi scuri: bottoni e campi usano il colore del testo come fondo */
 .tema-celeste, .tema-mitologia, .tema-dinosauri, .tema-glaciale, .tema-atlantide {
     --focus: var(--testo);
