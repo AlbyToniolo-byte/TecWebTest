@@ -1,0 +1,455 @@
+/* Kronos, seconda versione. Si carica dopo i fogli di base (style, layout, themes, animazioni) e ne cambia l'aspetto:
+   carta chiara, inchiostro, un solo accento; serif sottile con le parole chiave in corsivo,
+   forme a pillola, immagini con angoli morbidi, fasce scure.
+   Contrasti: inchiostro/carta 17:1, verderame/carta 6,9:1, verderame chiaro/inchiostro 9,5:1;
+   gli accenti delle mostre sono i colori scuri di refs.md, tutti sopra 5:1 sulla carta. */
+
+:root {
+    --carta: #f4f4f2;
+    --inchiostro: #161616;
+    --verderame: #2e5c4f;        /* la patina del bronzo antico */
+    --verderame-chiaro: #9cc5b5; /* lo stesso, per i fondi scuri */
+    --raggio: 1.25rem;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+/* --- Colori: un solo tema chiaro, l'accento cambia con la mostra ---------------- */
+
+.v2, .v2 [class*="tema-"] {
+    --sfondo: var(--carta);
+    --sfondo-profondo: var(--carta);
+    --superficie: #ffffff;
+    --testo: var(--inchiostro);
+    --testo-tenue: var(--inchiostro);
+    --link: var(--inchiostro);
+    --accento: var(--verderame);
+    --bordo: rgb(22 22 22 / 0.18);
+    --focus: var(--inchiostro);
+    --bottone-sfondo: var(--inchiostro);
+    --bottone-testo: var(--carta);
+    --campo: #ffffff;
+    --testo-campo: var(--inchiostro);
+    --bordo-campo: var(--inchiostro);
+    --errore: #5e0b15;
+    --avviso-sfondo: var(--verderame);
+    --avviso-testo: #ffffff;
+}
+.v2.tema-celeste, .v2 .tema-celeste { --accento: #14213d; }
+.v2.tema-mitologia, .v2 .tema-mitologia { --accento: #5e0b15; }
+.v2.tema-dinosauri, .v2 .tema-dinosauri { --accento: #606c38; }
+.v2.tema-glaciale, .v2 .tema-glaciale { --accento: #243640; }
+.v2.tema-atlantide, .v2 .tema-atlantide { --accento: #184e77; }
+
+/* Fasce scure: stessi due colori invertiti */
+.v2 .v2-scuro {
+    --sfondo: var(--inchiostro);
+    --superficie: var(--inchiostro);
+    --testo: var(--carta);
+    --testo-tenue: var(--carta);
+    --link: var(--carta);
+    --accento: var(--verderame-chiaro);
+    --bordo: rgb(244 244 242 / 0.25);
+    --focus: var(--carta);
+    --bottone-sfondo: var(--carta);
+    --bottone-testo: var(--inchiostro);
+    --campo: var(--inchiostro);
+    --testo-campo: var(--carta);
+    --bordo-campo: var(--carta);
+    --errore: var(--carta);
+    background: var(--sfondo);
+    color: var(--testo);
+}
+
+:root:has(> body.v2) { color-scheme: light; }
+@media (prefers-reduced-motion: reduce) {
+    .js .v2-eroe .v2-macchina::after { display: none; } /* più specifica della regola del cursore, che viene dopo */
+}
+
+/* --- Tipografia ----------------------------------------------------------------- */
+
+.v2 {
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+}
+.v2 h1, .v2 h2, .v2 caption, .v2 .v2-piede-motto, .v2 .v2-menu a {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-variation-settings: "opsz" 144;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+}
+.v2 h1 { font-size: clamp(3.25rem, 1.5rem + 7vw, 7.5rem); }
+.v2 h2 { font-size: clamp(2.25rem, 1.4rem + 3.2vw, 4rem); }
+/* Titoli piccoli: grottesco, come le etichette di colonna */
+.v2 h3 { font-family: var(--sans); font-weight: 600; font-size: 1.125rem; letter-spacing: 0; line-height: 1.3; }
+/* La parola chiave di un titolo: corsivo e colore d'accento */
+.v2 h1 em, .v2 h2 em, .v2 .v2-piede-motto em { font-style: italic; color: var(--accento); }
+.v2 .introduzione { font-size: 1.25rem; }
+.v2 .cartellino h3 { font-family: var(--sans); }
+
+/* --- Bottoni a pillola, con il testo in corsivo ----------------------------------- */
+
+.v2 .bottone {
+    min-height: 2.9rem;
+    padding: 0.5rem 1.5rem;
+    border-width: 1px;
+    border-radius: 999px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    transition: background-color 0.25s, color 0.25s;
+}
+.v2 .bottone-secondario { background: transparent; color: var(--testo); border-color: var(--testo); }
+.v2 .bottone-secondario:hover { background: var(--testo); color: var(--sfondo); }
+
+/* --- Testata e menu a schermo intero ------------------------------------------- */
+
+.v2-testata {
+    position: relative;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem);
+    color: var(--testo);
+}
+.v2-marchio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: inherit;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+}
+.v2-menu-bottone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+.v2-menu-icona, .v2-menu-icona::before {
+    display: block;
+    width: 1.6rem;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.3s;
+}
+.v2-menu-icona { position: relative; height: 0; background: none; }
+.v2-menu-icona::before, .v2-menu-icona::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1.6rem;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.3s;
+}
+.v2-menu-icona::before { top: -4px; }
+.v2-menu-icona::after { top: 4px; }
+[aria-expanded="true"] > .v2-menu-icona::before { transform: translateY(4px) rotate(45deg); }
+[aria-expanded="true"] > .v2-menu-icona::after { transform: translateY(-4px) rotate(-45deg); }
+
+/* Senza JavaScript il menu è una riga di link sotto la testata */
+.v2-menu { padding: 0 clamp(1rem, 4vw, 3rem) 1rem; }
+.v2-menu ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+.v2-menu a { color: var(--testo); font-size: 1.25rem; text-decoration: none; }
+.v2-menu a[aria-current="page"] { font-style: italic; }
+.v2-menu-piede { display: none; }
+
+/* Con JavaScript: pannello scuro a schermo intero, aperto dal bottone */
+.js .v2-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    align-content: space-between;
+    padding: 6.5rem clamp(1rem, 4vw, 3rem) 2rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--inchiostro);
+    --testo: var(--carta);
+    --sfondo: var(--inchiostro);
+    --focus: var(--carta);
+    color: var(--carta);
+}
+.js .v2-menu[hidden] { display: none; }
+.js .v2-menu ul { display: grid; gap: 0.15em; font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
+.js .v2-menu a { font-size: inherit; color: var(--carta); }
+.js .v2-menu a:hover, .js .v2-menu a:focus-visible { font-style: italic; color: var(--verderame-chiaro); }
+.js .v2-menu-piede { display: block; margin: 2rem 0 0; }
+.menu-aperto body { overflow: hidden; }
+.menu-aperto .v2-testata { color: var(--carta); --focus: var(--carta); }
+
+/* --- Contenitori comuni ------------------------------------------------------------ */
+
+.v2-sezione, .v2-eroe, .v2-fascia {
+    padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 4vw, 3rem);
+    max-width: 90rem;
+    margin-inline: auto;
+}
+.v2-fascia { max-width: none; }
+.v2-nota { font-size: 0.9375rem; }
+.v2-occhiello { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.75rem; }
+
+/* --- Home: prima schermata ----------------------------------------------------- */
+
+.v2-eroe { padding-top: clamp(3rem, 8vw, 7rem); min-height: calc(100svh - 5rem); }
+.v2-eroe h1 { margin-bottom: 2.5rem; }
+.v2-riga { display: block; }
+.v2-rientro { padding-left: 0.45em; }
+.v2-macchina { white-space: nowrap; }
+.v2-eroe-testo { margin-left: calc(0.45em * 3.4); max-width: 24rem; }
+.v2-eroe-testo .azioni { margin: 1.75rem 0 1.25rem; }
+@media (max-width: 40rem) {
+    .v2-eroe-testo { margin-left: 0; }
+}
+.v2-pausa { font-size: 0.9375rem; }
+
+/* Cursore della macchina da scrivere: solo se la parola cambia davvero */
+.js .v2-macchina::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 0.95em;
+    margin-left: 0.06em;
+    vertical-align: -0.08em;
+    background: var(--testo);
+}
+
+/* --- Home: immagine e testo affiancati ---------------------------------------- */
+
+.v2-doppia {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+}
+.v2-doppia h2 { margin-bottom: 1.5rem; }
+.v2-doppia .bottone { margin-top: 1rem; }
+@media (max-width: 48rem) { .v2-doppia { grid-template-columns: 1fr; } }
+
+.v2-media { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--raggio); overflow: hidden; }
+.v2-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Home: vetrina scura con scheda sovrapposta ---------------------------------- */
+
+.v2-vetrina {
+    position: relative;
+    max-width: 88rem;
+    margin-inline: auto;
+    border: 1px solid var(--bordo);
+    border-radius: calc(var(--raggio) * 1.5);
+    overflow: hidden;
+}
+.v2-vetrina img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.v2-vetrina-scheda {
+    position: absolute;
+    top: clamp(1rem, 3vw, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    width: min(26rem, calc(100% - 2rem));
+    padding: 1.75rem;
+    border-radius: var(--raggio);
+    background: var(--carta);
+    color: var(--inchiostro);
+    --testo: var(--inchiostro);
+    --link: var(--inchiostro);
+    --accento: var(--verderame);
+    --focus: var(--inchiostro);
+    --bottone-sfondo: var(--inchiostro);
+    --bottone-testo: var(--carta);
+}
+.v2-vetrina-scheda h2 { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem); }
+.v2-vetrina-scheda p { font-size: 1rem; }
+@media (max-width: 48rem) {
+    .v2-vetrina-scheda { position: static; width: auto; border-radius: 0; }
+}
+
+/* --- Home: biglietto, tre colonne ------------------------------------------------ */
+
+.v2-titolo-largo { max-width: 22ch; margin-bottom: 3rem; }
+.v2-colonne {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+    gap: 2rem clamp(2rem, 5vw, 5rem);
+}
+@media (max-width: 48rem) { .v2-colonne { grid-template-columns: 1fr; } }
+.v2-colonne h3 { margin-bottom: 0.75rem; }
+.v2-prezzi { margin: 0; }
+.v2-prezzi div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0; border-bottom: 1px solid var(--bordo); }
+.v2-prezzi dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+/* --- Home: sfera di puntini (js/puntini.js) ----------------------------------- */
+
+.v2-puntini { position: relative; }
+.v2-puntini-fisso { position: relative; display: grid; place-items: center; overflow: hidden; }
+.v2-puntini-scena { position: absolute; inset: 0; }
+.v2-puntini-scena canvas { display: block; width: 100%; height: 100%; }
+.v2-puntini-testo { position: relative; padding: 8rem 1rem; text-align: center; }
+.v2-puntini-testo h2 { font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem); margin-inline: auto; }
+/* Con la sfera attiva la sezione è lunga tre schermate e la scena resta ferma mentre si scorre */
+.v2-puntini.con-puntini { height: 300svh; }
+.v2-puntini.con-puntini .v2-puntini-fisso { position: sticky; top: 0; height: 100svh; }
+.v2-puntini.con-puntini-fermo .v2-puntini-fisso { height: 100svh; }
+
+/* --- Home: i cinque mondi ----------------------------------------------------- */
+
+.v2-mondi { margin: 0; padding: 0; list-style: none; display: grid; gap: clamp(3.5rem, 7vw, 6rem); }
+.v2-mondo { max-width: none; }
+.v2-mondo h3 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(2.75rem, 1.5rem + 5vw, 5.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+.v2-mondo h3 a { color: var(--accento); text-decoration: none; }
+.v2-mondo h3 a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.v2-mondo p { max-width: 62ch; }
+.v2-dove { white-space: nowrap; font-weight: 600; }
+.v2-pillole { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.v2-pillole li {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--bordo);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    background: #ffffff;
+}
+
+/* --- Home: eventi su fondo scuro ------------------------------------------------- */
+
+.v2-titolo-centro { text-align: center; margin-inline: auto; }
+.v2-eventi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.25rem;
+    max-width: 88rem;
+    margin: 3rem auto;
+    padding: 0;
+    list-style: none;
+}
+.v2-eventi li { padding: 1.75rem; border: 1px solid var(--bordo); border-radius: var(--raggio); max-width: none; }
+.v2-evento-data { font-family: var(--serif); font-style: italic; font-size: 1.375rem; color: var(--accento); }
+
+/* --- Home: domande frequenti ------------------------------------------------------ */
+
+.v2-domande { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 2rem clamp(2rem, 6vw, 6rem); }
+@media (max-width: 56rem) { .v2-domande { grid-template-columns: 1fr; } }
+.v2-domande details { border-bottom: 1px solid var(--bordo); }
+.v2-domande details:first-child { border-top: 1px solid var(--bordo); }
+.v2-domande summary {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 1.125rem;
+}
+.v2-domande summary::-webkit-details-marker { display: none; }
+.v2-domande summary::before { content: "+"; font-size: 1.5rem; line-height: 1; width: 1rem; transition: transform 0.3s; }
+.v2-domande details[open] summary::before { transform: rotate(45deg); }
+.v2-domande details p { padding: 0 0 1.25rem 2rem; }
+
+/* --- Piè di pagina scuro ------------------------------------------------------- */
+
+.v2-piede { padding: clamp(4rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) 2rem; }
+.v2-piede-griglia {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+    gap: 3rem clamp(2rem, 4vw, 4rem);
+    max-width: 90rem;
+    margin-inline: auto;
+}
+@media (max-width: 64rem) { .v2-piede-griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .v2-piede-griglia { grid-template-columns: 1fr; } }
+.v2-piede h2 { font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: 0; margin-bottom: 1rem; }
+.v2-piede-motto { font-size: clamp(2.25rem, 1.5rem + 2.5vw, 3.5rem); margin: 0; }
+.v2-piede-link { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.v2-piede-link a { text-decoration: none; }
+.v2-piede-link a:hover { text-decoration: underline; }
+.v2-piede .orari-brevi div { display: flex; justify-content: space-between; gap: 1rem; }
+.v2-piede .orari-brevi dd { margin: 0; }
+.v2-piede .riga-campo { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.v2-piede input[type="email"] {
+    flex: 1 1 12rem;
+    border: 0;
+    border-bottom: 1px solid var(--carta);
+    border-radius: 0;
+    background: transparent;
+    color: var(--carta);
+}
+.v2-piede input::placeholder { color: rgb(244 244 242 / 0.7); }
+.v2-piede-fondo {
+    max-width: 90rem;
+    margin: 4rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bordo);
+    font-size: 0.9375rem;
+}
+
+/* --- Pagine interne: angoli morbidi al posto di archi e spigoli ---------------------- */
+
+.v2 .arco, .v2 .prodotto-immagine, .v2 .voce-mostra, .v2 .blocco-form, .v2 .invito,
+.v2 .scelta, .v2 .cartellino, .v2 .temi li { border-radius: var(--raggio); }
+.v2 .arco { aspect-ratio: 4 / 5; }
+.v2 .voce-mostra { background: #ffffff; }
+.v2 .cartellino { border-top: 1px solid var(--bordo); background: #ffffff; }
+.v2 .etichetta-speciale, .v2 .nota-speciale { border-radius: 999px; }
+.v2 .etichetta-speciale { border-width: 1px; font-weight: 600; }
+.v2 .nota-speciale { border: 1px solid var(--accento); padding: 1rem 1.5rem; border-radius: var(--raggio); }
+.v2 input, .v2 select, .v2 textarea { border-width: 1px; border-radius: 0.6rem; }
+.v2 .avviso-conferma { font-weight: 600; }
+.v2 .intestazione-pagina h1 { font-size: clamp(3rem, 1.75rem + 5vw, 6rem); }
+
+/* Pagina mostra: l'immagine diventa una grande scheda arrotondata sotto la testata.
+   Scorrendo un velo del colore della mostra la copre (--p, da js/scorrimento.js). */
+.v2 .sfondo-mostra {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    height: min(70svh, 44rem);
+    margin: 0 clamp(1rem, 4vw, 3rem);
+    border-radius: calc(var(--raggio) * 1.5);
+    background: var(--accento);
+}
+.v2 .sfondo-mostra::after { display: none; }
+.v2 .sfondo-mostra::before { background: var(--accento); opacity: calc(var(--p, 0) * 0.85); }
+.v2 .apertura { min-height: 0; padding: 3rem 0 0; }
+.v2 .apertura h1 { text-shadow: none; max-width: 18ch; }
+.v2 .corpo-mostra { margin-top: 0; padding-top: 3rem; background: none; }
+
+/* --- Movimento ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+    .js .v2-macchina::after { animation: cursore 1s steps(1) infinite; }
+    .animazioni-ferme .v2-macchina::after { animation: none; }
+    .v2 .v2-media img, .v2 .v2-vetrina img { transition: transform 1.2s var(--morbida); }
+    .v2 .v2-media:hover img, .v2 .v2-vetrina:hover img { transform: scale(1.04); }
+    .v2-eroe .v2-riga { animation: emerge 1s var(--morbida) both; }
+    .v2-eroe .v2-rientro { animation-delay: 0.12s; }
+    .v2-eroe-testo { animation: emerge 1s var(--morbida) 0.3s both; }
+    .js .v2-menu:not([hidden]) li { animation: emerge 0.6s var(--morbida) both; }
+    .js .v2-menu:not([hidden]) li:nth-child(2) { animation-delay: 0.05s; }
+    .js .v2-menu:not([hidden]) li:nth-child(3) { animation-delay: 0.10s; }
+    .js .v2-menu:not([hidden]) li:nth-child(4) { animation-delay: 0.15s; }
+    .js .v2-menu:not([hidden]) li:nth-child(5) { animation-delay: 0.20s; }
+}
+@keyframes cursore {
+    50% { opacity: 0; }
+}
