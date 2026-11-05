@@ -74,6 +74,7 @@ Fuori dalle versioni:
 |---|---|
 | `index.php` | Pagina di scelta tra le due versioni |
 | `database/` | Schema e dati di esempio, comuni alle due versioni |
+| `docs/schema-er.drawio` | Schema E/R del database (notazione di Chen), da aprire con draw.io o app.diagrams.net |
 | `docs/genera_svg.py`, `docs/genera_prodotti.py` | Generano le illustrazioni nei colori di `refs.md`, per esempio `python3 docs/genera_svg.py v1/img/mostre` |
 | `docs/contrasto.json` | Coppie di colori della prima versione verificate per il contrasto WCAG AA |
 
