@@ -17,24 +17,31 @@
         return;
     }
 
-    const GRIGIO = 0xe5e5e5;
+    // Colori presi dalla pagina (--sfondo e --testo), così la sfera segue anche la modalità notte
+    const colore = (nome) => getComputedStyle(contenitore).getPropertyValue(nome).trim();
     const fermo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const gradi = THREE.MathUtils.degToRad;
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(GRIGIO);
     renderer.domElement.setAttribute('aria-hidden', 'true');
 
     const scena = new THREE.Scene();
-    scena.fog = new THREE.Fog(GRIGIO, 9.5, 15.5); // le parti lontane schiariscono: dà profondità con due soli colori
+    scena.fog = new THREE.Fog(0xffffff, 9.5, 15.5); // le parti lontane sfumano nel fondo: dà profondità con due soli colori
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
     camera.position.set(0, 0.9, 12.5);
     camera.lookAt(0, 0, 0);
 
-    const nero = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    const tratto = new THREE.MeshBasicMaterial();
+    const coloraScena = () => {
+        const fondo = colore('--sfondo');
+        renderer.setClearColor(fondo);
+        scena.fog.color.set(fondo);
+        tratto.color.set(colore('--testo'));
+    };
+    coloraScena();
     const anelli = []; // si aprono uno dopo l'altro all'arrivo
     const anello = (raggio, spessore = 0.025) => {
-        const m = new THREE.Mesh(new THREE.TorusGeometry(raggio, spessore, 8, 200), nero);
+        const m = new THREE.Mesh(new THREE.TorusGeometry(raggio, spessore, 8, 200), tratto);
         anelli.push(m);
         return m;
     };
@@ -50,7 +57,7 @@
     orizzonte.rotation.x = gradi(90);
     sfera.add(meridiano, orizzonte);
 
-    const tacche = new THREE.InstancedMesh(new THREE.BoxGeometry(0.02, 0.16, 0.02), nero, 72);
+    const tacche = new THREE.InstancedMesh(new THREE.BoxGeometry(0.02, 0.16, 0.02), tratto, 72);
     const posa = new THREE.Object3D();
     for (let i = 0; i < 72; i++) {
         const a = (i / 72) * Math.PI * 2;
@@ -92,15 +99,15 @@
     cielo.add(eclittica);
 
     const mondi = [0, 1, 2, 3, 4].map((i) => {
-        const m = new THREE.Mesh(new THREE.SphereGeometry(0.12 + i * 0.015, 20, 14), nero);
+        const m = new THREE.Mesh(new THREE.SphereGeometry(0.12 + i * 0.015, 20, 14), tratto);
         m.userData = { angolo: (i / 5) * Math.PI * 2, velocita: 0.18 + i * 0.07 };
         eclittica.add(m);
         return m;
     });
 
     // Asse e Terra al centro
-    const asse = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 7, 8), nero);
-    inclinazione.add(asse, new THREE.Mesh(new THREE.SphereGeometry(0.42, 32, 20), nero));
+    const asse = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 7, 8), tratto);
+    inclinazione.add(asse, new THREE.Mesh(new THREE.SphereGeometry(0.42, 32, 20), tratto));
 
     // --- Disegno -------------------------------------------------------------------
 
@@ -137,6 +144,8 @@
         disegna(); // ridimensionare svuota la tela: va ridisegnata anche da ferma o in pausa
     };
     new ResizeObserver(adatta).observe(contenitore);
+    // Modalità notte cambiata (js/schema.js): nuovi colori e un fotogramma, anche se la sfera è ferma
+    document.addEventListener('kronos:schema', () => { coloraScena(); disegna(); });
     adatta();
 
     // Arrivo: gli anelli si aprono dal centro, uno dopo l'altro

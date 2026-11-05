@@ -86,7 +86,8 @@
 }
 
 /* Temi scuri: barre di scorrimento e controlli nativi scuri */
-:root:has(> body:not(.tema-casa, .tema-neutro)) { color-scheme: dark; }
+:root:has(> body:not(.tema-casa, .tema-neutro)),
+:root[data-schema="scuro"] { color-scheme: dark; }
 
 /* Home: solo due colori neutri, grigio chiaro e nero, che non appartengono a nessun mondo */
 .tema-neutro {
@@ -125,4 +126,46 @@
 /* Le sezioni a tema dentro pagine chiare (home, elenchi) ridefiniscono anche i colori di base */
 [class*="tema-"] {
     color: var(--testo);
+}
+
+/* --- Modalità notte (js/schema.js imposta <html data-schema="scuro">) -------------------
+   Le pagine delle mostre sono già scure e restano com'erano. Le pagine generali prendono
+   i colori del Mondo Celeste (coppie già verificate in docs/contrasto.json), la home
+   inverte i suoi due colori neutri. */
+[data-schema="scuro"] .tema-casa {
+    --sfondo: #14213d;
+    --superficie: #000000;
+    --testo: #ffffff;
+    --testo-tenue: #e5e5e5;
+    --link: #fca311;
+    --accento: #fca311;
+    --bordo: #e5e5e5;
+    --focus: #ffffff;
+    --bottone-sfondo: #ffffff;
+    --bottone-testo: #14213d;
+    --campo: #ffffff;
+    --testo-campo: #14213d;
+    --bordo-campo: #ffffff;
+    --errore: #ffffff;
+    --avviso-sfondo: #ffffff;
+    --avviso-testo: #14213d;
+}
+[data-schema="scuro"] .tema-neutro {
+    --sfondo: #000000;
+    --sfondo-profondo: #000000;
+    --superficie: #000000;
+    --testo: #e5e5e5;
+    --testo-tenue: #e5e5e5;
+    --link: #e5e5e5;
+    --accento: #e5e5e5;
+    --bordo: #e5e5e5;
+    --focus: #e5e5e5;
+    --bottone-sfondo: #e5e5e5;
+    --bottone-testo: #000000;
+    --campo: #000000;
+    --testo-campo: #e5e5e5;
+    --bordo-campo: #e5e5e5;
+    --errore: #e5e5e5;
+    --avviso-sfondo: #e5e5e5;
+    --avviso-testo: #000000;
 }

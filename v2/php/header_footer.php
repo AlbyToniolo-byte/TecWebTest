@@ -59,7 +59,16 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     <link rel="stylesheet" href="../css/animazioni.css">
     <link rel="stylesheet" href="../css/kronos2.css">
     <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
-    <script>document.documentElement.classList.add('js');</script>
+    <!-- Prima del primo disegno: classe js (animazioni) e schema chiaro/scuro, senza lampi di colore sbagliato -->
+    <script>
+        document.documentElement.classList.add('js');
+        (function () {
+            var s = null;
+            try { s = localStorage.getItem('kronos-schema'); } catch (e) {}
+            document.documentElement.dataset.schema = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'scuro' : 'chiaro');
+        })();
+    </script>
+    <script src="../js/schema.js" defer></script>
     <script src="../js/main.js" defer></script>
     <script src="../js/validation.js" defer></script>
     <script src="../js/kronos2.js" defer></script>
@@ -74,9 +83,12 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
         <?= marchio_sfera(34) ?>
         <span translate="no">Kronos</span>
     </a>
-    <button class="v2-menu-bottone" type="button" aria-expanded="false" aria-controls="v2-menu" hidden>
-        <span class="v2-menu-icona" aria-hidden="true"></span>Menu
-    </button>
+    <div class="v2-testata-azioni">
+        <button class="v2-schema cambia-schema" type="button" aria-pressed="false" aria-label="Modalità notte" title="Modalità notte" data-cambia-schema hidden><svg class="icona-schema" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg></button>
+        <button class="v2-menu-bottone" type="button" aria-expanded="false" aria-controls="v2-menu" hidden>
+            <span class="v2-menu-icona" aria-hidden="true"></span>Menu
+        </button>
+    </div>
 </header>
 <nav id="v2-menu" class="v2-menu" aria-label="Principale">
     <ul>

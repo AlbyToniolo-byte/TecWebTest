@@ -41,6 +41,33 @@
 .v2.tema-glaciale, .v2 .tema-glaciale { --accento: #243640; }
 .v2.tema-atlantide, .v2 .tema-atlantide { --accento: #184e77; }
 
+/* Modalità notte (js/schema.js imposta <html data-schema="scuro">): fondo quasi nero, testo carta.
+   Gli accenti delle mostre passano ai toni chiari delle stesse palette di refs.md, tutti sopra 7:1 sul fondo. */
+[data-schema="scuro"] .v2, [data-schema="scuro"] .v2 [class*="tema-"] {
+    --sfondo: #101010;
+    --sfondo-profondo: #101010;
+    --superficie: #1c1c1c;
+    --testo: var(--carta);
+    --testo-tenue: var(--carta);
+    --link: var(--carta);
+    --accento: var(--verderame-chiaro);
+    --bordo: rgb(244 244 242 / 0.22);
+    --focus: var(--carta);
+    --bottone-sfondo: var(--carta);
+    --bottone-testo: var(--inchiostro);
+    --campo: #1c1c1c;
+    --testo-campo: var(--carta);
+    --bordo-campo: var(--carta);
+    --errore: var(--carta);
+    --avviso-sfondo: var(--verderame-chiaro);
+    --avviso-testo: var(--inchiostro);
+}
+[data-schema="scuro"] .v2.tema-celeste, [data-schema="scuro"] .v2 .tema-celeste { --accento: #fca311; }
+[data-schema="scuro"] .v2.tema-mitologia, [data-schema="scuro"] .v2 .tema-mitologia { --accento: #d9cab3; }
+[data-schema="scuro"] .v2.tema-dinosauri, [data-schema="scuro"] .v2 .tema-dinosauri { --accento: #dda15e; }
+[data-schema="scuro"] .v2.tema-glaciale, [data-schema="scuro"] .v2 .tema-glaciale { --accento: #88ccf1; }
+[data-schema="scuro"] .v2.tema-atlantide, [data-schema="scuro"] .v2 .tema-atlantide { --accento: #d9ed92; }
+
 /* Fasce scure: stessi due colori invertiti */
 .v2 .v2-scuro {
     --sfondo: var(--inchiostro);
@@ -61,7 +88,8 @@
     color: var(--testo);
 }
 
-:root:has(> body.v2) { color-scheme: light; }
+:root:not([data-schema="scuro"]):has(> body.v2) { color-scheme: light; }
+:root[data-schema="scuro"] { color-scheme: dark; }
 @media (prefers-reduced-motion: reduce) {
     .js .v2-eroe .v2-macchina::after { display: none; } /* più specifica della regola del cursore, che viene dopo */
 }
@@ -161,6 +189,23 @@
 .v2-menu-icona::after { top: 4px; }
 [aria-expanded="true"] > .v2-menu-icona::before { transform: translateY(4px) rotate(45deg); }
 [aria-expanded="true"] > .v2-menu-icona::after { transform: translateY(-4px) rotate(-45deg); }
+
+/* Bottone della modalità notte, accanto a Menu: solo la luna, che si riempie quando è attiva */
+.v2-testata-azioni { display: flex; align-items: center; gap: 1rem; }
+.v2-schema {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--bordo);
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+}
+.v2-schema:hover { border-color: currentColor; }
+.cambia-schema[aria-pressed="true"] .icona-schema path { fill: currentColor; }
 
 /* Senza JavaScript il menu è una riga di link sotto la testata */
 .v2-menu { padding: 0 clamp(1rem, 4vw, 3rem) 1rem; }
@@ -328,7 +373,7 @@
     border: 1px solid var(--bordo);
     border-radius: 999px;
     font-size: 0.875rem;
-    background: #ffffff;
+    background: var(--superficie);
 }
 
 /* --- Home: eventi su fondo scuro ------------------------------------------------- */
@@ -408,8 +453,8 @@
 .v2 .arco, .v2 .prodotto-immagine, .v2 .voce-mostra, .v2 .blocco-form, .v2 .invito,
 .v2 .scelta, .v2 .cartellino, .v2 .temi li { border-radius: var(--raggio); }
 .v2 .arco { aspect-ratio: 4 / 5; }
-.v2 .voce-mostra { background: #ffffff; }
-.v2 .cartellino { border-top: 1px solid var(--bordo); background: #ffffff; }
+.v2 .voce-mostra { background: var(--superficie); }
+.v2 .cartellino { border-top: 1px solid var(--bordo); background: var(--superficie); }
 .v2 .etichetta-speciale, .v2 .nota-speciale { border-radius: 999px; }
 .v2 .etichetta-speciale { border-width: 1px; font-weight: 600; }
 .v2 .nota-speciale { border: 1px solid var(--accento); padding: 1rem 1.5rem; border-radius: var(--raggio); }

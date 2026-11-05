@@ -63,8 +63,16 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/animazioni.css">
     <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
-    <!-- Subito, prima del primo disegno: senza questa classe gli elementi animati restano visibili -->
-    <script>document.documentElement.classList.add('js');</script>
+    <!-- Prima del primo disegno: classe js (animazioni) e schema chiaro/scuro, senza lampi di colore sbagliato -->
+    <script>
+        document.documentElement.classList.add('js');
+        (function () {
+            var s = null;
+            try { s = localStorage.getItem('kronos-schema'); } catch (e) {}
+            document.documentElement.dataset.schema = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'scuro' : 'chiaro');
+        })();
+    </script>
+    <script src="../js/schema.js" defer></script>
     <script src="../js/main.js" defer></script>
     <script src="../js/validation.js" defer></script>
     <?php foreach ($script as $s): ?>
@@ -88,6 +96,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
                 <?php foreach (VOCI_MENU as $chiave => [$href, $etichetta]): ?>
                     <li><a href="<?= e($href) ?>"<?= $chiave === $attiva ? ' aria-current="page"' : '' ?>><?= e($etichetta) ?></a></li>
                 <?php endforeach; ?>
+                <li><button class="bottone-testo cambia-schema" type="button" aria-pressed="false" data-cambia-schema hidden><svg class="icona-schema" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>Modalità notte</button></li>
                 <li class="menu-prenota"><a class="bottone" href="visit.php#prenota">Prenota la visita</a></li>
             </ul>
         </nav>

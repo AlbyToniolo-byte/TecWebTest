@@ -49,6 +49,7 @@ Su http://localhost:8000 una pagina rimanda alle due versioni: http://localhost:
 | `css/animazioni.css` | Effetti di movimento, tutti disattivati se il sistema chiede meno movimento |
 | `js/main.js` | Menu mobile, comparse allo scorrimento, totale biglietti |
 | `js/validation.js` | Validazione dei form lato client (ripetuta in PHP) |
+| `js/schema.js` | Modalità notte: il bottone alterna chiaro e scuro e ricorda la scelta nel browser (al primo accesso segue il sistema) |
 | `js/scorrimento.js` | Effetti legati allo scorrimento con GSAP |
 | `js/vendor/` | Librerie GSAP 3.13 e Three.js r186, salvate in locale |
 | `img/mostre/`, `img/prodotti/` | Illustrazioni delle mostre e dei prodotti dello shop |

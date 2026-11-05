@@ -60,7 +60,7 @@
         uniforms: {
             uProgresso: { value: 0 },
             uScala: { value: 1 },
-            uColore: { value: new THREE.Color(0x161616) },
+            uColore: { value: new THREE.Color() }, // il colore del testo della pagina, vedi coloraPunti
         },
         vertexShader: /* glsl */ `
             attribute vec3 alone;
@@ -86,6 +86,9 @@
             }`,
     });
     const punti = new THREE.Points(geometria, materiale);
+    // Puntini del colore del testo: inchiostro di giorno, carta in modalità notte
+    const coloraPunti = () => materiale.uniforms.uColore.value.set(getComputedStyle(sezione).getPropertyValue('--testo').trim());
+    coloraPunti();
     scena.add(punti);
 
     let tempo = 0, ultimo = null;
@@ -119,6 +122,7 @@
         disegna();
     };
     new ResizeObserver(adatta).observe(fisso);
+    document.addEventListener('kronos:schema', () => { coloraPunti(); disegna(); });
 
     if (fermo) return;
 

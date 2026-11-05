@@ -80,6 +80,10 @@
 .menu a[aria-current="page"] { border-bottom-color: currentColor; font-weight: 700; }
 .sopra-immagine .menu .bottone { --bottone-sfondo: #ffffff; --bottone-testo: #14213d; }
 
+/* Bottone della modalità notte: sembra una voce del menu, con la luna che si riempie quando è attiva */
+.cambia-schema { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; color: inherit; text-decoration: none; }
+.cambia-schema[aria-pressed="true"] .icona-schema path { fill: currentColor; }
+
 .apri-menu {
     display: inline-flex;
     align-items: center;
