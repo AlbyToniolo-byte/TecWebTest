@@ -1,8 +1,9 @@
 -- Kronos: Museo dei Mondi Perduti
 -- Schema PostgreSQL. Esegui con:  psql -d kronos -f database/schema.sql
+-- I totali di prenotazioni e ordini non sono salvati: si calcolano dalle righe (SUM di quantita * prezzo_unitario).
 
 DROP TABLE IF EXISTS ordini_righe, ordini, prodotti,
-    richieste_membership, livelli_membership, iscrizioni_newsletter,
+    richieste_membership, vantaggi_membership, livelli_membership, iscrizioni_newsletter,
     prenotazioni_righe, prenotazioni, tipi_biglietto, orari,
     eventi, reperti, sezioni_mostra, mostre, membri_team CASCADE;
 
@@ -76,7 +77,7 @@ CREATE TABLE prenotazioni (
     email       VARCHAR(200) NOT NULL,
     data_visita DATE         NOT NULL,
     fascia      VARCHAR(20)  NOT NULL,
-    totale      NUMERIC(8,2) NOT NULL,
+    note        VARCHAR(500),            -- testo libero: esigenze per la visita
     creata_il   TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
@@ -98,8 +99,15 @@ CREATE TABLE livelli_membership (
     id        SERIAL PRIMARY KEY,
     nome      VARCHAR(60)  NOT NULL,
     prezzo    NUMERIC(6,2) NOT NULL,
-    vantaggi  TEXT         NOT NULL,   -- un vantaggio per riga
     ordine    SMALLINT     NOT NULL
+);
+
+-- Un vantaggio per riga (prima forma normale: niente elenchi in un solo campo)
+CREATE TABLE vantaggi_membership (
+    id         SERIAL PRIMARY KEY,
+    livello_id INTEGER      NOT NULL REFERENCES livelli_membership(id) ON DELETE CASCADE,
+    testo      VARCHAR(200) NOT NULL,
+    ordine     SMALLINT     NOT NULL
 );
 
 CREATE TABLE richieste_membership (
@@ -127,7 +135,6 @@ CREATE TABLE ordini (
     codice    VARCHAR(12)  NOT NULL UNIQUE,
     nome      VARCHAR(120) NOT NULL,
     email     VARCHAR(200) NOT NULL,
-    totale    NUMERIC(8,2) NOT NULL,
     creato_il TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 

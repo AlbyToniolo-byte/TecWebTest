@@ -1,5 +1,5 @@
 <?php
-// Iscrizione alla newsletter dal piè di pagina di qualsiasi pagina.
+// Iscrizione alla newsletter (dal piè di pagina) e annullamento (da gestisci.php).
 require_once __DIR__ . '/funzioni.php';
 require_once __DIR__ . '/header_footer.php';
 
@@ -16,6 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !csrf_valido()) {
 $email = trim((string) ($_POST['email'] ?? ''));
 if (!email_valida($email)) {
     flash('Iscrizione non riuscita: inserisci un indirizzo email valido, per esempio nome@esempio.it.');
+    vai($torna);
+}
+
+if (($_POST['azione'] ?? '') === 'annulla') {
+    db()->prepare('DELETE FROM iscrizioni_newsletter WHERE email = :e')->execute(['e' => mb_strtolower($email)]);
+    // stesso messaggio che l'indirizzo fosse iscritto o no: non si rivela chi è iscritto
+    flash('Fatto: l\'indirizzo ' . $email . ' non riceverà più la newsletter.');
     vai($torna);
 }
 

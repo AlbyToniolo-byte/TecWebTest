@@ -2,20 +2,13 @@
 // Punto di ingresso: le due versioni del sito vivono in v1/ e v2/, ognuna con il proprio codice.
 ?>
 <!DOCTYPE html>
-<html lang="it">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kronos, Museo dei Mondi Perduti: scegli la versione</title>
-    <link rel="icon" href="v1/img/favicon.svg" type="image/svg+xml">
-    <style>
-        body { margin: 0; min-height: 100svh; display: grid; place-content: center; gap: 1.5rem; padding: 1rem;
-               background: #e5e5e5; color: #000; font: 1.125rem/1.6 system-ui, sans-serif; }
-        h1 { font-family: Georgia, serif; font-weight: 400; font-size: clamp(2rem, 1.5rem + 3vw, 3.5rem); margin: 0; }
-        ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1rem; }
-        a { color: inherit; font-size: 1.25rem; }
-        a:focus-visible { outline: 3px solid #000; outline-offset: 3px; }
-    </style>
+    <link rel="icon" href="v1/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="scelta.css" />
 </head>
 <body>
     <main>

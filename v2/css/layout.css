@@ -190,7 +190,7 @@
     list-style: none;
     counter-reset: none;
 }
-.percorso a { color: var(--testo); }
+.percorso a { color: var(--link); }
 
 .mondo {
     background: var(--sfondo);
@@ -397,7 +397,7 @@
     max-width: none;
 }
 .voce-mostra h2 { font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.75rem); margin-bottom: 0.25rem; }
-.voce-mostra h2 a { color: var(--testo); text-decoration: none; }
+.voce-mostra h2 a { color: var(--link); text-decoration: none; }
 .voce-mostra h2 a:hover { text-decoration: underline; }
 .voce-mostra .arco { aspect-ratio: 3 / 4; }
 .etichetta-speciale {
@@ -507,7 +507,7 @@
 
 .temi { display: grid; gap: 0.75rem; margin: 0 0 4rem; padding: 0; list-style: none; }
 .temi li { padding: 1rem 1.25rem; border-radius: 4px; background: var(--sfondo); max-width: 48rem; }
-.temi a { color: var(--testo); font-weight: 700; }
+.temi a { color: var(--link); font-weight: 700; }
 
 /* Chi preferisce meno movimento vede solo la dissolvenza, senza zoom né spostamento */
 @media (prefers-reduced-motion: reduce) {
@@ -519,3 +519,20 @@
 .tema-mitologia .arco img, [data-tema=mitologia] .arco img { object-position: 58% 50%; }
 .tema-dinosauri .arco img, [data-tema=dinosauri] .arco img { object-position: 74% 50%; }
 .tema-glaciale .arco img, [data-tema=glaciale] .arco img { object-position: 66% 50%; }
+/* --- Percorso "Ti trovi in" (briciole() in php/funzioni.php) --------------------- */
+
+.briciole ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    margin: 0;
+    padding: 1.5rem 0 0;
+    list-style: none;
+    font-size: 1rem;
+}
+.briciole li { max-width: none; }
+/* separatore solo visivo: il testo alternativo vuoto lo nasconde ai lettori di schermo */
+.briciole li + li::before { content: "›"; content: "›" / ""; margin-right: 0.5rem; }
+.briciole a { color: var(--link); }
+.briciole [aria-current="page"] { font-weight: 700; }
+.apertura .briciole ol { padding: 0 0 1.25rem; }

@@ -43,37 +43,30 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     $classi = 'v2 ' . ($tema ? 'tema-' . $tema : 'tema-casa');
     ?>
 <!DOCTYPE html>
-<html lang="it">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= e($titolo) ?> | Kronos, Museo dei Mondi Perduti</title>
-    <meta name="description" content="<?= e($descrizione) ?>">
-    <meta name="theme-color" content="#f4f4f2">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;600&display=swap">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/themes.css">
-    <link rel="stylesheet" href="../css/animazioni.css">
-    <link rel="stylesheet" href="../css/kronos2.css">
-    <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
-    <!-- Prima del primo disegno: classe js (animazioni) e schema chiaro/scuro, senza lampi di colore sbagliato -->
-    <script>
-        document.documentElement.classList.add('js');
-        (function () {
-            var s = null;
-            try { s = localStorage.getItem('kronos-schema'); } catch (e) {}
-            document.documentElement.dataset.schema = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'scuro' : 'chiaro');
-        })();
-    </script>
-    <script src="../js/schema.js" defer></script>
-    <script src="../js/main.js" defer></script>
-    <script src="../js/validation.js" defer></script>
-    <script src="../js/kronos2.js" defer></script>
+    <meta name="description" content="<?= e($descrizione) ?>" />
+    <meta name="theme-color" content="#f4f4f2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&amp;family=Hanken+Grotesk:wght@400;600&amp;display=swap" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/themes.css" />
+    <link rel="stylesheet" href="../css/animazioni.css" />
+    <link rel="stylesheet" href="../css/kronos2.css" />
+    <link rel="icon" href="../img/favicon.svg" type="image/svg+xml" />
+    <!-- Prima del primo disegno: classe js e schema chiaro/scuro (vedi js/avvio.js) -->
+    <script src="../js/avvio.js"></script>
+    <script src="../js/schema.js" defer="defer"></script>
+    <script src="../js/main.js" defer="defer"></script>
+    <script src="../js/validation.js" defer="defer"></script>
+    <script src="../js/kronos2.js" defer="defer"></script>
     <?php foreach ($script as $s): ?>
-    <script src="../js/<?= e($s) ?>" defer></script>
+    <script src="../js/<?= e($s) ?>" defer="defer"></script>
     <?php endforeach; ?>
 </head>
 <body class="<?= e($classi) ?>">
@@ -84,8 +77,8 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
         <span translate="no">Kronos</span>
     </a>
     <div class="v2-testata-azioni">
-        <button class="v2-schema cambia-schema" type="button" aria-pressed="false" aria-label="Modalità notte" title="Modalità notte" data-cambia-schema hidden><svg class="icona-schema" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg></button>
-        <button class="v2-menu-bottone" type="button" aria-expanded="false" aria-controls="v2-menu" hidden>
+        <button class="v2-schema cambia-schema" type="button" aria-pressed="false" aria-label="Modalità notte" title="Modalità notte" data-cambia-schema="" hidden="hidden"><svg class="icona-schema" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg></button>
+        <button class="v2-menu-bottone" type="button" aria-expanded="false" aria-controls="v2-menu" hidden="hidden">
             <span class="v2-menu-icona" aria-hidden="true"></span>Menu
         </button>
     </div>
@@ -113,10 +106,10 @@ function pagina_fine(): void
 </main>
 <footer class="v2-piede v2-scuro">
     <div class="v2-piede-griglia">
-        <p class="v2-piede-motto" aria-hidden="true">Mondi <em>perduti</em><br>per menti curiose.</p>
+        <p class="v2-piede-motto" aria-hidden="true">Mondi <em>perduti</em><br />per menti curiose.</p>
         <section aria-labelledby="piede-dove">
             <h2 id="piede-dove">Dove siamo</h2>
-            <address>Piazza Crono 1<br><a href="mailto:info@kronos-museo.it">info@kronos-museo.it</a></address>
+            <address>Piazza Crono 1<br /><a href="mailto:info@kronos-museo.it">info@kronos-museo.it</a></address>
             <ul class="v2-piede-link">
                 <?php foreach (VOCI_MENU as [$href, $etichetta]): ?>
                     <li><a href="<?= e($href) ?>"><?= e($etichetta) ?></a></li>
@@ -137,15 +130,15 @@ function pagina_fine(): void
         <section aria-labelledby="piede-news">
             <h2 id="piede-news">Newsletter</h2>
             <p>Una mail al mese con le nuove mostre e gli eventi.</p>
-            <form class="form-newsletter" action="newsletter.php" method="post" novalidate data-valida>
+            <form class="form-newsletter" action="newsletter.php" method="post" novalidate="novalidate" data-valida="">
                 <?= campo_csrf() ?>
-                <input type="hidden" name="torna" value="<?= e(basename($_SERVER['REQUEST_URI'] ?? 'index.php')) ?>">
+                <input type="hidden" name="torna" value="<?= e(basename($_SERVER['REQUEST_URI'] ?? 'index.php')) ?>" />
                 <label for="news-email">Indirizzo email</label>
                 <div class="riga-campo">
-                    <input type="email" spellcheck="false" id="news-email" name="email" autocomplete="email" placeholder="nome@esempio.it" required aria-required="true" aria-describedby="news-email-errore">
+                    <input type="email" spellcheck="false" id="news-email" name="email" autocomplete="email" placeholder="nome@esempio.it" required="required" aria-required="true" aria-describedby="news-email-errore" />
                     <button class="bottone" type="submit">Iscriviti</button>
                 </div>
-                <p class="errore" id="news-email-errore" hidden></p>
+                <p class="errore" id="news-email-errore" hidden="hidden"></p>
             </form>
         </section>
     </div>
@@ -161,8 +154,8 @@ function pagina_errore_db(Throwable $e): never
 {
     http_response_code(503);
     error_log('Kronos DB: ' . $e->getMessage());
-    echo '<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-        . '<title>Servizio non disponibile | Kronos</title><link rel="stylesheet" href="../css/style.css"></head>'
+    echo '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />'
+        . '<title>Servizio non disponibile | Kronos</title><link rel="stylesheet" href="../css/style.css" /></head>'
         . '<body class="tema-casa"><main class="pagina-stretta"><h1>Il sito non riesce a leggere i dati</h1>'
         . '<p>Il database non risponde. Controlla che PostgreSQL sia avviato e che php/config.php contenga le credenziali corrette, poi ricarica la pagina.</p>'
         . '</main></body></html>';

@@ -63,6 +63,13 @@ function controlla(campo) {
     }
     if (valore === '') return '';
 
+    // Testo libero: non oltre maxlength (conta anche il testo incollato o rimandato dal server)
+    if (campo.maxLength > 0 && campo.value.length > campo.maxLength) {
+        return d.msgLunghezza || `Puoi scrivere al massimo ${campo.maxLength} caratteri`;
+    }
+    if (campo.pattern && !new RegExp(`^(?:${campo.pattern})$`).test(valore)) {
+        return d.msgFormato || `Controlla il formato del campo ${etichetta(campo)}`;
+    }
     if (campo.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valore)) {
         return d.msgFormato || 'Inserisci un indirizzo email valido, per esempio nome@esempio.it';
     }

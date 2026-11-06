@@ -36,10 +36,13 @@ Su http://localhost:8000 una pagina rimanda alle due versioni: http://localhost:
 | Percorso | Contenuto |
 |---|---|
 | `index.php` | Punto di ingresso della versione: rimanda a `php/index.php` |
+| `sitemap.php` | Mappa del sito per i motori di ricerca, con una voce per mostra |
 | `php/index.php` | Home |
 | `php/esibizioni.php` | Elenco delle mostre e calendario eventi (filtro per mostra) |
 | `php/mostra.php?m=<slug>` | Pagina di una mostra: l'immagine di apertura sfuma nel colore della mostra |
 | `php/visit.php` | Orari, biglietti, accessibilità e prenotazione |
+| `php/gestisci.php` | Modifica e cancellazione della prenotazione (con codice ed email), annullamento dell'iscrizione alla newsletter |
+| `php/prenotazione.php` | Controlli, salvataggio e campi del modulo di prenotazione, comuni a `visit.php` e `gestisci.php` |
 | `php/support.php` | Tessere soci, donazioni, volontariato |
 | `php/shop.php` | Prodotti, carrello in sessione e ordine con ritiro al museo |
 | `php/about.php` | Il nome, i temi e il gruppo di lavoro |
@@ -49,6 +52,7 @@ Su http://localhost:8000 una pagina rimanda alle due versioni: http://localhost:
 | `css/animazioni.css` | Effetti di movimento, tutti disattivati se il sistema chiede meno movimento |
 | `js/main.js` | Menu mobile, comparse allo scorrimento, totale biglietti |
 | `js/validation.js` | Validazione dei form lato client (ripetuta in PHP) |
+| `js/avvio.js` | Caricato nel `<head>` prima del disegno: classe `js` e schema chiaro/scuro |
 | `js/schema.js` | Modalità notte: il bottone alterna chiaro e scuro e ricorda la scelta nel browser (al primo accesso segue il sistema) |
 | `js/scorrimento.js` | Effetti legati allo scorrimento con GSAP |
 | `js/vendor/` | Librerie GSAP 3.13 e Three.js r186, salvate in locale |
@@ -72,10 +76,13 @@ Fuori dalle versioni:
 
 | Percorso | Contenuto |
 |---|---|
-| `index.php` | Pagina di scelta tra le due versioni |
-| `database/` | Schema e dati di esempio, comuni alle due versioni |
+| `index.php`, `scelta.css` | Pagina di scelta tra le due versioni |
+| `robots.txt` | Indica le due mappe del sito ed esclude le pagine di servizio |
+| `database/` | Schema e dati di esempio, comuni alle due versioni; `migrazione-requisiti.sql` aggiorna un database creato con lo schema precedente senza perdere i dati |
 | `docs/schema-er.drawio` | Schema E/R del database (notazione di Chen), da aprire con draw.io o app.diagrams.net |
 | `docs/genera_svg.py`, `docs/genera_prodotti.py` | Generano le illustrazioni nei colori di `refs.md`, per esempio `python3 docs/genera_svg.py v1/img/mostre` |
-| `docs/contrasto.json` | Coppie di colori della prima versione verificate per il contrasto WCAG AA |
+| `docs/contrasto.json` | Coppie di colori verificate per il contrasto WCAG AA, comprese quelle dei link visitati (3:1 rispetto ai non visitati), per entrambe le versioni |
 
 Il sito funziona anche con JavaScript disattivato: il menu resta sempre visibile e i form vengono validati dal server.
+
+Le pagine sono HTML5 in sintassi XML (tag vuoti chiusi con `/>`, attributi sempre con valore, `&amp;` negli indirizzi); contenuto, presentazione e comportamento sono separati: nessuno stile o script scritto dentro l'HTML.

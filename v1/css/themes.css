@@ -1,4 +1,6 @@
-/* Palette di Kronos e delle cinque mostre: solo i colori di refs.md.
+/* Palette di Kronos e delle cinque mostre, nate dai colori di refs.md.
+   Mitologia, Dinosauri, Era glaciale e Atlantide hanno fondi più profondi della tinta originale:
+   solo così i link visitati possono stare a 3:1 dai non visitati restando entrambi a 4.5:1 sul fondo.
    Ogni classe .tema-* può stare sul <body> o su una singola sezione.
    Le coppie testo/sfondo sono verificate in docs/contrasto.json.
    Dove nessun colore della palette regge il contrasto come superficie,
@@ -11,7 +13,8 @@
     --superficie: #ffffff;
     --testo: #14213d;
     --testo-tenue: #14213d;
-    --link: #14213d;
+    --link: #000000;
+    --link-visitato: #606c38;
     --accento: #fca311;
     --bordo: #14213d;
     --focus: #14213d;
@@ -32,55 +35,60 @@
     --superficie: #000000;
     --testo: #ffffff;
     --testo-tenue: #e5e5e5;
-    --link: #fca311;
+    --link: #bc8034;
+    --link-visitato: #ffffff;
     --accento: #fca311;
     --bordo: #e5e5e5;
 }
 
 /* Mitologia: bordeaux, rosa scuro, beige, bronzo, tortora */
 .tema-mitologia {
-    --sfondo: #5e0b15;
-    --sfondo-profondo: #90323d;
+    --sfondo: #3b070d;
+    --sfondo-profondo: #2a0509;
     --superficie: #90323d;
-    --testo: #d9cab3;
-    --testo-tenue: #d9cab3;
-    --link: #d9cab3;
+    --testo: #f7f3ee;
+    --testo-tenue: #f7f3ee;
+    --link: #f7f3ee;
+    --link-visitato: #b77c32;
     --accento: #bc8034;
     --bordo: #8c7a6b;
 }
 
 /* Dinosauri: foresta negra, verde oliva, ossa, caramello, rame */
 .tema-dinosauri {
-    --sfondo: #283618;
-    --sfondo-profondo: #283618;
+    --sfondo: #161e0d;
+    --sfondo-profondo: #0e1409;
     --superficie: #606c38;
     --testo: #fefae0;
     --testo-tenue: #fefae0;
-    --link: #dda15e;
+    --link: #fefae0;
+    --link-visitato: #c27a29;
     --accento: #dda15e;
     --bordo: #bc6c25;
 }
 
 /* Era glaciale: jet black, blu, baby blue, icy blue, azzurro chiaro */
 .tema-glaciale {
-    --sfondo: #243640;
-    --sfondo-profondo: #243640;
+    --sfondo: #131d22;
+    --sfondo-profondo: #0c1316;
     --superficie: #243640;
-    --testo: #dcedf6;
+    --testo: #ecf5fa;
     --testo-tenue: #a5d6f1;
-    --link: #88ccf1;
+    --link: #ecf5fa;
+    --link-visitato: #1990d0;
     --accento: #88ccf1;
     --bordo: #557e96;
 }
 
 /* Atlantide: avocado, avocado maturo, verde acqua, teal, bonnie blue, blu */
 .tema-atlantide {
-    --sfondo: #184e77;
-    --sfondo-profondo: #184e77;
+    --sfondo: #091d2b;
+    --sfondo-profondo: #06141e;
     --superficie: #184e77;
-    --testo: #d9ed92;
+    --testo: #eff8d2;
     --testo-tenue: #b5e48c;
-    --link: #d9ed92;
+    --link: #eff8d2;
+    --link-visitato: #40977e;
     --accento: #52b69a;
     --bordo: #52b69a;
 }
@@ -97,6 +105,7 @@
     --testo: #000000;
     --testo-tenue: #000000;
     --link: #000000;
+    --link-visitato: #606c38;
     --accento: #000000;
     --bordo: #000000;
     --focus: #000000;
@@ -137,7 +146,8 @@
     --superficie: #000000;
     --testo: #ffffff;
     --testo-tenue: #e5e5e5;
-    --link: #fca311;
+    --link: #bc8034;
+    --link-visitato: #ffffff;
     --accento: #fca311;
     --bordo: #e5e5e5;
     --focus: #ffffff;
@@ -157,6 +167,7 @@
     --testo: #e5e5e5;
     --testo-tenue: #e5e5e5;
     --link: #e5e5e5;
+    --link-visitato: #557e96;
     --accento: #e5e5e5;
     --bordo: #e5e5e5;
     --focus: #e5e5e5;

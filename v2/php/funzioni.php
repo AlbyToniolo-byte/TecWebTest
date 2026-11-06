@@ -51,7 +51,7 @@ function csrf_token(): string
 
 function campo_csrf(): string
 {
-    return '<input type="hidden" name="csrf" value="' . e(csrf_token()) . '">';
+    return '<input type="hidden" name="csrf" value="' . e(csrf_token()) . '" />';
 }
 
 function csrf_valido(): bool
@@ -103,7 +103,7 @@ function attr_campo(string $id, array $errori, ?string $suggerimento = null): st
 // Paragrafo d'errore sempre presente: lo riempie anche js/validation.js.
 function errore_campo(string $id, array $errori): string
 {
-    return '<p class="errore" id="' . e($id) . '-errore"' . (isset($errori[$id]) ? '' : ' hidden') . '>'
+    return '<p class="errore" id="' . e($id) . '-errore"' . (isset($errori[$id]) ? '' : ' hidden="hidden"') . '>'
         . e($errori[$id] ?? '') . '</p>';
 }
 
@@ -113,7 +113,7 @@ function riepilogo_errori(array $errori): string
     if (!$errori) {
         return '';
     }
-    $html = '<div class="riepilogo-errori" tabindex="-1" data-focus-iniziale>'
+    $html = '<div class="riepilogo-errori" tabindex="-1" data-focus-iniziale="">'
         . '<h2>Controlla ' . (count($errori) === 1 ? 'questo campo' : 'questi campi') . '</h2><ul>';
     foreach ($errori as $id => $msg) {
         $html .= '<li><a href="#' . e($id) . '">' . e($msg) . '</a></li>';
@@ -129,6 +129,21 @@ function stato_apertura_oggi(): string
         return 'Oggi il museo è chiuso';
     }
     return 'Oggi aperto dalle ' . ora($o['apertura']) . ' alle ' . ora($o['chiusura']);
+}
+
+/**
+ * Percorso della pagina ("Ti trovi in"), per orientarsi nelle pagine interne.
+ * @param array<array{0: ?string, 1: string}> $voci [indirizzo, testo]; l'ultima, senza indirizzo, è la pagina corrente
+ */
+function briciole(array $voci): void
+{
+    echo '<nav class="briciole" aria-label="Ti trovi in"><ol><li><a href="index.php">Home</a></li>';
+    foreach ($voci as [$href, $testo]) {
+        echo $href
+            ? '<li><a href="' . e($href) . '">' . e($testo) . '</a></li>'
+            : '<li aria-current="page">' . e($testo) . '</li>';
+    }
+    echo '</ol></nav>';
 }
 
 /** Percorso di una risorsa statica (css, js, img) vista dalle pagine in php/. */

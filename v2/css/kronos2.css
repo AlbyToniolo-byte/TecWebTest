@@ -23,6 +23,7 @@
     --testo: var(--inchiostro);
     --testo-tenue: var(--inchiostro);
     --link: var(--inchiostro);
+    --link-visitato: #3a7463;    /* verderame medio: 3.3:1 dall'inchiostro, 4.9:1 sulla carta */
     --accento: var(--verderame);
     --bordo: rgb(22 22 22 / 0.18);
     --focus: var(--inchiostro);
@@ -50,6 +51,7 @@
     --testo: var(--carta);
     --testo-tenue: var(--carta);
     --link: var(--carta);
+    --link-visitato: #4b9680;
     --accento: var(--verderame-chiaro);
     --bordo: rgb(244 244 242 / 0.22);
     --focus: var(--carta);
@@ -75,6 +77,7 @@
     --testo: var(--carta);
     --testo-tenue: var(--carta);
     --link: var(--carta);
+    --link-visitato: #4b9680;    /* 3.2:1 dalla carta, 5.2:1 sul fondo */
     --accento: var(--verderame-chiaro);
     --bordo: rgb(244 244 242 / 0.25);
     --focus: var(--carta);
@@ -363,8 +366,15 @@
     line-height: 1;
     margin-bottom: 1rem;
 }
-.v2-mondo h3 a { color: var(--accento); text-decoration: none; }
-.v2-mondo h3 a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.v2-mondo h3 a {
+    /* colore dei link, così visitati e non visitati restano a 3:1; il mondo si riconosce dalla sottolineatura */
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: var(--accento);
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.12em;
+}
+.v2-mondo h3 a:hover { text-decoration-thickness: 0.1em; }
 .v2-mondo p { max-width: 62ch; }
 .v2-dove { white-space: nowrap; font-weight: 600; }
 .v2-pillole { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }

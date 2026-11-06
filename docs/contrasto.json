@@ -16,7 +16,7 @@
   },
   {
    "id": "casa-link-sfondo",
-   "foreground": "#14213d",
+   "foreground": "#000000",
    "background": "#e5e5e5",
    "type": "text-normal",
    "notes": ""
@@ -100,7 +100,7 @@
   },
   {
    "id": "celeste-link-sfondo",
-   "foreground": "#fca311",
+   "foreground": "#bc8034",
    "background": "#14213d",
    "type": "text-normal",
    "notes": ""
@@ -135,7 +135,7 @@
   },
   {
    "id": "celeste-link-profondo",
-   "foreground": "#fca311",
+   "foreground": "#bc8034",
    "background": "#000000",
    "type": "text-normal",
    "notes": ""
@@ -169,115 +169,255 @@
    "notes": "Campo chiaro su fondo scuro"
   },
   {
+   "id": "casa-visitato-sfondo",
+   "foreground": "#606c38",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-visitato-superficie",
+   "foreground": "#606c38",
+   "background": "#ffffff",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "casa-link-vs-visitato",
+   "foreground": "#606c38",
+   "background": "#000000",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
+   "id": "neutro-link-sfondo",
+   "foreground": "#000000",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "neutro-visitato-sfondo",
+   "foreground": "#606c38",
+   "background": "#e5e5e5",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "neutro-link-vs-visitato",
+   "foreground": "#606c38",
+   "background": "#000000",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
+   "id": "celeste-visitato-sfondo",
+   "foreground": "#ffffff",
+   "background": "#14213d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-visitato-profondo",
+   "foreground": "#ffffff",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "celeste-link-vs-visitato",
+   "foreground": "#ffffff",
+   "background": "#bc8034",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
+   "id": "notte-neutro-link-sfondo",
+   "foreground": "#e5e5e5",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "notte-neutro-visitato-sfondo",
+   "foreground": "#557e96",
+   "background": "#000000",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "notte-neutro-link-vs-visitato",
+   "foreground": "#e5e5e5",
+   "background": "#557e96",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
+   "id": "v2-link-carta",
+   "foreground": "#161616",
+   "background": "#f4f4f2",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-visitato-carta",
+   "foreground": "#3a7463",
+   "background": "#f4f4f2",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-visitato-superficie",
+   "foreground": "#3a7463",
+   "background": "#ffffff",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-link-vs-visitato",
+   "foreground": "#161616",
+   "background": "#3a7463",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
+   "id": "v2-scuro-link",
+   "foreground": "#f4f4f2",
+   "background": "#161616",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-scuro-visitato",
+   "foreground": "#4b9680",
+   "background": "#161616",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-notte-link",
+   "foreground": "#f4f4f2",
+   "background": "#101010",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-notte-visitato",
+   "foreground": "#4b9680",
+   "background": "#101010",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-notte-visitato-superficie",
+   "foreground": "#4b9680",
+   "background": "#1c1c1c",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "v2-notte-link-vs-visitato",
+   "foreground": "#f4f4f2",
+   "background": "#4b9680",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
    "id": "mitologia-testo-sfondo",
-   "foreground": "#d9cab3",
-   "background": "#5e0b15",
+   "foreground": "#f7f3ee",
+   "background": "#3b070d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-testo-profondo",
+   "foreground": "#f7f3ee",
+   "background": "#2a0509",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-testo-superficie",
+   "foreground": "#f7f3ee",
+   "background": "#90323d",
    "type": "text-normal",
    "notes": ""
   },
   {
    "id": "mitologia-tenue-sfondo",
-   "foreground": "#d9cab3",
-   "background": "#5e0b15",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "mitologia-link-sfondo",
-   "foreground": "#d9cab3",
-   "background": "#5e0b15",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "mitologia-focus-sfondo",
-   "foreground": "#d9cab3",
-   "background": "#5e0b15",
-   "type": "ui",
-   "notes": ""
-  },
-  {
-   "id": "mitologia-testo-superficie",
-   "foreground": "#d9cab3",
-   "background": "#90323d",
+   "foreground": "#f7f3ee",
+   "background": "#3b070d",
    "type": "text-normal",
    "notes": ""
   },
   {
    "id": "mitologia-tenue-superficie",
-   "foreground": "#d9cab3",
+   "foreground": "#f7f3ee",
    "background": "#90323d",
    "type": "text-normal",
-   "notes": "Data del reperto nel cartellino"
+   "notes": ""
   },
   {
-   "id": "mitologia-testo-profondo",
-   "foreground": "#d9cab3",
-   "background": "#90323d",
+   "id": "mitologia-link-sfondo",
+   "foreground": "#f7f3ee",
+   "background": "#3b070d",
    "type": "text-normal",
    "notes": ""
   },
   {
    "id": "mitologia-link-profondo",
-   "foreground": "#d9cab3",
-   "background": "#90323d",
+   "foreground": "#f7f3ee",
+   "background": "#2a0509",
    "type": "text-normal",
    "notes": ""
+  },
+  {
+   "id": "mitologia-visitato-sfondo",
+   "foreground": "#b77c32",
+   "background": "#3b070d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-visitato-profondo",
+   "foreground": "#b77c32",
+   "background": "#2a0509",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "mitologia-link-vs-visitato",
+   "foreground": "#f7f3ee",
+   "background": "#b77c32",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
   },
   {
    "id": "mitologia-accento-sfondo",
    "foreground": "#bc8034",
-   "background": "#5e0b15",
-   "type": "graphic",
-   "notes": "Bordo superiore dei cartellini e note"
-  },
-  {
-   "id": "mitologia-bottone",
-   "foreground": "#5e0b15",
-   "background": "#d9cab3",
-   "type": "text-normal",
-   "notes": "Testo del bottone pieno"
-  },
-  {
-   "id": "mitologia-campo",
-   "foreground": "#5e0b15",
-   "background": "#d9cab3",
-   "type": "text-normal",
-   "notes": "Testo dentro i campi"
-  },
-  {
-   "id": "mitologia-campo-bordo",
-   "foreground": "#d9cab3",
-   "background": "#5e0b15",
+   "background": "#3b070d",
    "type": "ui",
-   "notes": "Campo chiaro su fondo scuro"
+   "notes": ""
+  },
+  {
+   "id": "mitologia-bottone-testo",
+   "foreground": "#3b070d",
+   "background": "#f7f3ee",
+   "type": "text-normal",
+   "notes": ""
   },
   {
    "id": "dinosauri-testo-sfondo",
    "foreground": "#fefae0",
-   "background": "#283618",
+   "background": "#161e0d",
    "type": "text-normal",
    "notes": ""
   },
   {
-   "id": "dinosauri-tenue-sfondo",
+   "id": "dinosauri-testo-profondo",
    "foreground": "#fefae0",
-   "background": "#283618",
+   "background": "#0e1409",
    "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "dinosauri-link-sfondo",
-   "foreground": "#dda15e",
-   "background": "#283618",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "dinosauri-focus-sfondo",
-   "foreground": "#fefae0",
-   "background": "#283618",
-   "type": "ui",
    "notes": ""
   },
   {
@@ -288,57 +428,85 @@
    "notes": ""
   },
   {
+   "id": "dinosauri-tenue-sfondo",
+   "foreground": "#fefae0",
+   "background": "#161e0d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
    "id": "dinosauri-tenue-superficie",
    "foreground": "#fefae0",
    "background": "#606c38",
    "type": "text-normal",
-   "notes": "Data del reperto nel cartellino"
+   "notes": ""
   },
   {
-   "id": "dinosauri-testo-profondo",
+   "id": "dinosauri-link-sfondo",
    "foreground": "#fefae0",
-   "background": "#283618",
+   "background": "#161e0d",
    "type": "text-normal",
    "notes": ""
   },
   {
    "id": "dinosauri-link-profondo",
-   "foreground": "#dda15e",
-   "background": "#283618",
+   "foreground": "#fefae0",
+   "background": "#0e1409",
    "type": "text-normal",
    "notes": ""
   },
   {
+   "id": "dinosauri-visitato-sfondo",
+   "foreground": "#c27a29",
+   "background": "#161e0d",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-visitato-profondo",
+   "foreground": "#c27a29",
+   "background": "#0e1409",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-link-vs-visitato",
+   "foreground": "#fefae0",
+   "background": "#c27a29",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
    "id": "dinosauri-accento-sfondo",
    "foreground": "#dda15e",
-   "background": "#283618",
-   "type": "graphic",
-   "notes": "Bordo superiore dei cartellini e note"
-  },
-  {
-   "id": "dinosauri-bottone",
-   "foreground": "#283618",
-   "background": "#fefae0",
-   "type": "text-normal",
-   "notes": "Testo del bottone pieno"
-  },
-  {
-   "id": "dinosauri-campo",
-   "foreground": "#283618",
-   "background": "#fefae0",
-   "type": "text-normal",
-   "notes": "Testo dentro i campi"
-  },
-  {
-   "id": "dinosauri-campo-bordo",
-   "foreground": "#fefae0",
-   "background": "#283618",
+   "background": "#161e0d",
    "type": "ui",
-   "notes": "Campo chiaro su fondo scuro"
+   "notes": ""
+  },
+  {
+   "id": "dinosauri-bottone-testo",
+   "foreground": "#161e0d",
+   "background": "#fefae0",
+   "type": "text-normal",
+   "notes": ""
   },
   {
    "id": "glaciale-testo-sfondo",
-   "foreground": "#dcedf6",
+   "foreground": "#ecf5fa",
+   "background": "#131d22",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-testo-profondo",
+   "foreground": "#ecf5fa",
+   "background": "#0c1316",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-testo-superficie",
+   "foreground": "#ecf5fa",
    "background": "#243640",
    "type": "text-normal",
    "notes": ""
@@ -346,28 +514,7 @@
   {
    "id": "glaciale-tenue-sfondo",
    "foreground": "#a5d6f1",
-   "background": "#243640",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "glaciale-link-sfondo",
-   "foreground": "#88ccf1",
-   "background": "#243640",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "glaciale-focus-sfondo",
-   "foreground": "#dcedf6",
-   "background": "#243640",
-   "type": "ui",
-   "notes": ""
-  },
-  {
-   "id": "glaciale-testo-superficie",
-   "foreground": "#dcedf6",
-   "background": "#243640",
+   "background": "#131d22",
    "type": "text-normal",
    "notes": ""
   },
@@ -376,53 +523,74 @@
    "foreground": "#a5d6f1",
    "background": "#243640",
    "type": "text-normal",
-   "notes": "Data del reperto nel cartellino"
+   "notes": ""
   },
   {
-   "id": "glaciale-testo-profondo",
-   "foreground": "#dcedf6",
-   "background": "#243640",
+   "id": "glaciale-link-sfondo",
+   "foreground": "#ecf5fa",
+   "background": "#131d22",
    "type": "text-normal",
    "notes": ""
   },
   {
    "id": "glaciale-link-profondo",
-   "foreground": "#88ccf1",
-   "background": "#243640",
+   "foreground": "#ecf5fa",
+   "background": "#0c1316",
    "type": "text-normal",
    "notes": ""
   },
   {
+   "id": "glaciale-visitato-sfondo",
+   "foreground": "#1990d0",
+   "background": "#131d22",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-visitato-profondo",
+   "foreground": "#1990d0",
+   "background": "#0c1316",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "glaciale-link-vs-visitato",
+   "foreground": "#ecf5fa",
+   "background": "#1990d0",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
    "id": "glaciale-accento-sfondo",
    "foreground": "#88ccf1",
-   "background": "#243640",
-   "type": "graphic",
-   "notes": "Bordo superiore dei cartellini e note"
-  },
-  {
-   "id": "glaciale-bottone",
-   "foreground": "#243640",
-   "background": "#dcedf6",
-   "type": "text-normal",
-   "notes": "Testo del bottone pieno"
-  },
-  {
-   "id": "glaciale-campo",
-   "foreground": "#243640",
-   "background": "#dcedf6",
-   "type": "text-normal",
-   "notes": "Testo dentro i campi"
-  },
-  {
-   "id": "glaciale-campo-bordo",
-   "foreground": "#dcedf6",
-   "background": "#243640",
+   "background": "#131d22",
    "type": "ui",
-   "notes": "Campo chiaro su fondo scuro"
+   "notes": ""
+  },
+  {
+   "id": "glaciale-bottone-testo",
+   "foreground": "#131d22",
+   "background": "#ecf5fa",
+   "type": "text-normal",
+   "notes": ""
   },
   {
    "id": "atlantide-testo-sfondo",
-   "foreground": "#d9ed92",
+   "foreground": "#eff8d2",
+   "background": "#091d2b",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-testo-profondo",
+   "foreground": "#eff8d2",
+   "background": "#06141e",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-testo-superficie",
+   "foreground": "#eff8d2",
    "background": "#184e77",
    "type": "text-normal",
    "notes": ""
@@ -430,28 +598,7 @@
   {
    "id": "atlantide-tenue-sfondo",
    "foreground": "#b5e48c",
-   "background": "#184e77",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "atlantide-link-sfondo",
-   "foreground": "#d9ed92",
-   "background": "#184e77",
-   "type": "text-normal",
-   "notes": ""
-  },
-  {
-   "id": "atlantide-focus-sfondo",
-   "foreground": "#d9ed92",
-   "background": "#184e77",
-   "type": "ui",
-   "notes": ""
-  },
-  {
-   "id": "atlantide-testo-superficie",
-   "foreground": "#d9ed92",
-   "background": "#184e77",
+   "background": "#091d2b",
    "type": "text-normal",
    "notes": ""
   },
@@ -460,49 +607,56 @@
    "foreground": "#b5e48c",
    "background": "#184e77",
    "type": "text-normal",
-   "notes": "Data del reperto nel cartellino"
+   "notes": ""
   },
   {
-   "id": "atlantide-testo-profondo",
-   "foreground": "#d9ed92",
-   "background": "#184e77",
+   "id": "atlantide-link-sfondo",
+   "foreground": "#eff8d2",
+   "background": "#091d2b",
    "type": "text-normal",
    "notes": ""
   },
   {
    "id": "atlantide-link-profondo",
-   "foreground": "#d9ed92",
-   "background": "#184e77",
+   "foreground": "#eff8d2",
+   "background": "#06141e",
    "type": "text-normal",
    "notes": ""
   },
   {
+   "id": "atlantide-visitato-sfondo",
+   "foreground": "#40977e",
+   "background": "#091d2b",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-visitato-profondo",
+   "foreground": "#40977e",
+   "background": "#06141e",
+   "type": "text-normal",
+   "notes": ""
+  },
+  {
+   "id": "atlantide-link-vs-visitato",
+   "foreground": "#eff8d2",
+   "background": "#40977e",
+   "type": "ui",
+   "notes": "link visitato contro non visitato: soglia 3:1"
+  },
+  {
    "id": "atlantide-accento-sfondo",
    "foreground": "#52b69a",
-   "background": "#184e77",
-   "type": "graphic",
-   "notes": "Bordo superiore dei cartellini e note"
-  },
-  {
-   "id": "atlantide-bottone",
-   "foreground": "#184e77",
-   "background": "#d9ed92",
-   "type": "text-normal",
-   "notes": "Testo del bottone pieno"
-  },
-  {
-   "id": "atlantide-campo",
-   "foreground": "#184e77",
-   "background": "#d9ed92",
-   "type": "text-normal",
-   "notes": "Testo dentro i campi"
-  },
-  {
-   "id": "atlantide-campo-bordo",
-   "foreground": "#d9ed92",
-   "background": "#184e77",
+   "background": "#091d2b",
    "type": "ui",
-   "notes": "Campo chiaro su fondo scuro"
+   "notes": ""
+  },
+  {
+   "id": "atlantide-bottone-testo",
+   "foreground": "#091d2b",
+   "background": "#eff8d2",
+   "type": "text-normal",
+   "notes": ""
   }
  ]
 }

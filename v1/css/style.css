@@ -49,6 +49,13 @@ a {
 }
 a:hover { text-decoration-thickness: 2px; }
 
+/* Link visitati: un colore diverso, con almeno 3:1 di contrasto rispetto ai non visitati, ed entrambi
+   almeno 4.5:1 sul fondo (coppie in docs/contrasto.json). --link-visitato è definito da ogni tema:
+   dove manca resta il colore dei non visitati. Bottoni, logo e link «vai al contenuto» non cambiano; il menu principale
+   ha una regola più avanti (layout.css) che lo esclude: lì lo stato visitato non aiuta a orientarsi. */
+a:not(.bottone, .marchio, .salta):visited { color: var(--link-visitato, var(--link)); }
+
+
 /* Niente ritardo del doppio tocco sui comandi */
 a, button, label, input, select, textarea { touch-action: manipulation; }
 
@@ -207,4 +214,27 @@ td.numero, th.numero { text-align: right; padding-right: 0; }
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* --- Stampa: solo il contenuto, nero su bianco, con gli indirizzi dei link esterni ------- */
+
+@media print {
+    * {
+        --sfondo: #ffffff !important;
+        --superficie: #ffffff !important;
+        --testo: #000000 !important;
+        --testo-tenue: #000000 !important;
+        --link: #000000 !important;
+        --accento: #000000 !important;
+        --bordo: #000000 !important;
+        animation: none !important;
+        transition: none !important;
+    }
+    body { background: #ffffff; color: #000000; font-size: 12pt; }
+    .salta, .apri-menu, .menu, .v2-testata-azioni, .v2-menu, .cambia-schema, [data-pausa], form,
+    .ingresso-scena, .v2-puntini-scena, .sfondo-mostra, .piede form, .v2-piede form { display: none !important; }
+    .js [data-rivela], .js [data-rivela-gruppo] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+    a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 10pt; }
+    h1, h2, h3 { break-after: avoid; }
+    section, li, tr, figure { break-inside: avoid; }
 }

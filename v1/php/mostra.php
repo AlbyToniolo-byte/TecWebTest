@@ -28,10 +28,11 @@ $prodotti = query('SELECT nome, prezzo FROM prodotti WHERE mostra_id = :id ORDER
 
 pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tema'], true, SCRIPT_SCORRIMENTO);
 ?>
-<div class="sfondo-mostra"><img src="<?= e(asset($mostra['immagine'])) ?>" alt="" width="1600" height="1000" fetchpriority="high"></div>
+<div class="sfondo-mostra"><img src="<?= e(asset($mostra['immagine'])) ?>" alt="" width="1600" height="1000" fetchpriority="high" /></div>
 
 <header class="apertura">
     <div class="contenitore">
+        <?php briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $mostra['titolo']]]); ?>
         <?php if ($mostra['speciale']): ?>
             <p class="etichetta-speciale">Installazione speciale fino al <?= e(data_estesa($mostra['data_fine'], true)) ?></p>
         <?php endif; ?>
@@ -53,7 +54,7 @@ pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tem
 
         <div class="sezioni-mostra">
             <?php foreach ($sezioni as $s): ?>
-                <section class="sezione-mostra" data-rivela>
+                <section class="sezione-mostra" data-rivela="">
                     <h2><?= e($s['titolo']) ?></h2>
                     <p><?= e($s['testo']) ?></p>
                 </section>
@@ -63,7 +64,7 @@ pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tem
         <?php if ($reperti): ?>
             <section aria-labelledby="titolo-reperti">
                 <h2 id="titolo-reperti">Da non perdere</h2>
-                <ul class="cartellini" data-rivela-gruppo>
+                <ul class="cartellini" data-rivela-gruppo="">
                     <?php foreach ($reperti as $r): ?>
                         <li class="cartellino">
                             <h3><?= e($r['nome']) ?></h3>

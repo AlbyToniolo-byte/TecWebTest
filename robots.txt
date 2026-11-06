@@ -1,0 +1,11 @@
+# Kronos, Museo dei Mondi Perduti
+# Alla pubblicazione sostituire http://localhost:8000 con il dominio del sito.
+User-agent: *
+# pagine di servizio, senza contenuti da indicizzare
+Disallow: /v1/php/gestisci.php
+Disallow: /v2/php/gestisci.php
+Disallow: /v1/php/newsletter.php
+Disallow: /v2/php/newsletter.php
+
+Sitemap: http://localhost:8000/v1/sitemap.php
+Sitemap: http://localhost:8000/v2/sitemap.php

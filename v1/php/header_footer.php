@@ -11,8 +11,8 @@ const VOCI_MENU = [
 
 // Colore di fondo di ogni tema per <meta name="theme-color">: deve combaciare con --sfondo in css/themes.css
 const SFONDO_TEMA = [
-    'casa' => '#e5e5e5', 'neutro' => '#e5e5e5', 'celeste' => '#14213d', 'mitologia' => '#5e0b15',
-    'dinosauri' => '#283618', 'glaciale' => '#243640', 'atlantide' => '#184e77',
+    'casa' => '#e5e5e5', 'neutro' => '#e5e5e5', 'celeste' => '#14213d', 'mitologia' => '#3b070d',
+    'dinosauri' => '#161e0d', 'glaciale' => '#131d22', 'atlantide' => '#091d2b',
 ];
 
 // Sfera armillare del logo, la stessa della prima schermata della home.
@@ -48,35 +48,28 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     $classi = trim(($tema ? 'tema-' . $tema : 'tema-casa') . ($sopraImmagine ? ' sopra-immagine' : ''));
     ?>
 <!DOCTYPE html>
-<html lang="it">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= e($titolo) ?> | Kronos, Museo dei Mondi Perduti</title>
-    <meta name="description" content="<?= e($descrizione) ?>">
-    <meta name="theme-color" content="<?= e(SFONDO_TEMA[$tema ?? 'casa'] ?? SFONDO_TEMA['casa']) ?>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Marcellus&display=swap">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/themes.css">
-    <link rel="stylesheet" href="../css/animazioni.css">
-    <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
-    <!-- Prima del primo disegno: classe js (animazioni) e schema chiaro/scuro, senza lampi di colore sbagliato -->
-    <script>
-        document.documentElement.classList.add('js');
-        (function () {
-            var s = null;
-            try { s = localStorage.getItem('kronos-schema'); } catch (e) {}
-            document.documentElement.dataset.schema = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'scuro' : 'chiaro');
-        })();
-    </script>
-    <script src="../js/schema.js" defer></script>
-    <script src="../js/main.js" defer></script>
-    <script src="../js/validation.js" defer></script>
+    <meta name="description" content="<?= e($descrizione) ?>" />
+    <meta name="theme-color" content="<?= e(SFONDO_TEMA[$tema ?? 'casa'] ?? SFONDO_TEMA['casa']) ?>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Marcellus&amp;display=swap" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/themes.css" />
+    <link rel="stylesheet" href="../css/animazioni.css" />
+    <link rel="icon" href="../img/favicon.svg" type="image/svg+xml" />
+    <!-- Prima del primo disegno: classe js e schema chiaro/scuro (vedi js/avvio.js) -->
+    <script src="../js/avvio.js"></script>
+    <script src="../js/schema.js" defer="defer"></script>
+    <script src="../js/main.js" defer="defer"></script>
+    <script src="../js/validation.js" defer="defer"></script>
     <?php foreach ($script as $s): ?>
-    <script src="../js/<?= e($s) ?>" defer></script>
+    <script src="../js/<?= e($s) ?>" defer="defer"></script>
     <?php endforeach; ?>
 </head>
 <body class="<?= e($classi) ?>">
@@ -88,7 +81,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
             <span class="marchio-nome" translate="no">Kronos</span>
             <span class="marchio-sotto">Museo dei Mondi Perduti</span>
         </a>
-        <button class="apri-menu" type="button" aria-expanded="false" aria-controls="menu-principale" hidden>
+        <button class="apri-menu" type="button" aria-expanded="false" aria-controls="menu-principale" hidden="hidden">
             <span class="apri-menu-icona" aria-hidden="true"></span>Menu
         </button>
         <nav id="menu-principale" class="menu" aria-label="Principale">
@@ -96,7 +89,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
                 <?php foreach (VOCI_MENU as $chiave => [$href, $etichetta]): ?>
                     <li><a href="<?= e($href) ?>"<?= $chiave === $attiva ? ' aria-current="page"' : '' ?>><?= e($etichetta) ?></a></li>
                 <?php endforeach; ?>
-                <li><button class="bottone-testo cambia-schema" type="button" aria-pressed="false" data-cambia-schema hidden><svg class="icona-schema" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>Modalità notte</button></li>
+                <li><button class="bottone-testo cambia-schema" type="button" aria-pressed="false" data-cambia-schema="" hidden="hidden"><svg class="icona-schema" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>Modalità notte</button></li>
                 <li class="menu-prenota"><a class="bottone" href="visit.php#prenota">Prenota la visita</a></li>
             </ul>
         </nav>
@@ -120,7 +113,7 @@ function pagina_fine(): void
     <div class="piede-interno">
         <section class="piede-blocco" aria-labelledby="piede-dove">
             <h2 id="piede-dove">Dove siamo</h2>
-            <address>Kronos, Museo dei Mondi Perduti<br>Piazza Crono 1<br><a href="mailto:info@kronos-museo.it">info@kronos-museo.it</a></address>
+            <address>Kronos, Museo dei Mondi Perduti<br />Piazza Crono 1<br /><a href="mailto:info@kronos-museo.it">info@kronos-museo.it</a></address>
         </section>
         <section class="piede-blocco" aria-labelledby="piede-orari">
             <h2 id="piede-orari">Orari</h2>
@@ -136,15 +129,15 @@ function pagina_fine(): void
         <section class="piede-blocco" aria-labelledby="piede-news">
             <h2 id="piede-news">Newsletter</h2>
             <p>Una mail al mese con le nuove mostre e gli eventi.</p>
-            <form class="form-newsletter" action="newsletter.php" method="post" novalidate data-valida>
+            <form class="form-newsletter" action="newsletter.php" method="post" novalidate="novalidate" data-valida="">
                 <?= campo_csrf() ?>
-                <input type="hidden" name="torna" value="<?= e(basename($_SERVER['REQUEST_URI'] ?? 'index.php')) ?>">
+                <input type="hidden" name="torna" value="<?= e(basename($_SERVER['REQUEST_URI'] ?? 'index.php')) ?>" />
                 <label for="news-email">Indirizzo email</label>
                 <div class="riga-campo">
-                    <input type="email" spellcheck="false" id="news-email" name="email" autocomplete="email" required aria-required="true" aria-describedby="news-email-errore">
+                    <input type="email" spellcheck="false" id="news-email" name="email" autocomplete="email" required="required" aria-required="true" aria-describedby="news-email-errore" />
                     <button class="bottone" type="submit">Iscriviti</button>
                 </div>
-                <p class="errore" id="news-email-errore" hidden></p>
+                <p class="errore" id="news-email-errore" hidden="hidden"></p>
             </form>
         </section>
     </div>
@@ -160,8 +153,8 @@ function pagina_errore_db(Throwable $e): never
 {
     http_response_code(503);
     error_log('Kronos DB: ' . $e->getMessage());
-    echo '<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-        . '<title>Servizio non disponibile | Kronos</title><link rel="stylesheet" href="../css/style.css"></head>'
+    echo '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />'
+        . '<title>Servizio non disponibile | Kronos</title><link rel="stylesheet" href="../css/style.css" /></head>'
         . '<body class="tema-casa"><main class="pagina-stretta"><h1>Il sito non riesce a leggere i dati</h1>'
         . '<p>Il database non risponde. Controlla che PostgreSQL sia avviato e che php/config.php contenga le credenziali corrette, poi ricarica la pagina.</p>'
         . '</main></body></html>';

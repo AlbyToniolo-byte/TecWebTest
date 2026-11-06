@@ -109,10 +109,22 @@ INSERT INTO tipi_biglietto (nome, descrizione, prezzo, ordine) VALUES
 ('Ragazzi', 'Dai 6 ai 17 anni', 7.00, 3),
 ('Bambini', 'Fino a 5 anni', 0.00, 4);
 
-INSERT INTO livelli_membership (nome, prezzo, vantaggi, ordine) VALUES
-('Amico', 45.00, E'Ingresso illimitato per un anno\nSconto del 10% al bookshop\nNewsletter con le anteprime', 1),
-('Famiglia', 90.00, E'Ingresso illimitato per 2 adulti e fino a 3 ragazzi\nUn laboratorio gratuito a semestre\nSconto del 10% al bookshop', 2),
-('Mecenate', 250.00, E'Ingresso illimitato con un ospite\nInviti alle inaugurazioni\nVisita privata con un curatore\nSconto del 15% al bookshop', 3);
+INSERT INTO livelli_membership (nome, prezzo, ordine) VALUES
+('Amico', 45.00, 1),
+('Famiglia', 90.00, 2),
+('Mecenate', 250.00, 3);
+
+INSERT INTO vantaggi_membership (livello_id, testo, ordine) VALUES
+((SELECT id FROM livelli_membership WHERE nome='Amico'), 'Ingresso illimitato per un anno', 1),
+((SELECT id FROM livelli_membership WHERE nome='Amico'), 'Sconto del 10% al bookshop', 2),
+((SELECT id FROM livelli_membership WHERE nome='Amico'), 'Newsletter con le anteprime', 3),
+((SELECT id FROM livelli_membership WHERE nome='Famiglia'), 'Ingresso illimitato per 2 adulti e fino a 3 ragazzi', 1),
+((SELECT id FROM livelli_membership WHERE nome='Famiglia'), 'Un laboratorio gratuito a semestre', 2),
+((SELECT id FROM livelli_membership WHERE nome='Famiglia'), 'Sconto del 10% al bookshop', 3),
+((SELECT id FROM livelli_membership WHERE nome='Mecenate'), 'Ingresso illimitato con un ospite', 1),
+((SELECT id FROM livelli_membership WHERE nome='Mecenate'), 'Inviti alle inaugurazioni', 2),
+((SELECT id FROM livelli_membership WHERE nome='Mecenate'), 'Visita privata con un curatore', 3),
+((SELECT id FROM livelli_membership WHERE nome='Mecenate'), 'Sconto del 15% al bookshop', 4);
 
 INSERT INTO prodotti (mostra_id, nome, descrizione, categoria, prezzo, disponibili, immagine) VALUES
 ((SELECT id FROM mostre WHERE slug='dinosauri'), 'Kit di scavo del fossile', 'Un blocco di gesso con dentro la replica di un dente di T. rex, scalpello e pennello.', 'Bambini', 18.00, 40, 'img/prodotti/kit-scavo-fossile.svg'),

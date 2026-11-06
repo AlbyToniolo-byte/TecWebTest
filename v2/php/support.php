@@ -2,7 +2,12 @@
 require_once __DIR__ . '/funzioni.php';
 require_once __DIR__ . '/header_footer.php';
 
-$livelli = query('SELECT id, nome, prezzo, vantaggi FROM livelli_membership ORDER BY ordine');
+$livelli = query('SELECT id, nome, prezzo FROM livelli_membership ORDER BY ordine');
+// Vantaggi di ogni tessera, dalla loro tabella (un vantaggio per riga)
+$vantaggi = [];
+foreach (query('SELECT livello_id, testo FROM vantaggi_membership ORDER BY livello_id, ordine') as $r) {
+    $vantaggi[$r['livello_id']][] = $r['testo'];
+}
 $idValidi = array_column($livelli, 'nome', 'id');
 
 $errori = [];
@@ -37,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 pagina_inizio('Sostienici', 'Diventa socio di Kronos o sostieni il museo con una donazione.', 'support');
 ?>
 <div class="contenitore">
+    <?php briciole([[null, 'Sostienici']]); ?>
     <div class="intestazione-pagina">
         <h1>Sostieni Kronos</h1>
         <p class="introduzione">Kronos vive di biglietti, tessere e donazioni. Con una tessera entri tutte le volte che vuoi e ci aiuti a restaurare i reperti, a pagare le visite in LIS e i laboratori gratuiti per le scuole.</p>
@@ -45,21 +51,21 @@ pagina_inizio('Sostienici', 'Diventa socio di Kronos o sostieni il museo con una
     <section class="blocco-form" aria-labelledby="titolo-tessere">
         <h2 id="titolo-tessere">Diventa socio</h2>
         <?= riepilogo_errori($errori) ?>
-        <form action="support.php" method="post" novalidate data-valida>
+        <form action="support.php" method="post" novalidate="novalidate" data-valida="">
             <?= campo_csrf() ?>
             <fieldset<?= isset($errori['livello']) ? ' aria-describedby="livello-errore"' : '' ?>>
                 <legend>Tipo di tessera <span class="obbligatorio" aria-hidden="true">*</span></legend>
                 <div class="scelte">
                     <?php foreach ($livelli as $i => $l): $id = 'livello-' . $l['id']; ?>
                         <div class="scelta">
-                            <input type="radio" id="<?= $i === 0 ? 'livello' : e($id) ?>" name="livello" value="<?= (int) $l['id'] ?>" required
+                            <input type="radio" id="<?= $i === 0 ? 'livello' : e($id) ?>" name="livello" value="<?= (int) $l['id'] ?>" required="required"
                                    data-msg-vuoto="Scegli il tipo di tessera" aria-describedby="<?= e($id) ?>-vantaggi"
-                                   <?= (string) $l['id'] === $v['livello'] ? 'checked' : '' ?><?= isset($errori['livello']) ? ' aria-invalid="true"' : '' ?>>
+                                   <?= (string) $l['id'] === $v['livello'] ? ' checked="checked"' : '' ?><?= isset($errori['livello']) ? ' aria-invalid="true"' : '' ?> />
                             <div>
                                 <label for="<?= $i === 0 ? 'livello' : e($id) ?>"><?= e($l['nome']) ?>
                                     <span class="prezzo-livello"><?= e(prezzo($l['prezzo'])) ?> all'anno</span></label>
                                 <ul id="<?= e($id) ?>-vantaggi">
-                                    <?php foreach (explode("\n", $l['vantaggi']) as $vantaggio): ?>
+                                    <?php foreach ($vantaggi[$l['id']] ?? [] as $vantaggio): ?>
                                         <li><?= e($vantaggio) ?></li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -72,14 +78,14 @@ pagina_inizio('Sostienici', 'Diventa socio di Kronos o sostieni il museo con una
 
             <div class="campo">
                 <label for="nome">Nome e cognome <span class="obbligatorio" aria-hidden="true">*</span></label>
-                <input type="text" id="nome" name="nome" autocomplete="name" value="<?= e($v['nome']) ?>" required aria-required="true"
-                       data-msg-vuoto="Inserisci il tuo nome e cognome"<?= attr_campo('nome', $errori) ?>>
+                <input type="text" id="nome" name="nome" autocomplete="name" value="<?= e($v['nome']) ?>" required="required" aria-required="true"
+                       data-msg-vuoto="Inserisci il tuo nome e cognome"<?= attr_campo('nome', $errori) ?> />
                 <?= errore_campo('nome', $errori) ?>
             </div>
             <div class="campo">
                 <label for="email">Email <span class="obbligatorio" aria-hidden="true">*</span></label>
-                <input type="email" spellcheck="false" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required aria-required="true"
-                       data-msg-vuoto="Inserisci il tuo indirizzo email"<?= attr_campo('email', $errori) ?>>
+                <input type="email" spellcheck="false" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required="required" aria-required="true"
+                       data-msg-vuoto="Inserisci il tuo indirizzo email"<?= attr_campo('email', $errori) ?> />
                 <?= errore_campo('email', $errori) ?>
             </div>
             <button class="bottone" type="submit">Richiedi la tessera</button>

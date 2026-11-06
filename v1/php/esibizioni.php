@@ -21,6 +21,7 @@ $eventi = query($sql, $filtro ? ['s' => $filtro] : []);
 pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di visite guidate, laboratori e serate.', 'esibizioni');
 ?>
 <div class="contenitore">
+    <?php briciole([[null, 'Mostre ed eventi']]); ?>
     <div class="intestazione-pagina">
         <h1>Mostre ed eventi</h1>
         <p class="introduzione">Cinque mostre permanenti, disposte su quattro piani nell'ordine della discesa: dal cielo, in terrazza, fino al fondale di Atlantide, sotto il livello della strada.</p>
@@ -29,7 +30,7 @@ pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di
     <ul class="elenco-mostre">
         <?php foreach ($mostre as $m): ?>
             <li class="voce-mostra tema-<?= e($m['tema']) ?>">
-                <figure class="arco" data-rivela><img src="<?= e(asset($m['immagine'])) ?>" alt="" width="1600" height="1000" loading="lazy"></figure>
+                <figure class="arco" data-rivela=""><img src="<?= e(asset($m['immagine'])) ?>" alt="" width="1600" height="1000" loading="lazy" /></figure>
                 <div>
                     <?php if ($m['speciale']): ?>
                         <p class="etichetta-speciale">Installazione speciale fino al <?= e(data_estesa($m['data_fine'], true)) ?></p>
@@ -51,7 +52,7 @@ pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di
                 <select id="filtro-mostra" name="mostra">
                     <option value="">Tutte le mostre</option>
                     <?php foreach ($slugValidi as $s => $titolo): ?>
-                        <option value="<?= e($s) ?>"<?= $s === $filtro ? ' selected' : '' ?>><?= e($titolo) ?></option>
+                        <option value="<?= e($s) ?>"<?= $s === $filtro ? ' selected="selected"' : '' ?>><?= e($titolo) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

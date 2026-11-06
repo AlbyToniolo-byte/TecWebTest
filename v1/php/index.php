@@ -31,8 +31,8 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
             <p class="oggi"><?= e($oggi) ?></p>
         </div>
         <!-- Sfera armillare in 3D (js/armilla.js): decorativa, compare solo se WebGL funziona -->
-        <div class="ingresso-scena" hidden>
-            <button class="bottone-testo" type="button" data-ferma-sfera>Ferma l'animazione</button>
+        <div class="ingresso-scena" hidden="hidden">
+            <button class="bottone-testo" type="button" data-ferma-sfera="">Ferma l'animazione</button>
         </div>
     </div>
 </section>
@@ -40,7 +40,7 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
 <?php foreach ($mostre as $m): ?>
 <section id="mondo-<?= e($m['slug']) ?>" class="mondo" data-tema="<?= e($m['tema']) ?>" aria-labelledby="titolo-<?= e($m['slug']) ?>">
     <div class="contenitore mondo-interno">
-        <div data-rivela>
+        <div data-rivela="">
             <h2 id="titolo-<?= e($m['slug']) ?>"><?= e($m['titolo']) ?></h2>
             <p class="mondo-sottotitolo"><?= e($m['sottotitolo']) ?></p>
             <p><?= e($m['sommario']) ?></p>
@@ -53,8 +53,8 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
             <p class="mondo-dove"><?= e($m['collocazione']) ?></p>
             <a class="bottone" href="mostra.php?m=<?= e($m['slug']) ?>">Entra nella mostra<span class="visually-hidden"> <?= e($m['titolo']) ?></span></a>
         </div>
-        <figure class="arco" data-rivela>
-            <img src="<?= e(asset($m['immagine'])) ?>" alt="" width="1600" height="1000" loading="lazy">
+        <figure class="arco" data-rivela="">
+            <img src="<?= e(asset($m['immagine'])) ?>" alt="" width="1600" height="1000" loading="lazy" />
         </figure>
     </div>
 </section>

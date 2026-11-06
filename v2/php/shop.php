@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
                 $pdo->rollBack();
             } else {
                 $codice = codice_casuale();
-                $st = $pdo->prepare('INSERT INTO ordini (codice, nome, email, totale) VALUES (:c, :n, :e, :t) RETURNING id');
-                $st->execute(['c' => $codice, 'n' => $v['nome'], 'e' => $v['email'], 't' => $totale]);
+                $st = $pdo->prepare('INSERT INTO ordini (codice, nome, email) VALUES (:c, :n, :e) RETURNING id');
+                $st->execute(['c' => $codice, 'n' => $v['nome'], 'e' => $v['email']]);
                 $idOrdine = $st->fetchColumn();
                 $riga = $pdo->prepare('INSERT INTO ordini_righe VALUES (:o, :p, :q, :u)');
                 $scala = $pdo->prepare('UPDATE prodotti SET disponibili = disponibili - :q WHERE id = :p');
@@ -104,6 +104,7 @@ if ($carrello) {
 pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kronos, da ritirare al bookshop del museo.', 'shop');
 ?>
 <div class="contenitore">
+    <?php briciole([[null, 'Shop']]); ?>
     <div class="intestazione-pagina">
         <h1>Shop</h1>
         <p class="introduzione">Libri, riproduzioni e oggetti ispirati alle mostre. Ordini qui e ritiri al bookshop del museo, anche senza biglietto.</p>
@@ -126,8 +127,8 @@ pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kro
                             <td>
                                 <form action="shop.php" method="post">
                                     <?= campo_csrf() ?>
-                                    <input type="hidden" name="azione" value="rimuovi">
-                                    <input type="hidden" name="prodotto" value="<?= (int) $r['id'] ?>">
+                                    <input type="hidden" name="azione" value="rimuovi" />
+                                    <input type="hidden" name="prodotto" value="<?= (int) $r['id'] ?>" />
                                     <button class="bottone-testo" type="submit">Rimuovi<span class="visually-hidden"> <?= e($r['nome']) ?></span></button>
                                 </form>
                             </td>
@@ -141,19 +142,19 @@ pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kro
                 <h3>Conferma l'ordine</h3>
                 <p>Nessun pagamento online: paghi al ritiro, al bookshop del piano terra.</p>
                 <?= riepilogo_errori($errori) ?>
-                <form action="shop.php#carrello" method="post" novalidate data-valida>
+                <form action="shop.php#carrello" method="post" novalidate="novalidate" data-valida="">
                     <?= campo_csrf() ?>
-                    <input type="hidden" name="azione" value="ordina">
+                    <input type="hidden" name="azione" value="ordina" />
                     <div class="campo">
                         <label for="nome">Nome e cognome <span class="obbligatorio" aria-hidden="true">*</span></label>
-                        <input type="text" id="nome" name="nome" autocomplete="name" value="<?= e($v['nome']) ?>" required aria-required="true"
-                               data-msg-vuoto="Inserisci il tuo nome e cognome"<?= attr_campo('nome', $errori) ?>>
+                        <input type="text" id="nome" name="nome" autocomplete="name" value="<?= e($v['nome']) ?>" required="required" aria-required="true"
+                               data-msg-vuoto="Inserisci il tuo nome e cognome"<?= attr_campo('nome', $errori) ?> />
                         <?= errore_campo('nome', $errori) ?>
                     </div>
                     <div class="campo">
                         <label for="email">Email <span class="obbligatorio" aria-hidden="true">*</span></label>
-                        <input type="email" spellcheck="false" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required aria-required="true"
-                               data-msg-vuoto="Inserisci il tuo indirizzo email"<?= attr_campo('email', $errori) ?>>
+                        <input type="email" spellcheck="false" id="email" name="email" autocomplete="email" value="<?= e($v['email']) ?>" required="required" aria-required="true"
+                               data-msg-vuoto="Inserisci il tuo indirizzo email"<?= attr_campo('email', $errori) ?> />
                         <?= errore_campo('email', $errori) ?>
                     </div>
                     <button class="bottone" type="submit">Conferma l'ordine</button>
@@ -170,7 +171,7 @@ pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kro
                 <select id="categoria" name="categoria">
                     <option value="">Tutte le categorie</option>
                     <?php foreach ($categorie as $c): ?>
-                        <option<?= $c === $fCat ? ' selected' : '' ?>><?= e($c) ?></option>
+                        <option<?= $c === $fCat ? ' selected="selected"' : '' ?>><?= e($c) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -179,7 +180,7 @@ pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kro
                 <select id="mostra" name="mostra">
                     <option value="">Tutte le mostre</option>
                     <?php foreach ($mostre as $m): ?>
-                        <option value="<?= e($m['slug']) ?>"<?= $m['slug'] === $fMostra ? ' selected' : '' ?>><?= e($m['titolo']) ?></option>
+                        <option value="<?= e($m['slug']) ?>"<?= $m['slug'] === $fMostra ? ' selected="selected"' : '' ?>><?= e($m['titolo']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -194,18 +195,18 @@ pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kro
             <?php foreach ($prodotti as $p): $idq = 'quantita-' . $p['id']; ?>
                 <li class="prodotto">
                     <h3><?= e($p['nome']) ?></h3>
-                    <figure class="prodotto-immagine"><img src="<?= e(asset($p['immagine'])) ?>" alt="" width="800" height="600" loading="lazy"></figure>
+                    <figure class="prodotto-immagine"><img src="<?= e(asset($p['immagine'])) ?>" alt="" width="800" height="600" loading="lazy" /></figure>
                     <p class="prodotto-mostra"><?= e($p['categoria']) ?><?= $p['mostra'] ? ', dalla mostra ' . e($p['mostra']) : '' ?></p>
                     <p><?= e($p['descrizione']) ?></p>
                     <p class="prodotto-prezzo"><?= e(prezzo($p['prezzo'])) ?></p>
                     <?php if ($p['disponibili'] > 0): ?>
                         <form action="shop.php" method="post">
                             <?= campo_csrf() ?>
-                            <input type="hidden" name="azione" value="aggiungi">
-                            <input type="hidden" name="prodotto" value="<?= (int) $p['id'] ?>">
+                            <input type="hidden" name="azione" value="aggiungi" />
+                            <input type="hidden" name="prodotto" value="<?= (int) $p['id'] ?>" />
                             <div class="campo">
                                 <label for="<?= e($idq) ?>">Quantità<span class="visually-hidden"> di <?= e($p['nome']) ?></span></label>
-                                <input type="number" id="<?= e($idq) ?>" name="quantita" value="1" min="1" max="<?= min(10, (int) $p['disponibili']) ?>" inputmode="numeric">
+                                <input type="number" id="<?= e($idq) ?>" name="quantita" value="1" min="1" max="<?= min(10, (int) $p['disponibili']) ?>" inputmode="numeric" />
                             </div>
                             <button class="bottone" type="submit">Aggiungi al carrello<span class="visually-hidden"> <?= e($p['nome']) ?></span></button>
                         </form>
