@@ -536,3 +536,7 @@
 .briciole a { color: var(--link); }
 .briciole [aria-current="page"] { font-weight: 700; }
 .apertura .briciole ol { padding: 0 0 1.25rem; }
+
+/* Link per gestire i propri dati, nel piè di pagina */
+.piede-gestione { margin: 1rem 0 0; padding: 0; list-style: none; font-size: 1rem; }
+.piede-gestione li { margin-bottom: 0.35rem; }

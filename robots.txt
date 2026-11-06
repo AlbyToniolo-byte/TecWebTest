@@ -4,6 +4,8 @@ User-agent: *
 # pagine di servizio, senza contenuti da indicizzare
 Disallow: /v1/php/gestisci.php
 Disallow: /v2/php/gestisci.php
+Disallow: /v1/php/gestisci-tessera.php
+Disallow: /v2/php/gestisci-tessera.php
 Disallow: /v1/php/newsletter.php
 Disallow: /v2/php/newsletter.php
 

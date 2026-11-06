@@ -114,6 +114,11 @@ function pagina_fine(): void
         <section class="piede-blocco" aria-labelledby="piede-dove">
             <h2 id="piede-dove">Dove siamo</h2>
             <address>Kronos, Museo dei Mondi Perduti<br />Piazza Crono 1<br /><a href="mailto:info@kronos-museo.it">info@kronos-museo.it</a></address>
+            <ul class="piede-gestione">
+                <li><a href="gestisci.php">Gestisci la prenotazione</a></li>
+                <li><a href="gestisci-tessera.php">Gestisci la tessera</a></li>
+                <li><a href="gestisci.php#newsletter">Annulla l'iscrizione alla newsletter</a></li>
+            </ul>
         </section>
         <section class="piede-blocco" aria-labelledby="piede-orari">
             <h2 id="piede-orari">Orari</h2>

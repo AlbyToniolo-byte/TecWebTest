@@ -112,6 +112,7 @@ CREATE TABLE vantaggi_membership (
 
 CREATE TABLE richieste_membership (
     id         SERIAL PRIMARY KEY,
+    codice     VARCHAR(12)  NOT NULL UNIQUE,   -- con l'email, serve a modificare o annullare la richiesta
     livello_id INTEGER      NOT NULL REFERENCES livelli_membership(id),
     nome       VARCHAR(120) NOT NULL,
     email      VARCHAR(200) NOT NULL,

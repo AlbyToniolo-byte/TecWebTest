@@ -115,6 +115,11 @@ function pagina_fine(): void
                     <li><a href="<?= e($href) ?>"><?= e($etichetta) ?></a></li>
                 <?php endforeach; ?>
             </ul>
+            <ul class="v2-piede-link">
+                <li><a href="gestisci.php">Gestisci la prenotazione</a></li>
+                <li><a href="gestisci-tessera.php">Gestisci la tessera</a></li>
+                <li><a href="gestisci.php#newsletter">Annulla l'iscrizione alla newsletter</a></li>
+            </ul>
         </section>
         <section aria-labelledby="piede-orari">
             <h2 id="piede-orari">Orari</h2>
