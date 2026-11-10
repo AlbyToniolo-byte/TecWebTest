@@ -41,7 +41,8 @@ Su http://localhost:8000 una pagina rimanda alle due versioni: http://localhost:
 | `php/esibizioni.php` | Elenco delle mostre e calendario eventi (filtro per mostra) |
 | `php/mostra.php?m=<slug>` | Pagina di una mostra: l'immagine di apertura sfuma nel colore della mostra |
 | `php/visit.php` | Orari, biglietti, accessibilità e prenotazione |
-| `php/gestisci.php` | Modifica e cancellazione della prenotazione (con codice ed email), annullamento dell'iscrizione alla newsletter |
+| `php/gestisci.php` | Modifica e cancellazione della prenotazione (con codice ed email) |
+| `php/disiscrizione.php` | Annullamento dell'iscrizione alla newsletter (link sotto il modulo di iscrizione nel piè di pagina) |
 | `php/gestisci-tessera.php` | Modifica (tipo di tessera e nome) e annullamento della richiesta di tessera, con codice ed email |
 | `php/tessera.php` | Livelli, controlli e campi del modulo della tessera, comuni a `support.php` e `gestisci-tessera.php` |
 | `php/prenotazione.php` | Controlli, salvataggio e campi del modulo di prenotazione, comuni a `visit.php` e `gestisci.php` |

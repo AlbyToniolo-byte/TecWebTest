@@ -118,7 +118,6 @@ function pagina_fine(): void
             <ul class="v2-piede-link">
                 <li><a href="gestisci.php">Gestisci la prenotazione</a></li>
                 <li><a href="gestisci-tessera.php">Gestisci la tessera</a></li>
-                <li><a href="gestisci.php#newsletter">Annulla l'iscrizione alla newsletter</a></li>
             </ul>
         </section>
         <section aria-labelledby="piede-orari">
@@ -145,6 +144,7 @@ function pagina_fine(): void
                 </div>
                 <p class="errore" id="news-email-errore" hidden="hidden"></p>
             </form>
+            <p class="piede-annulla">Non vuoi più riceverla? <a href="disiscrizione.php">Annulla l'iscrizione</a></p>
         </section>
     </div>
     <p class="v2-piede-fondo">Kronos è un museo immaginario, progetto per il corso di Tecnologie Web. <a href="../../v1/">Vai alla prima versione del sito</a></p>

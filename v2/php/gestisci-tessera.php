@@ -79,6 +79,7 @@ pagina_inizio('Gestisci la tessera', 'Cambia il tipo di tessera richiesto o annu
         <?php if (!$richiesta): ?>
             <p class="introduzione">Inserisci il codice che hai ricevuto alla richiesta e l'email che hai indicato: potrai cambiare il tipo di tessera o il nome, oppure annullare la richiesta.</p>
         <?php endif; ?>
+        <p>Qui si gestisce la richiesta, finché la tessera non è attiva. Se l'hai già attivata e pagata in biglietteria, per disdirla scrivi a <a href="mailto:sostieni@kronos-museo.it">sostieni@kronos-museo.it</a>: ti rispondiamo entro tre giorni lavorativi.</p>
     </div>
 
     <?php if (!$richiesta): ?>
@@ -144,7 +145,7 @@ pagina_inizio('Gestisci la tessera', 'Cambia il tipo di tessera richiesto o annu
 
         <section class="blocco-form" aria-labelledby="titolo-annulla">
             <h2 id="titolo-annulla">Annulla</h2>
-            <p>Se non vuoi più la tessera, annulla la richiesta: i tuoi dati verranno cancellati.</p>
+            <p>Se non vuoi più la tessera, annulla la richiesta: i tuoi dati verranno cancellati. Per una tessera già attiva in biglietteria, vedi la nota in cima alla pagina.</p>
             <div class="azioni">
                 <form action="gestisci-tessera.php" method="post">
                     <?= campo_csrf() ?>

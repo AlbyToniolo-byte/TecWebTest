@@ -7,6 +7,8 @@ Disallow: /v2/php/gestisci.php
 Disallow: /v1/php/gestisci-tessera.php
 Disallow: /v2/php/gestisci-tessera.php
 Disallow: /v1/php/newsletter.php
+Disallow: /v1/php/disiscrizione.php
+Disallow: /v2/php/disiscrizione.php
 Disallow: /v2/php/newsletter.php
 
 Sitemap: http://localhost:8000/v1/sitemap.php

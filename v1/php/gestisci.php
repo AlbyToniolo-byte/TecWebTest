@@ -1,6 +1,5 @@
 <?php
-// Gestione dei dati inseriti dagli utenti: modifica e cancellazione della prenotazione,
-// annullamento dell'iscrizione alla newsletter.
+// Gestione della prenotazione: modifica e cancellazione.
 // La prenotazione si ritrova con codice ed email, inviati in POST (mai nell'indirizzo della pagina);
 // da lì in poi il suo id resta nella sessione, finché l'utente non esce o la cancella.
 require_once __DIR__ . '/funzioni.php';
@@ -76,7 +75,7 @@ if ($pren && !isset($v)) {
     }
 }
 
-pagina_inizio('Gestisci la prenotazione', 'Modifica o cancella la prenotazione della visita al museo Kronos, o annulla l\'iscrizione alla newsletter.', 'visit');
+pagina_inizio('Gestisci la prenotazione', 'Modifica o cancella la prenotazione della visita al museo Kronos.', 'visit');
 ?>
 <div class="contenitore">
     <?php briciole([['visit.php', 'Visita'], [null, 'Gestisci la prenotazione']]); ?>
@@ -170,21 +169,5 @@ pagina_inizio('Gestisci la prenotazione', 'Modifica o cancella la prenotazione d
         </section>
     <?php endif; ?>
 
-    <section id="newsletter" class="blocco-form" aria-labelledby="titolo-newsletter">
-        <h2 id="titolo-newsletter">Annulla l'iscrizione alla newsletter</h2>
-        <p>Inserisci l'indirizzo iscritto alla newsletter: smetterai di riceverla e l'indirizzo verrà cancellato dai nostri dati.</p>
-        <form action="newsletter.php" method="post" novalidate="novalidate" data-valida="">
-            <?= campo_csrf() ?>
-            <input type="hidden" name="azione" value="annulla" />
-            <input type="hidden" name="torna" value="gestisci.php" />
-            <div class="campo">
-                <label for="email-annulla">Indirizzo email <span class="obbligatorio" aria-hidden="true">*</span></label>
-                <input type="email" id="email-annulla" name="email" autocomplete="email" spellcheck="false" required="required" aria-required="true"
-                       data-msg-vuoto="Inserisci l'indirizzo email iscritto alla newsletter" aria-describedby="email-annulla-errore" />
-                <p class="errore" id="email-annulla-errore" hidden="hidden"></p>
-            </div>
-            <button class="bottone bottone-secondario" type="submit">Annulla l'iscrizione</button>
-        </form>
-    </section>
 </div>
 <?php pagina_fine();

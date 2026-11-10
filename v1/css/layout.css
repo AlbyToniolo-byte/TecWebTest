@@ -545,3 +545,4 @@
 /* Link per gestire i propri dati, nel piè di pagina */
 .piede-gestione { margin: 1rem 0 0; padding: 0; list-style: none; font-size: 1rem; }
 .piede-gestione li { margin-bottom: 0.35rem; }
+.piede-annulla { font-size: 1rem; margin: 0.75rem 0 0; }
