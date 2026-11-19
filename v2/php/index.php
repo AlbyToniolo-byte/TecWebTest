@@ -80,16 +80,6 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
     </div>
 </section>
 
-<section class="v2-puntini" aria-labelledby="titolo-percorso">
-    <div class="v2-puntini-fisso">
-        <div class="v2-puntini-scena" aria-hidden="true"></div>
-        <div class="v2-puntini-testo">
-            <h2 id="titolo-percorso">Dal cielo all'abisso,<br /><em>un solo</em> percorso.</h2>
-            <button class="bottone-testo v2-pausa" type="button" data-pausa="" hidden="hidden">Ferma le animazioni</button>
-        </div>
-    </div>
-</section>
-
 <section class="v2-sezione" aria-labelledby="titolo-mondi">
     <h2 id="titolo-mondi" class="visually-hidden">Le cinque mostre</h2>
     <ul class="v2-mondi">
@@ -151,6 +141,16 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
             <summary>Posso visitare solo lo shop?</summary>
             <p>Sì, il bookshop è aperto anche senza biglietto. Puoi ordinare online e ritirare in museo: <a href="shop.php">vai allo shop</a>.</p>
         </details>
+    </div>
+</section>
+
+<section class="v2-puntini" aria-labelledby="titolo-percorso">
+    <div class="v2-puntini-fisso">
+        <div class="v2-puntini-scena" aria-hidden="true"></div>
+        <div class="v2-puntini-testo">
+            <h2 id="titolo-percorso">Dal cielo all'abisso,<br /><em>un solo</em> percorso.</h2>
+            <button class="bottone-testo v2-pausa" type="button" data-pausa="" hidden="hidden">Ferma le animazioni</button>
+        </div>
     </div>
 </section>
 <?php pagina_fine();
