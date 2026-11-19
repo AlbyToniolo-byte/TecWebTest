@@ -343,7 +343,13 @@
 
 .v2-puntini { position: relative; }
 .v2-puntini-fisso { position: relative; display: grid; place-items: center; overflow: hidden; }
-.v2-puntini-scena { position: absolute; inset: 0; }
+/* in basso i puntini sfumano nello sfondo: nessun taglio netto prima delle domande */
+.v2-puntini-scena {
+    position: absolute;
+    inset: 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
 .v2-puntini-scena canvas { display: block; width: 100%; height: 100%; }
 .v2-puntini-testo { position: relative; padding: 8rem 1rem; text-align: center; }
 .v2-puntini-testo h2 { font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem); margin-inline: auto; }
