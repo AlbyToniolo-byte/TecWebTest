@@ -118,6 +118,16 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
     <p class="v2-titolo-centro"><a class="bottone bottone-secondario" href="esibizioni.php#eventi">Tutti gli eventi</a></p>
 </section>
 
+<section class="v2-puntini" aria-labelledby="titolo-percorso">
+    <div class="v2-puntini-fisso">
+        <div class="v2-puntini-scena" aria-hidden="true"></div>
+        <div class="v2-puntini-testo">
+            <h2 id="titolo-percorso">Dal cielo all'abisso,<br /><em>un solo</em> percorso.</h2>
+            <button class="bottone-testo v2-pausa" type="button" data-pausa="" hidden="hidden">Ferma le animazioni</button>
+        </div>
+    </div>
+</section>
+
 <section class="v2-sezione v2-domande" aria-labelledby="titolo-domande">
     <h2 id="titolo-domande">Le domande di chi viene<br />per la <em>prima</em> volta</h2>
     <div>
@@ -144,13 +154,4 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
     </div>
 </section>
 
-<section class="v2-puntini" aria-labelledby="titolo-percorso">
-    <div class="v2-puntini-fisso">
-        <div class="v2-puntini-scena" aria-hidden="true"></div>
-        <div class="v2-puntini-testo">
-            <h2 id="titolo-percorso">Dal cielo all'abisso,<br /><em>un solo</em> percorso.</h2>
-            <button class="bottone-testo v2-pausa" type="button" data-pausa="" hidden="hidden">Ferma le animazioni</button>
-        </div>
-    </div>
-</section>
 <?php pagina_fine();
