@@ -10,7 +10,7 @@ Sito in HTML, PHP e JavaScript senza framework, con database PostgreSQL.
 |---|---|
 | `v1/` | Prima versione: sfera armillare 3D, palette delle cinque mostre da `refs.md` |
 | `v2/` | Seconda versione, ispirata a miligram.pt: carta e inchiostro, macchina da scrivere, sfera di puntini 3D |
-| `v3/` | Terza versione, la definitiva: parte dalla seconda; il menu sta nella testata e diventa a schermo intero solo quando non c'è spazio |
+| `v3/` | Terza versione, la definitiva: parte dalla seconda; il menu sta nella testata e diventa a schermo intero solo quando non c'è spazio. Lo stile è nei file di base, senza un foglio che li sovrascrive |
 
 Ogni cartella contiene tutto il proprio codice (pagine PHP, CSS, JavaScript, immagini e librerie): si può modificare una versione senza toccare l'altra.
 In comune c'è solo il database, in `database/`: tutte le versioni leggono e scrivono gli stessi dati.
@@ -77,12 +77,10 @@ Solo in `v2/`:
 | `js/kronos2.js` | Menu a schermo intero, macchina da scrivere, pausa delle animazioni |
 | `js/puntini.js` | Sfera di puntini 3D che si apre scorrendo (Three.js + GSAP) |
 
-Solo in `v3/` (stessa struttura di `v2/`, con i file rinominati):
+In `v3/` non c'è un foglio di stile aggiuntivo: gli stessi file (`style.css`, `layout.css`, `themes.css`, `animazioni.css`, `main.js`) contengono direttamente lo stile e il comportamento della terza versione. In più:
 
 | Percorso | Contenuto |
 |---|---|
-| `css/kronos3.css` | Stile della terza versione, caricato dopo i fogli di base |
-| `js/kronos3.js` | Menu nella testata (a schermo intero quando le voci non ci stanno), macchina da scrivere, pausa delle animazioni |
 | `js/puntini.js` | Logo di puntini 3D che si apre in un alone scorrendo (Three.js + GSAP) |
 
 Fuori dalle versioni:

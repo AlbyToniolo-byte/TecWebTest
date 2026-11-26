@@ -1,4 +1,4 @@
-/* Kronos: animazioni.
+/* Kronos, terza versione: animazioni.
    Tutto è dentro prefers-reduced-motion: no-preference, quindi chi chiede meno movimento
    vede le pagine ferme. Gli stati si cambiano solo con classi (aggiunte da js/main.js).
    Gli elementi nascosti in attesa di comparire restano nell'albero di accessibilità:
@@ -11,30 +11,28 @@
 
 @media (prefers-reduced-motion: no-preference) {
 
-    /* --- Ingresso della home: l'unico momento orchestrato ---------------------- */
+    /* --- Home: il titolo entra, la parola in corsivo si riscrive (js/main.js) ------ */
 
-    .titolo-lettere span {
+    .v2-eroe .v2-riga { animation: emerge 1s var(--morbida) both; }
+    .v2-eroe .v2-rientro { animation-delay: 0.12s; }
+    .v2-eroe-testo { animation: emerge 1s var(--morbida) 0.3s both; }
+
+    /* Cursore della macchina da scrivere: solo se la parola cambia davvero */
+    .js .v2-macchina::after {
+        content: "";
         display: inline-block;
-        animation: lettera-sale 0.9s var(--molla) both;
+        width: 2px;
+        height: 0.95em;
+        margin-left: 0.06em;
+        vertical-align: -0.08em;
+        background: var(--testo);
+        animation: cursore 1s steps(1) infinite;
     }
-    .titolo-lettere span:nth-child(1) { animation-delay: 0.10s; }
-    .titolo-lettere span:nth-child(2) { animation-delay: 0.16s; }
-    .titolo-lettere span:nth-child(3) { animation-delay: 0.22s; }
-    .titolo-lettere span:nth-child(4) { animation-delay: 0.28s; }
-    .titolo-lettere span:nth-child(5) { animation-delay: 0.34s; }
-    .titolo-lettere span:nth-child(6) { animation-delay: 0.40s; }
+    .animazioni-ferme .v2-macchina::after { animation: none; }
 
-    .ingresso .introduzione,
-    .ingresso .azioni,
-    .ingresso nav,
-    .ingresso .oggi { animation: emerge 0.8s var(--morbida) both; }
-    .ingresso .introduzione { animation-delay: 0.55s; }
-    .ingresso .azioni       { animation-delay: 0.65s; }
-    .ingresso nav           { animation-delay: 0.75s; }
-    .ingresso .oggi         { animation-delay: 0.85s; }
-
-    /* La sfera armillare compare dal fondo */
-    .ingresso-scena canvas { animation: cielo-si-apre 2.4s var(--morbida) both; }
+    /* Le immagini della home si avvicinano appena al passaggio */
+    .v2-media img, .v2-vetrina img { transition: transform 1.2s var(--morbida); }
+    .v2-media:hover img, .v2-vetrina:hover img { transform: scale(1.04); }
 
     /* --- Apertura delle pagine mostra ------------------------------------------ */
 
@@ -56,7 +54,7 @@
     }
     .js [data-rivela].visibile { opacity: 1; transform: none; }
 
-    /* Le nicchie ad arco si riempiono dal basso, come una teca che si illumina */
+    /* Le immagini delle mostre si riempiono dal basso, come una teca che si illumina */
     .js .arco[data-rivela] {
         opacity: 1;
         transform: none;
@@ -85,9 +83,16 @@
 
     /* --- Risposte alle azioni ---------------------------------------------------- */
 
-    /* Logo: passandoci sopra (o con il focus) la sfera armillare gira, come nella home */
+    /* Logo: passandoci sopra (o con il focus) l'anello della sfera armillare gira */
     .marchio:hover .marchio-gira,
     .marchio:focus-visible .marchio-gira { animation: gira 2.4s ease-in-out infinite; }
+
+    /* Menu a schermo intero: le voci entrano una dopo l'altra */
+    .menu-compatto .v2-menu:not([hidden]) li { animation: emerge 0.6s var(--morbida) both; }
+    .menu-compatto .v2-menu:not([hidden]) li:nth-child(2) { animation-delay: 0.05s; }
+    .menu-compatto .v2-menu:not([hidden]) li:nth-child(3) { animation-delay: 0.10s; }
+    .menu-compatto .v2-menu:not([hidden]) li:nth-child(4) { animation-delay: 0.15s; }
+    .menu-compatto .v2-menu:not([hidden]) li:nth-child(5) { animation-delay: 0.20s; }
 
     /* Messaggio di conferma dopo un invio */
     .avviso-conferma { animation: cala 0.6s var(--molla) both; }
@@ -101,22 +106,13 @@
     /* Errori dei form: entrano scivolando, senza scuotere */
     .errore:not([hidden]), .riepilogo-errori { animation: emerge-breve 0.35s var(--morbida) both; }
 
-    /* Pannello del menu su schermi stretti */
-    @media (max-width: 56rem) {
-        .js .menu:not([hidden]) { animation: cala 0.45s var(--molla) both; }
-    }
-
     /* Bottoni e scelte rispondono alla pressione */
-    .bottone, .bottone-testo { transition: transform 0.15s var(--molla); }
+    .bottone-testo { transition: transform 0.15s var(--molla); }
     .bottone:active { transform: scale(0.96); }
     .scelta { transition: border-color 0.2s, box-shadow 0.3s var(--molla), transform 0.4s var(--molla); }
     .scelta:has(input:checked) { transform: translateY(-3px); }
 }
 
-@keyframes lettera-sale {
-    from { opacity: 0; transform: translateY(0.6em) rotate(6deg); }
-    to   { opacity: 1; transform: none; }
-}
 @keyframes emerge {
     from { opacity: 0; transform: translateY(1.5rem); }
     to   { opacity: 1; transform: none; }
@@ -125,16 +121,12 @@
     from { opacity: 0; transform: translateY(-0.4rem); }
     to   { opacity: 1; transform: none; }
 }
-@keyframes cielo-si-apre {
-    from { opacity: 0.2; transform: scale(1.08); }
-    to   { opacity: 1; transform: none; }
-}
 @keyframes cala {
     from { opacity: 0; transform: translateY(-0.75rem); }
     to   { opacity: 1; transform: none; }
 }
 @keyframes evidenzia {
-    from { background-color: rgb(252 163 17 / 0.45); }   /* arancione #fca311 */
+    from { background-color: rgb(46 92 79 / 0.3); }   /* verderame */
     to   { background-color: transparent; }
 }
 @keyframes gira {
@@ -142,4 +134,7 @@
 }
 @keyframes battito {
     50% { transform: scale(1.06); }
+}
+@keyframes cursore {
+    50% { opacity: 0; }
 }

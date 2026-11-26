@@ -17,7 +17,7 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
     'home', null, false, ['vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'puntini.js']);
 ?>
 
-<div class="contenitore"><?php briciole([]); ?></div>
+<div class="contenitore v2-briciole-home"><?php briciole([]); ?></div>
 
 <section class="v2-eroe" aria-labelledby="titolo-home">
     <h1 id="titolo-home">

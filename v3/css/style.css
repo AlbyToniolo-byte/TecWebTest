@@ -1,5 +1,12 @@
-/* Kronos: base, tipografia, controlli.
-   I colori arrivano da css/themes.css tramite variabili (--sfondo, --testo, ...). */
+/* Kronos, terza versione: base, tipografia, link, bottoni, form, tabelle, stampa.
+   Serif sottile (Fraunces) per i titoli con le parole chiave in corsivo, grottesco (Hanken Grotesk)
+   per il testo; bottoni a pillola. I colori arrivano da css/themes.css tramite variabili. */
+
+:root {
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Hanken Grotesk", system-ui, sans-serif;
+    --raggio: 1.25rem;   /* angoli morbidi di schede, immagini e riquadri */
+}
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -12,35 +19,45 @@ body {
     margin: 0;
     background: var(--sfondo);
     color: var(--testo);
-    font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
-    font-size: 1.125rem;
+    font-family: var(--sans);
+    font-size: 1.0625rem;
     line-height: 1.6;
     overflow-wrap: break-word;
 }
 
 img, svg { max-width: 100%; display: block; }
 
-/* Scala tipografica (Bringhurst): 18 · 24 · 30 · 36 · 48 · 72 · 96 */
-h1, h2, h3, .marchio-nome {
-    font-family: "Marcellus", "Times New Roman", serif;
-    font-weight: 400;
-    line-height: 1.1;
+/* --- Titoli -------------------------------------------------------------------- */
+
+h1, h2, h3 {
     margin: 0 0 0.5em;
     text-wrap: balance;
 }
-h1 { font-size: clamp(3rem, 2rem + 5vw, 6rem); letter-spacing: -0.01em; }
-h2 { font-size: clamp(2rem, 1.5rem + 2vw, 3rem); }
-h3 { font-size: 1.5rem; line-height: 1.25; }
+h1, h2, caption, .v2-piede-motto, .v2-menu a {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-variation-settings: "opsz" 144;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+}
+h1 { font-size: clamp(3.25rem, 1.5rem + 7vw, 7.5rem); }
+h2 { font-size: clamp(2.25rem, 1.4rem + 3.2vw, 4rem); }
+/* Titoli piccoli: grottesco, come le etichette di colonna */
+h3 { font-family: var(--sans); font-weight: 600; font-size: 1.125rem; letter-spacing: 0; line-height: 1.3; }
+/* La parola chiave di un titolo: corsivo e colore d'accento */
+h1 em, h2 em, .v2-piede-motto em { font-style: italic; color: var(--accento); }
 
 p, ul, ol, dl, address, table { margin: 0 0 1em; }
 address { font-style: normal; }
 p, li, dd { max-width: 65ch; }
 
 .introduzione {
-    font-size: 1.3125rem;
+    font-size: 1.25rem;
     line-height: 1.55;
     max-width: 52ch;
 }
+
+/* --- Link ------------------------------------------------------------------------ */
 
 a {
     color: var(--link);
@@ -50,11 +67,9 @@ a {
 a:hover { text-decoration-thickness: 2px; }
 
 /* Link visitati: un colore diverso, con almeno 3:1 di contrasto rispetto ai non visitati, ed entrambi
-   almeno 4.5:1 sul fondo (coppie in docs/contrasto.json). --link-visitato è definito da ogni tema:
-   dove manca resta il colore dei non visitati. Logo e link «vai al contenuto» non cambiano; bottoni e menu
-   hanno le loro regole per i visitati in kronos3.css. */
+   almeno 4.5:1 sul fondo (coppie in docs/contrasto.json). --link-visitato è definito in themes.css.
+   Logo e link «vai al contenuto» non cambiano; bottoni (qui sotto) e menu (layout.css) hanno regole proprie. */
 a:not(.bottone, .marchio, .salta):visited { color: var(--link-visitato, var(--link)); }
-
 
 /* Niente ritardo del doppio tocco sui comandi */
 a, button, label, input, select, textarea { touch-action: manipulation; }
@@ -92,24 +107,29 @@ main:focus { outline: none; }
 }
 .salta:focus { top: 1rem; }
 
-/* --- Bottoni ---------------------------------------------------------------- */
+/* --- Bottoni a pillola, con il testo in corsivo ------------------------------------ */
 
 .bottone {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
-    min-height: 2.75rem;
-    padding: 0.6rem 1.25rem;
-    border: 2px solid var(--bottone-sfondo);
-    border-radius: 4px;
+    min-height: 2.9rem;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--bottone-sfondo);
+    border-radius: 999px;
     background: var(--bottone-sfondo);
     color: var(--bottone-testo);
     font: inherit;
-    font-weight: 700;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
     line-height: 1.2;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.25s, color 0.25s;
 }
 /* Al passaggio il bottone si svuota: resta il bordo, il testo prende il colore del fondo pieno */
 .bottone:hover { background: transparent; color: var(--bottone-sfondo); }
@@ -120,6 +140,14 @@ main:focus { outline: none; }
     border-color: var(--testo);
 }
 .bottone-secondario:hover { background: var(--testo); color: var(--sfondo); }
+
+/* Bottoni-link già visitati: il verderame (--link-visitato) prende il posto dell'inchiostro, o della
+   carta sui fondi scuri, come per i link di testo. Contrasti: 3.2-3.3:1 dal bottone non visitato,
+   testo almeno 4.9:1 (docs/contrasto.json). :visited cambia solo i colori. */
+a.bottone:visited { background-color: var(--link-visitato); border-color: var(--link-visitato); }
+a.bottone:visited:hover { background-color: transparent; color: var(--link-visitato); }
+a.bottone-secondario:visited { background-color: transparent; color: var(--link-visitato); }
+a.bottone-secondario:visited:hover { background-color: var(--link-visitato); color: var(--sfondo); }
 
 .bottone-testo {
     border: 0;
@@ -153,13 +181,14 @@ input[type="number"], select, textarea {
     max-width: 28rem;
     min-height: 2.75rem;
     padding: 0.5rem 0.75rem;
-    border: 2px solid var(--bordo-campo);
-    border-radius: 4px;
+    border: 1px solid var(--bordo-campo);
+    border-radius: 0.6rem;
     background: var(--campo);
     color: var(--testo-campo);
     font: inherit;
 }
 input[type="number"] { max-width: 6rem; }
+/* Campo con errore: bordo più spesso, non solo di un altro colore */
 input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--errore); border-width: 3px; }
 
 input[type="radio"], input[type="checkbox"] {
@@ -196,14 +225,14 @@ input[type="radio"], input[type="checkbox"] {
     padding: 1rem clamp(1rem, 4vw, 3rem);
     background: var(--avviso-sfondo);
     color: var(--avviso-testo);
-    font-weight: 700;
+    font-weight: 600;
 }
 .avviso-conferma p { margin: 0 auto; max-width: 75rem; }
 
 /* --- Tabelle ---------------------------------------------------------------- */
 
 table { border-collapse: collapse; width: 100%; max-width: 40rem; }
-caption { text-align: left; font-family: "Marcellus", serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+caption { text-align: left; font-size: 1.5rem; margin-bottom: 0.5rem; }
 th, td { text-align: left; padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--bordo); vertical-align: top; }
 thead th { border-bottom-width: 2px; }
 td.numero, th.numero { text-align: right; padding-right: 0; }
@@ -231,8 +260,8 @@ td.numero, th.numero { text-align: right; padding-right: 0; }
         transition: none !important;
     }
     body { background: #ffffff; color: #000000; font-size: 12pt; }
-    .salta, .apri-menu, .menu, .v2-testata-azioni, .v2-menu, .cambia-schema, [data-pausa], form,
-    .ingresso-scena, .v2-puntini-scena, .sfondo-mostra, .piede form, .v2-piede form { display: none !important; }
+    .salta, .v2-testata-azioni, .v2-menu, .cambia-schema, [data-pausa], form,
+    .v2-puntini-scena, .sfondo-mostra, .v2-piede form { display: none !important; }
     .js [data-rivela], .js [data-rivela-gruppo] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; }
     a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 10pt; }
     h1, h2, h3 { break-after: avoid; }

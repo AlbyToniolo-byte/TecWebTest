@@ -1,5 +1,5 @@
 // Effetti legati allo scorrimento, con GSAP e ScrollTrigger (in js/vendor/).
-// Caricato solo dalla home e dalle pagine mostra (vedi SCRIPT_SCORRIMENTO in php/header_footer.php).
+// Caricato solo dalle pagine mostra (vedi SCRIPT_SCORRIMENTO in php/header_footer.php).
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,25 +13,3 @@ if (document.querySelector('.sfondo-mostra')) {
         scrollTrigger: { start: 0, end: () => window.innerHeight * 0.9, scrub: true },
     });
 }
-
-gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    // Home: scendendo, il titolo si allontana verso l'alto
-    const ingresso = document.querySelector('.ingresso-testo');
-    if (ingresso) {
-        gsap.to(ingresso, {
-            yPercent: -18,
-            opacity: 0,
-            ease: 'none',
-            scrollTrigger: { trigger: '.ingresso', start: 'top top', end: 'bottom top', scrub: true },
-        });
-    }
-
-    // Home: le nicchie ad arco salgono un po' più lente del testo, come se fossero più lontane
-    gsap.utils.toArray('.mondo .arco').forEach((arco) => {
-        gsap.fromTo(arco, { y: 60 }, {
-            y: -60,
-            ease: 'none',
-            scrollTrigger: { trigger: arco.closest('.mondo'), start: 'top bottom', end: 'bottom top', scrub: true },
-        });
-    });
-});

@@ -1,128 +1,101 @@
-/* Palette di Kronos e delle cinque mostre: solo i colori di refs.md.
-   Ogni classe .tema-* può stare sul <body> o su una singola sezione.
-   Le coppie testo/sfondo sono verificate in docs/contrasto.json.
-   Dove nessun colore della palette regge il contrasto come superficie,
-   --superficie e --sfondo-profondo coincidono con --sfondo. */
+/* Kronos, terza versione: colori.
+   Carta chiara, inchiostro e un solo accento, il verderame; nelle pagine di una mostra l'accento
+   prende il colore di quella mostra (i toni scuri di refs.md di giorno, quelli chiari di notte).
+   Tutti i colori passano per variabili (--sfondo, --testo, --link, ...) usate dagli altri fogli.
+   La classe .v2 è sul <body> di ogni pagina (vedi php/header_footer.php), .tema-<mostra> sul <body>
+   delle pagine mostra e sulle schede delle mostre nella home.
+   Contrasti: inchiostro/carta 17:1, verderame/carta 6,9:1, verderame chiaro/inchiostro 9,5:1;
+   gli accenti delle mostre sono sopra 5:1 sulla carta. Coppie verificate in docs/contrasto.json. */
 
-/* Pagine generali (Visita, Shop, ...): colori del Mondo Celeste su fondo chiaro.
-   Gli errori usano il bordeaux della Mitologia. */
-.tema-casa {
-    --sfondo: #e5e5e5;
+:root {
+    --carta: #f4f4f2;
+    --inchiostro: #161616;
+    --verderame: #2e5c4f;        /* la patina del bronzo antico */
+    --verderame-chiaro: #9cc5b5; /* lo stesso, per i fondi scuri */
+}
+
+/* --- Giorno ----------------------------------------------------------------------- */
+
+.v2, .v2 [class*="tema-"] {
+    --sfondo: var(--carta);
+    --sfondo-profondo: var(--carta);
     --superficie: #ffffff;
-    --testo: #14213d;
-    --testo-tenue: #14213d;
-    --link: #14213d;
-    --accento: #fca311;
-    --bordo: #14213d;
-    --focus: #14213d;
-    --bottone-sfondo: #14213d;
-    --bottone-testo: #ffffff;
+    --testo: var(--inchiostro);
+    --testo-tenue: var(--inchiostro);
+    --link: var(--inchiostro);
+    --link-visitato: #3a7463;    /* verderame medio: 3.3:1 dall'inchiostro, 4.9:1 sulla carta */
+    --accento: var(--verderame);
+    --bordo: rgb(22 22 22 / 0.18);
+    --focus: var(--inchiostro);
+    --bottone-sfondo: var(--inchiostro);
+    --bottone-testo: var(--carta);
     --campo: #ffffff;
-    --testo-campo: #14213d;
-    --bordo-campo: #14213d;
+    --testo-campo: var(--inchiostro);
+    --bordo-campo: var(--inchiostro);
     --errore: #5e0b15;
-    --avviso-sfondo: #14213d;
+    --avviso-sfondo: var(--verderame);
     --avviso-testo: #ffffff;
 }
+.v2.tema-celeste, .v2 .tema-celeste { --accento: #14213d; }
+.v2.tema-mitologia, .v2 .tema-mitologia { --accento: #5e0b15; }
+.v2.tema-dinosauri, .v2 .tema-dinosauri { --accento: #606c38; }
+.v2.tema-glaciale, .v2 .tema-glaciale { --accento: #243640; }
+.v2.tema-atlantide, .v2 .tema-atlantide { --accento: #184e77; }
 
-/* Mondo Celeste: nero, blu scuro, arancione, grigio, bianco */
-.tema-celeste {
-    --sfondo: #14213d;
-    --sfondo-profondo: #000000;
-    --superficie: #000000;
-    --testo: #ffffff;
-    --testo-tenue: #e5e5e5;
-    --link: #fca311;
-    --accento: #fca311;
-    --bordo: #e5e5e5;
+/* Le schede a tema dentro la home riprendono il colore del testo dalle variabili */
+[class*="tema-"] { color: var(--testo); }
+
+/* --- Notte (js/schema.js imposta <html data-schema="scuro">) -------------------------
+   Fondo quasi nero, testo carta; gli accenti delle mostre passano ai toni chiari delle stesse
+   palette di refs.md, tutti sopra 7:1 sul fondo. */
+[data-schema="scuro"] .v2, [data-schema="scuro"] .v2 [class*="tema-"] {
+    --sfondo: #101010;
+    --sfondo-profondo: #101010;
+    --superficie: #1c1c1c;
+    --testo: var(--carta);
+    --testo-tenue: var(--carta);
+    --link: var(--carta);
+    --link-visitato: #4b9680;
+    --accento: var(--verderame-chiaro);
+    --bordo: rgb(244 244 242 / 0.22);
+    --focus: var(--carta);
+    --bottone-sfondo: var(--carta);
+    --bottone-testo: var(--inchiostro);
+    --campo: #1c1c1c;
+    --testo-campo: var(--carta);
+    --bordo-campo: var(--carta);
+    --errore: var(--carta);
+    --avviso-sfondo: var(--verderame-chiaro);
+    --avviso-testo: var(--inchiostro);
 }
+[data-schema="scuro"] .v2.tema-celeste, [data-schema="scuro"] .v2 .tema-celeste { --accento: #fca311; }
+[data-schema="scuro"] .v2.tema-mitologia, [data-schema="scuro"] .v2 .tema-mitologia { --accento: #d9cab3; }
+[data-schema="scuro"] .v2.tema-dinosauri, [data-schema="scuro"] .v2 .tema-dinosauri { --accento: #dda15e; }
+[data-schema="scuro"] .v2.tema-glaciale, [data-schema="scuro"] .v2 .tema-glaciale { --accento: #88ccf1; }
+[data-schema="scuro"] .v2.tema-atlantide, [data-schema="scuro"] .v2 .tema-atlantide { --accento: #d9ed92; }
 
-/* Mitologia: bordeaux, rosa scuro, beige, bronzo, tortora */
-.tema-mitologia {
-    --sfondo: #5e0b15;
-    --sfondo-profondo: #90323d;
-    --superficie: #90323d;
-    --testo: #d9cab3;
-    --testo-tenue: #d9cab3;
-    --link: #d9cab3;
-    --accento: #bc8034;
-    --bordo: #8c7a6b;
-}
+/* Barre di scorrimento e controlli nativi dello stesso schema della pagina */
+:root:not([data-schema="scuro"]):has(> body.v2) { color-scheme: light; }
+:root[data-schema="scuro"] { color-scheme: dark; }
 
-/* Dinosauri: foresta negra, verde oliva, ossa, caramello, rame */
-.tema-dinosauri {
-    --sfondo: #283618;
-    --sfondo-profondo: #283618;
-    --superficie: #606c38;
-    --testo: #fefae0;
-    --testo-tenue: #fefae0;
-    --link: #dda15e;
-    --accento: #dda15e;
-    --bordo: #bc6c25;
-}
+/* --- Fasce scure: gli stessi due colori invertiti ---------------------------------- */
 
-/* Era glaciale: jet black, blu, baby blue, icy blue, azzurro chiaro */
-.tema-glaciale {
-    --sfondo: #243640;
-    --sfondo-profondo: #243640;
-    --superficie: #243640;
-    --testo: #dcedf6;
-    --testo-tenue: #a5d6f1;
-    --link: #88ccf1;
-    --accento: #88ccf1;
-    --bordo: #557e96;
-}
-
-/* Atlantide: avocado, avocado maturo, verde acqua, teal, bonnie blue, blu */
-.tema-atlantide {
-    --sfondo: #184e77;
-    --sfondo-profondo: #184e77;
-    --superficie: #184e77;
-    --testo: #d9ed92;
-    --testo-tenue: #b5e48c;
-    --link: #d9ed92;
-    --accento: #52b69a;
-    --bordo: #52b69a;
-}
-
-/* Temi scuri: barre di scorrimento e controlli nativi scuri */
-:root:has(> body:not(.tema-casa, .tema-neutro)) { color-scheme: dark; }
-
-/* Home: solo due colori neutri, grigio chiaro e nero, che non appartengono a nessun mondo */
-.tema-neutro {
-    --sfondo: #e5e5e5;
-    --sfondo-profondo: #e5e5e5;
-    --superficie: #e5e5e5;
-    --testo: #000000;
-    --testo-tenue: #000000;
-    --link: #000000;
-    --accento: #000000;
-    --bordo: #000000;
-    --focus: #000000;
-    --bottone-sfondo: #000000;
-    --bottone-testo: #e5e5e5;
-    --campo: #e5e5e5;
-    --testo-campo: #000000;
-    --bordo-campo: #000000;
-    --errore: #000000;
-    --avviso-sfondo: #000000;
-    --avviso-testo: #e5e5e5;
-}
-
-/* Valori comuni ai temi scuri: bottoni e campi usano il colore del testo come fondo */
-.tema-celeste, .tema-mitologia, .tema-dinosauri, .tema-glaciale, .tema-atlantide {
-    --focus: var(--testo);
-    --bottone-sfondo: var(--testo);
-    --bottone-testo: var(--sfondo);
-    --campo: var(--testo);
-    --testo-campo: var(--sfondo);
-    --bordo-campo: var(--testo);
-    --errore: var(--testo);
-    --avviso-sfondo: var(--testo);
-    --avviso-testo: var(--sfondo);
-}
-
-/* Le sezioni a tema dentro pagine chiare (home, elenchi) ridefiniscono anche i colori di base */
-[class*="tema-"] {
+.v2 .v2-scuro {
+    --sfondo: var(--inchiostro);
+    --superficie: var(--inchiostro);
+    --testo: var(--carta);
+    --testo-tenue: var(--carta);
+    --link: var(--carta);
+    --link-visitato: #4b9680;    /* 3.2:1 dalla carta, 5.2:1 sul fondo */
+    --accento: var(--verderame-chiaro);
+    --bordo: rgb(244 244 242 / 0.25);
+    --focus: var(--carta);
+    --bottone-sfondo: var(--carta);
+    --bottone-testo: var(--inchiostro);
+    --campo: var(--inchiostro);
+    --testo-campo: var(--carta);
+    --bordo-campo: var(--carta);
+    --errore: var(--carta);
+    background: var(--sfondo);
     color: var(--testo);
 }

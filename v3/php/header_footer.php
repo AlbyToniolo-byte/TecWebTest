@@ -1,6 +1,6 @@
 <?php
 // Testata e piè di pagina della terza versione, che parte dalla seconda (ispirata a miligram.pt).
-// Lo stile è in css/kronos3.css (caricato dopo i fogli di base), il menu in js/kronos3.js.
+// Lo stile è in css/ (style, layout, themes, animazioni), il comportamento in js/main.js.
 
 const VOCI_MENU = [
     'esibizioni' => ['esibizioni.php', 'Mostre ed eventi'],
@@ -27,14 +27,14 @@ function marchio_sfera(int $lato = 40): string
         . '</g></svg>';
 }
 
-// Script per gli effetti allo scorrimento (GSAP), usati dalla home e dalle pagine mostra
+// Script per gli effetti allo scorrimento (GSAP), usati dalle pagine mostra
 const SCRIPT_SCORRIMENTO = ['vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'scorrimento.js'];
 
 /**
  * @param string      $titolo      parte specifica del <title>
  * @param string      $descrizione meta description
  * @param string      $attiva      chiave di VOCI_MENU della pagina corrente
- * @param string|null $tema        mostra della pagina: ne prende il colore d'accento (vedi css/kronos3.css)
+ * @param string|null $tema        mostra della pagina: ne prende il colore d'accento (vedi css/themes.css)
  * @param bool        $sopraImmagine non usato qui: la testata non si sovrappone mai alle immagini
  * @param string[]    $script      script in più della pagina, relativi a js/
  */
@@ -57,14 +57,12 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/themes.css" />
     <link rel="stylesheet" href="../css/animazioni.css" />
-    <link rel="stylesheet" href="../css/kronos3.css" />
     <link rel="icon" href="../img/favicon.svg" type="image/svg+xml" />
     <!-- Prima del primo disegno: classe js e schema chiaro/scuro (vedi js/avvio.js) -->
     <script src="../js/avvio.js"></script>
     <script src="../js/schema.js" defer="defer"></script>
     <script src="../js/main.js" defer="defer"></script>
     <script src="../js/validation.js" defer="defer"></script>
-    <script src="../js/kronos3.js" defer="defer"></script>
     <?php foreach ($script as $s): ?>
     <script src="../js/<?= e($s) ?>" defer="defer"></script>
     <?php endforeach; ?>
@@ -76,7 +74,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
         <?= marchio_sfera(34) ?>
         <span translate="no">Kronos</span>
     </a>
-    <!-- Menu nella testata; se non c'è spazio diventa un pannello a schermo intero (js/kronos3.js) -->
+    <!-- Menu nella testata; se non c'è spazio diventa un pannello a schermo intero (js/main.js) -->
     <nav id="v2-menu" class="v2-menu" aria-label="Principale">
         <ul>
             <?php foreach (VOCI_MENU as $chiave => [$href, $etichetta]): ?>
@@ -161,8 +159,8 @@ function pagina_errore_db(Throwable $e): never
     http_response_code(503);
     error_log('Kronos DB: ' . $e->getMessage());
     echo '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />'
-        . '<title>Servizio non disponibile | Kronos</title><link rel="stylesheet" href="../css/style.css" /></head>'
-        . '<body class="tema-casa"><main class="pagina-stretta"><h1>Il sito non riesce a leggere i dati</h1>'
+        . '<title>Servizio non disponibile | Kronos</title><link rel="stylesheet" href="../css/style.css" /><link rel="stylesheet" href="../css/themes.css" /></head>'
+        . '<body class="v2"><main class="pagina-stretta"><h1>Il sito non riesce a leggere i dati</h1>'
         . '<p>Il database non risponde. Controlla che PostgreSQL sia avviato e che php/config.php contenga le credenziali corrette, poi ricarica la pagina.</p>'
         . '</main></body></html>';
     exit;

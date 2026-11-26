@@ -1,4 +1,6 @@
-/* Kronos: struttura delle pagine. */
+/* Kronos, terza versione: struttura delle pagine.
+   Testata con il menu, sezioni della home, pagine interne e piè di pagina scuro.
+   Layout con Flex e Grid; i punti di rottura sono in rem, così seguono anche il testo ingrandito. */
 
 .contenitore {
     width: 100%;
@@ -13,236 +15,335 @@
     padding: 3rem clamp(1rem, 4vw, 3rem);
 }
 
-/* --- Testata ---------------------------------------------------------------- */
+/* --- Testata ------------------------------------------------------------------- */
 
-.testata {
+.v2-testata {
     position: relative;
-    z-index: 10;
-    color: var(--testo);
-}
-.sopra-immagine .testata {
-    position: absolute;
-    inset: 0 0 auto;
-    background: linear-gradient(to bottom, rgb(0 0 0 / 0.55), transparent);
-}
-.sopra-immagine .testata,
-.sopra-immagine .testata .marchio { color: #ffffff; }
-.sopra-immagine .testata .menu a:not(.bottone) { color: #ffffff; }
-
-.testata-interno {
+    z-index: 60;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem 2rem;
-    max-width: 75rem;
-    margin-inline: auto;
-    padding: 1rem clamp(1rem, 4vw, 3rem);
-}
-
-.marchio {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 0.65rem;
-    align-items: center;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem);
     color: var(--testo);
-    text-decoration: none;
-    line-height: 1.1;
 }
-.marchio-nome { font-size: 1.875rem; margin: 0; }
-.marchio-sotto { font-size: 0.9375rem; }
-.marchio-sfera { grid-row: span 2; overflow: visible; }
-@media (max-width: 24rem) {
-    .marchio-sfera { width: 32px; height: 32px; }
-    .testata-interno { column-gap: 1rem; } /* logo e bottone Menu restano sulla stessa riga */
-}
-/* L'anello interno gira attorno all'asse inclinato: scaleX da 1 a -1 imita la rotazione in 3D */
-.marchio-gira { transform-box: fill-box; transform-origin: center; }
+.js .v2-testata { flex-wrap: nowrap; }
 
-.menu ul {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.25rem 1.5rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.menu li { max-width: none; }
-.menu a:not(.bottone) {
-    display: inline-block;
-    padding: 0.5rem 0;
-    color: var(--testo);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-}
-.menu a:not(.bottone):hover { border-bottom-color: currentColor; }
-.menu a[aria-current="page"] { border-bottom-color: currentColor; font-weight: 700; }
-.sopra-immagine .menu .bottone { --bottone-sfondo: #ffffff; --bottone-testo: #14213d; }
-
-.apri-menu {
+.v2-marchio {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    min-height: 2.75rem;
-    padding: 0.5rem 0.9rem;
-    border: 2px solid currentColor;
-    border-radius: 4px;
-    background: transparent;
+    gap: 0.55rem;
     color: inherit;
-    font: inherit;
-    font-weight: 700;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-decoration: none;
+}
+.marchio-sfera { overflow: visible; }
+@media (max-width: 24rem) {
+    .marchio-sfera { width: 32px; height: 32px; }
+}
+/* L'anello interno gira attorno all'asse inclinato: scaleX da 1 a -1 imita la rotazione in 3D (animazioni.css) */
+.marchio-gira { transform-box: fill-box; transform-origin: center; }
+
+/* Bottoni a destra: modalità notte (solo la luna, che si riempie quando è attiva) e Menu */
+.v2-testata-azioni { display: flex; align-items: center; gap: 1rem; }
+.v2-schema {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--bordo);
+    border-radius: 999px;
+    background: none;
+    color: inherit;
     cursor: pointer;
 }
-.apri-menu-icona,
-.apri-menu-icona::before,
-.apri-menu-icona::after {
-    display: block;
-    width: 1.1rem;
-    height: 2px;
+.v2-schema:hover { border-color: currentColor; }
+.cambia-schema[aria-pressed="true"] .icona-schema path { fill: currentColor; }
+
+.v2-menu-bottone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+.v2-menu-bottone[hidden] { display: none; }
+/* Tre linee disegnate con il colore del testo; da aperto le due esterne diventano una X */
+.v2-menu-icona { position: relative; display: block; width: 1.6rem; height: 0; }
+.v2-menu-icona::before, .v2-menu-icona::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1.6rem;
+    height: 1.5px;
     background: currentColor;
+    transition: transform 0.3s;
 }
-.apri-menu-icona { position: relative; }
-.apri-menu-icona::before, .apri-menu-icona::after { content: ""; position: absolute; left: 0; }
-.apri-menu-icona::before { top: -6px; }
-.apri-menu-icona::after { top: 6px; }
-.apri-menu[aria-expanded="true"] .apri-menu-icona { background: transparent; }
-.apri-menu[aria-expanded="true"] .apri-menu-icona::before { top: 0; transform: rotate(45deg); }
-.apri-menu[aria-expanded="true"] .apri-menu-icona::after { top: 0; transform: rotate(-45deg); }
+.v2-menu-icona::before { top: -4px; }
+.v2-menu-icona::after { top: 4px; }
+[aria-expanded="true"] > .v2-menu-icona::before { transform: translateY(4px) rotate(45deg); }
+[aria-expanded="true"] > .v2-menu-icona::after { transform: translateY(-4px) rotate(-45deg); }
 
-/* Sotto i 56rem il menu diventa un pannello che si apre con il bottone (solo con JS attivo) */
-@media (max-width: 56rem) {
-    .js .menu { flex-basis: 100%; }
-    .js .menu[hidden] { display: none; }
-    .menu ul { flex-direction: column; align-items: flex-start; gap: 0; }
-    .menu li { width: 100%; }
-    .menu a:not(.bottone) { display: block; padding: 0.75rem 0; }
-    .menu-prenota { margin-top: 0.75rem; }
-    .js .sopra-immagine .testata:has(.menu:not([hidden])) { background: #14213d; }
-}
-@media (min-width: 56.0625rem) {
-    .apri-menu { display: none; }
-}
-
-/* --- Piè di pagina ---------------------------------------------------------- */
-
-.piede {
-    background: var(--sfondo);
+/* Menu nella testata: le voci stanno in riga tra il logo e i bottoni.
+   Senza JavaScript, se non c'è spazio, vanno a capo; con JavaScript, quando non ci stanno
+   (finestra stretta o testo ingrandito) main.js mette la classe menu-compatto e il menu
+   diventa il pannello a schermo intero aperto dal bottone Menu. */
+.v2-menu { margin-left: auto; }
+.v2-menu ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; margin: 0; padding: 0; list-style: none; }
+.js .v2-menu ul { flex-wrap: nowrap; }
+.v2-menu li { white-space: nowrap; }
+.v2-testata .v2-menu a {
     color: var(--testo);
-    border-top: 1px solid var(--bordo);
-    padding-top: 4rem;
+    font-size: 1.3rem;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.2s;
 }
-.piede-interno {
+.v2-testata .v2-menu a:visited { color: var(--link-visitato); }
+.v2-testata .v2-menu a:hover, .v2-testata .v2-menu a:focus-visible { text-decoration-color: currentColor; }
+.v2-testata .v2-menu a[aria-current="page"] { font-style: italic; text-decoration-color: var(--accento); }
+.v2-menu-piede { display: none; }
+
+/* Menu compatto: pannello scuro a schermo intero, aperto dal bottone */
+.menu-compatto .v2-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 2.5rem;
-    max-width: 75rem;
-    margin-inline: auto;
-    padding: 0 clamp(1rem, 4vw, 3rem) 3rem;
-}
-.piede h2 { font-size: 1.5rem; }
-.orari-brevi div { display: flex; justify-content: space-between; gap: 1rem; max-width: 18rem; }
-.orari-brevi dt { font-weight: 400; }
-.orari-brevi dd { margin: 0; }
-.riga-campo { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.riga-campo input { flex: 1 1 12rem; }
-.piede-fondo {
-    max-width: none;
+    align-content: space-between;
     margin: 0;
-    padding: 1.25rem clamp(1rem, 4vw, 3rem);
-    border-top: 1px solid var(--bordo);
-    font-size: 1rem;
-    text-align: center;
+    padding: 6.5rem clamp(1rem, 4vw, 3rem) 2rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--inchiostro);
+    --testo: var(--carta);
+    --sfondo: var(--inchiostro);
+    --focus: var(--carta);
+    --link-visitato: #4b9680;   /* come nelle fasce scure */
+    color: var(--carta);
 }
+.menu-compatto .v2-menu[hidden] { display: none; }
+.menu-compatto .v2-menu ul { display: grid; gap: 0.15em; font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
+.menu-compatto .v2-testata .v2-menu a { font-size: inherit; color: var(--carta); text-decoration: none; }
+.menu-compatto .v2-testata .v2-menu a:visited { color: var(--link-visitato); }
+.menu-compatto .v2-testata .v2-menu a:hover, .menu-compatto .v2-testata .v2-menu a:focus-visible { font-style: italic; color: var(--verderame-chiaro); }
+.menu-compatto .v2-menu-piede { display: block; margin: 2rem 0 0; }
+/* logo e bottoni restano sopra il pannello */
+.menu-compatto .v2-marchio, .menu-compatto .v2-testata-azioni { position: relative; z-index: 51; margin-left: auto; }
+.menu-compatto .v2-marchio { margin-left: 0; }
+.menu-aperto body { overflow: hidden; }
+.menu-aperto .v2-testata { color: var(--carta); --focus: var(--carta); }
 
-/* --- Home: la discesa dal cielo all'abisso ---------------------------------- */
+/* --- Percorso "Ti trovi in" (briciole() in php/funzioni.php) --------------------- */
 
-.ingresso {
-    min-height: calc(100svh - 5rem);
-    display: flex;
-    align-items: center;
-    padding: 2rem 0 4rem;
-}
-.ingresso-griglia {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 2rem;
-    align-items: center;
-}
-.ingresso-scena { display: grid; justify-items: end; gap: 0.5rem; }
-.ingresso-scena canvas { display: block; width: 100%; aspect-ratio: 1; height: auto; }
-@media (max-width: 48rem) {
-    .ingresso-griglia { grid-template-columns: 1fr; }
-    .ingresso-scena { order: -1; max-width: 26rem; justify-self: center; width: 100%; }
-}
-
-.ingresso h1 { font-size: clamp(4rem, 2rem + 10vw, 9rem); margin-bottom: 0.25em; }
-.ingresso .introduzione { margin-bottom: 1.5rem; }
-.azioni { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
-.oggi { font-weight: 700; margin: 0; }
-
-.percorso {
+.briciole ol {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 2rem;
-    margin: 0 0 1.5rem;
-    padding: 0;
+    gap: 0.25rem 0.5rem;
+    margin: 0;
+    padding: 1.5rem 0 0;
     list-style: none;
-    counter-reset: none;
+    font-size: 1rem;
 }
-.percorso a { color: var(--link); }
+.briciole li { max-width: none; }
+/* separatore solo visivo: il testo alternativo vuoto lo nasconde ai lettori di schermo */
+.briciole li + li::before { content: "›"; content: "›" / ""; margin-right: 0.5rem; }
+.briciole a { color: var(--link); }
+.briciole [aria-current="page"] { font-weight: 700; }
+/* nella home si allinea al titolo, che usa la larghezza delle sezioni (90rem) */
+.v2-briciole-home { max-width: 90rem; }
 
-.mondo {
-    background: var(--sfondo);
-    padding: 7rem 0;
+/* --- Sezioni comuni --------------------------------------------------------------- */
+
+.v2-sezione, .v2-eroe, .v2-fascia {
+    padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 4vw, 3rem);
+    max-width: 90rem;
+    margin-inline: auto;
 }
-/* Ogni mondo è un piano più in basso: una linea sottile li separa */
-.mondo + .mondo { border-top: 2px solid var(--testo); }
+.v2-fascia { max-width: none; }
+.v2-nota { font-size: 0.9375rem; }
+.v2-occhiello { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.75rem; }
+.v2-titolo-centro { text-align: center; margin-inline: auto; }
+.azioni { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
 
-/* Home a due colori: il contrasto viene dal nero pieno, con linee e cornici marcate */
-.tema-neutro .ingresso { border-bottom: 2px solid var(--testo); }
-.tema-neutro .mondo h2 { font-size: clamp(3rem, 1.5rem + 5vw, 6rem); line-height: 1; }
-.tema-neutro .mondo-dove { font-weight: 700; }
-.tema-neutro .arco { border: 3px solid var(--testo); }
-.mondo-interno {
+/* --- Home: prima schermata ----------------------------------------------------- */
+
+.v2-eroe { padding-top: clamp(3rem, 8vw, 7rem); min-height: calc(100svh - 5rem); }
+.v2-eroe h1 { margin-bottom: 2.5rem; }
+.v2-riga { display: block; }
+.v2-rientro { padding-left: 0.45em; }
+.v2-macchina { white-space: nowrap; }
+.v2-eroe-testo { margin-left: calc(0.45em * 3.4); max-width: 24rem; }
+.v2-eroe-testo .azioni { margin: 1.75rem 0 1.25rem; }
+@media (max-width: 40rem) {
+    .v2-eroe-testo { margin-left: 0; }
+}
+.v2-pausa { font-size: 0.9375rem; }
+
+/* --- Home: immagine e testo affiancati ---------------------------------------- */
+
+.v2-doppia {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: clamp(2rem, 6vw, 6rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
 }
-.mondo h2 { font-size: clamp(2.5rem, 1.5rem + 3.5vw, 4.5rem); }
-.mondo-sottotitolo { font-size: 1.3125rem; color: var(--testo-tenue); }
-.mondo-dove { font-size: 1rem; color: var(--testo-tenue); }
-.mondo .bottone { margin-top: 0.5rem; }
-.nota-speciale {
-    border-left: 4px solid var(--accento);
-    padding: 0.25rem 0 0.25rem 1rem;
-    margin: 1.5rem 0;
-}
-.nota-speciale h3 { margin-bottom: 0.25rem; }
+.v2-doppia h2 { margin-bottom: 1.5rem; }
+.v2-doppia .bottone { margin-top: 1rem; }
+@media (max-width: 48rem) { .v2-doppia { grid-template-columns: 1fr; } }
 
-/* Cornice ad arco: il motivo delle nicchie museali, usato per tutte le immagini delle mostre */
-.arco {
-    margin: 0;
-    aspect-ratio: 4 / 5;
-    border-radius: 50% 50% 4px 4px / 32% 32% 4px 4px;
+.v2-media { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--raggio); overflow: hidden; }
+.v2-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Home: vetrina scura con scheda sovrapposta ---------------------------------- */
+
+.v2-vetrina {
+    position: relative;
+    max-width: 88rem;
+    margin-inline: auto;
+    border: 1px solid var(--bordo);
+    border-radius: calc(var(--raggio) * 1.5);
     overflow: hidden;
+}
+.v2-vetrina img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.v2-vetrina-scheda {
+    position: absolute;
+    top: clamp(1rem, 3vw, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    width: min(26rem, calc(100% - 2rem));
+    padding: 1.75rem;
+    border-radius: var(--raggio);
+    background: var(--carta);
+    color: var(--inchiostro);
+    --testo: var(--inchiostro);
+    --link: var(--inchiostro);
+    --link-visitato: #3a7463;   /* scheda chiara dentro la fascia scura: i valori del giorno */
+    --accento: var(--verderame);
+    --focus: var(--inchiostro);
+    --bottone-sfondo: var(--inchiostro);
+    --bottone-testo: var(--carta);
+}
+.v2-vetrina-scheda h2 { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem); }
+.v2-vetrina-scheda p { font-size: 1rem; }
+@media (max-width: 48rem) {
+    .v2-vetrina-scheda { position: static; width: auto; border-radius: 0; }
+}
+
+/* --- Home: biglietto, tre colonne ------------------------------------------------ */
+
+.v2-titolo-largo { max-width: 22ch; margin-bottom: 3rem; }
+.v2-colonne {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+    gap: 2rem clamp(2rem, 5vw, 5rem);
+}
+@media (max-width: 48rem) { .v2-colonne { grid-template-columns: 1fr; } }
+.v2-colonne h3 { margin-bottom: 0.75rem; }
+.v2-prezzi { margin: 0; }
+.v2-prezzi div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0; border-bottom: 1px solid var(--bordo); }
+.v2-prezzi dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+/* --- Home: logo di puntini (js/puntini.js) ------------------------------------- */
+
+.v2-puntini { position: relative; }
+.v2-puntini-fisso { position: relative; display: grid; place-items: center; overflow: hidden; }
+/* in basso i puntini sfumano nello sfondo: nessun taglio netto prima delle domande */
+.v2-puntini-scena {
+    position: absolute;
+    inset: 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+.v2-puntini-scena canvas { display: block; width: 100%; height: 100%; }
+.v2-puntini-testo { position: relative; padding: 8rem 1rem; text-align: center; }
+.v2-puntini-testo h2 { font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem); margin-inline: auto; }
+/* Con l'animazione attiva la sezione è lunga tre schermate e la scena resta ferma mentre si scorre */
+.v2-puntini.con-puntini { height: 300svh; }
+.v2-puntini.con-puntini .v2-puntini-fisso { position: sticky; top: 0; height: 100svh; }
+.v2-puntini.con-puntini-fermo .v2-puntini-fisso { height: 100svh; }
+
+/* --- Home: le cinque mostre ----------------------------------------------------- */
+
+.v2-mondi { margin: 0; padding: 0; list-style: none; display: grid; gap: clamp(3.5rem, 7vw, 6rem); }
+.v2-mondo { max-width: none; }
+.v2-mondo h3 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(2.75rem, 1.5rem + 5vw, 5.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+.v2-mondo h3 a {
+    /* colore dei link, così visitati e non visitati restano a 3:1; il mondo si riconosce dalla sottolineatura */
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: var(--accento);
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.12em;
+}
+.v2-mondo h3 a:hover { text-decoration-thickness: 0.1em; }
+.v2-mondo p { max-width: 62ch; }
+.v2-dove { white-space: nowrap; font-weight: 600; }
+.v2-pillole { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.v2-pillole li {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--bordo);
+    border-radius: 999px;
+    font-size: 0.875rem;
     background: var(--superficie);
 }
-.arco img { width: 100%; height: 100%; object-fit: cover; }
 
-.dopo-discesa {
-    background: linear-gradient(to bottom, var(--sfondo), var(--sfondo-profondo) 12rem);
-    padding: 5rem 0 6rem;
+/* --- Home: eventi su fondo scuro ------------------------------------------------- */
+
+.v2-eventi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.25rem;
+    max-width: 88rem;
+    margin: 3rem auto;
+    padding: 0;
+    list-style: none;
 }
+.v2-eventi li { padding: 1.75rem; border: 1px solid var(--bordo); border-radius: var(--raggio); max-width: none; }
+.v2-evento-data { font-family: var(--serif); font-style: italic; font-size: 1.375rem; color: var(--accento); }
 
-@media (max-width: 48rem) {
-    .mondo-interno { grid-template-columns: 1fr; }
-    .mondo .arco { max-width: 22rem; order: -1; }
-    .mondo { padding: 5rem 0; }
+/* --- Home: domande frequenti ------------------------------------------------------ */
+
+.v2-domande { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 2rem clamp(2rem, 6vw, 6rem); }
+@media (max-width: 56rem) { .v2-domande { grid-template-columns: 1fr; } }
+.v2-domande details { border-bottom: 1px solid var(--bordo); }
+.v2-domande details:first-child { border-top: 1px solid var(--bordo); }
+.v2-domande summary {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 1.125rem;
 }
+.v2-domande summary::-webkit-details-marker { display: none; }
+.v2-domande summary::before { content: "+"; font-size: 1.5rem; line-height: 1; width: 1rem; transition: transform 0.3s; }
+.v2-domande details[open] summary::before { transform: rotate(45deg); }
+.v2-domande details p { padding: 0 0 1.25rem 2rem; }
 
-/* --- Elenco eventi ------------------------------------------------------------ */
+/* --- Elenco eventi (Mostre ed eventi) ---------------------------------------------- */
 
 .eventi {
     display: grid;
@@ -272,14 +373,18 @@
     .evento { grid-template-columns: 1fr; }
 }
 
-/* --- Pagina mostra: immagine che sfuma nel colore della mostra ----------------- */
+/* --- Pagina mostra --------------------------------------------------------------------
+   L'immagine è una grande scheda arrotondata sotto la testata; scorrendo, un velo del colore
+   della mostra la copre (--p va da 0 a 1, da js/scorrimento.js). */
 
 .sfondo-mostra {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
+    position: relative;
+    z-index: 0;
+    height: min(70svh, 44rem);
+    margin: 0 clamp(1rem, 4vw, 3rem);
     overflow: hidden;
-    background: var(--sfondo);
+    border-radius: calc(var(--raggio) * 1.5);
+    background: var(--accento);
 }
 .sfondo-mostra img {
     width: 100%;
@@ -289,31 +394,27 @@
     transform: translateY(calc(var(--p, 0) * -6vh)) scale(calc(1.03 + var(--p, 0) * 0.07));
     will-change: transform;
 }
-/* Sfumatura fissa in basso, per leggere il titolo */
-.sfondo-mostra::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 35%, var(--sfondo) 96%);
-}
-/* Velo che cresce scorrendo: con JS, --p va da 0 a 1 nella prima schermata */
 .sfondo-mostra::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: var(--sfondo);
-    opacity: calc(var(--p, 0) * 0.9);
+    background: var(--accento);
+    opacity: calc(var(--p, 0) * 0.85);
+}
+/* Chi preferisce meno movimento vede solo la dissolvenza, senza zoom né spostamento */
+@media (prefers-reduced-motion: reduce) {
+    .sfondo-mostra img { transform: none; }
 }
 
 .apertura {
-    min-height: 92svh;
     display: flex;
     align-items: flex-end;
-    padding: 9rem 0 3rem;
+    padding: 3rem 0 0;
 }
-.apertura h1 { max-width: 14ch; text-shadow: 0 2px 24px rgb(0 0 0 / 0.35); }
+.apertura h1 { max-width: 18ch; }
 .apertura .sottotitolo { font-size: clamp(1.3125rem, 1rem + 1vw, 1.875rem); max-width: 30ch; margin: 0; }
+.apertura .briciole ol { padding: 0 0 1.25rem; }
 
 .dati-mostra {
     display: flex;
@@ -324,23 +425,22 @@
 .dati-mostra dt { font-size: 1rem; color: var(--testo-tenue); }
 .dati-mostra dd { margin: 0; font-weight: 700; }
 
-.corpo-mostra {
-    background: linear-gradient(to bottom,
-        transparent 0,
-        var(--sfondo) 14rem,
-        var(--sfondo) 70%,
-        var(--sfondo-profondo) 100%);
-    padding: 14rem 0 6rem;
-    margin-top: -10rem;
-}
+.corpo-mostra { padding: 3rem 0 6rem; }
 .corpo-mostra .contenitore > section { margin-top: 5rem; }
 
 .sezioni-mostra { display: grid; gap: 3rem; margin-top: 3rem; }
 .sezione-mostra { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1rem 3rem; }
-.sezione-mostra h2 { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); }
 @media (max-width: 48rem) {
     .sezione-mostra { grid-template-columns: 1fr; }
 }
+
+.nota-speciale {
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--accento);
+    border-radius: var(--raggio);
+}
+.nota-speciale h3 { margin-bottom: 0.25rem; }
 
 /* Cartellini dei reperti, come le didascalie in sala */
 .cartellini {
@@ -355,9 +455,9 @@
     padding: 1.25rem 1.25rem 1.5rem;
     background: var(--superficie);
     border: 1px solid var(--bordo);
-    border-top: 4px solid var(--accento);
+    border-radius: var(--raggio);
 }
-.cartellino h3 { font-family: "Atkinson Hyperlegible", sans-serif; font-weight: 700; font-size: 1.125rem; margin-bottom: 0.15rem; }
+.cartellino h3 { margin-bottom: 0.15rem; }
 .cartellino-data { color: var(--testo-tenue); font-size: 1rem; margin-bottom: 0.75rem; }
 .cartellino p:last-child { margin-bottom: 0; }
 
@@ -369,15 +469,15 @@
     gap: 1.5rem;
     padding: 2rem;
     border: 2px solid var(--bordo);
-    border-radius: 4px;
+    border-radius: var(--raggio);
 }
-.invito h2 { font-size: 2rem; margin: 0; }
+.invito h2 { margin: 0; }
 .invito p { margin: 0.25rem 0 0; }
 
 /* --- Pagina Mostre ed eventi --------------------------------------------------- */
 
 .intestazione-pagina { padding: 3rem 0 2rem; }
-.intestazione-pagina h1 { font-size: clamp(2.75rem, 1.75rem + 4vw, 5rem); }
+.intestazione-pagina h1 { font-size: clamp(3rem, 1.75rem + 5vw, 6rem); }
 
 .elenco-mostre {
     display: grid;
@@ -392,27 +492,43 @@
     gap: 1.5rem 3rem;
     align-items: center;
     padding: clamp(1.25rem, 3vw, 2.5rem);
-    background: var(--sfondo);
-    border-radius: 4px;
+    background: var(--superficie);
+    border-radius: var(--raggio);
     max-width: none;
 }
-.voce-mostra h2 { font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.75rem); margin-bottom: 0.25rem; }
+.voce-mostra h2 { margin-bottom: 0.25rem; }
+.mondo-sottotitolo { font-size: 1.3125rem; color: var(--testo-tenue); }
+.mondo-dove { font-size: 1rem; color: var(--testo-tenue); }
 .voce-mostra h2 a { color: var(--link); text-decoration: none; }
 .voce-mostra h2 a:hover { text-decoration: underline; }
-.voce-mostra .arco { aspect-ratio: 3 / 4; }
 .etichetta-speciale {
     display: inline-block;
     margin-bottom: 0.75rem;
     padding: 0.15rem 0.6rem;
-    border: 2px solid var(--accento);
-    border-radius: 4px;
-    font-weight: 700;
+    border: 1px solid var(--accento);
+    border-radius: 999px;
+    font-weight: 600;
     font-size: 1rem;
 }
 @media (max-width: 40rem) {
     .voce-mostra { grid-template-columns: 1fr; }
     .voce-mostra .arco { max-width: 12rem; }
 }
+
+/* Immagini delle mostre nell'elenco */
+.arco {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--raggio);
+    overflow: hidden;
+    background: var(--superficie);
+}
+.arco img { width: 100%; height: 100%; object-fit: cover; }
+/* Inquadratura delle illustrazioni nelle cornici strette: tiene in vista il soggetto */
+.tema-celeste .arco img { object-position: 76% 50%; }
+.tema-mitologia .arco img { object-position: 58% 50%; }
+.tema-dinosauri .arco img { object-position: 74% 50%; }
+.tema-glaciale .arco img { object-position: 66% 50%; }
 
 .filtro {
     display: flex;
@@ -435,7 +551,7 @@
 .blocco-form {
     background: var(--superficie);
     padding: clamp(1.25rem, 4vw, 3rem);
-    border-radius: 4px;
+    border-radius: var(--raggio);
     margin-bottom: 4rem;
 }
 
@@ -458,12 +574,12 @@
     gap: 0.75rem;
     padding: 1.25rem;
     border: 2px solid var(--bordo-campo);
-    border-radius: 4px;
+    border-radius: var(--raggio);
     background: var(--superficie);
 }
 .scelta:has(input:checked) { border-color: var(--testo); box-shadow: inset 0 0 0 2px var(--testo); }
-.scelta label { margin: 0; font-size: 1.3125rem; font-family: "Marcellus", serif; font-weight: 400; }
-.scelta .prezzo-livello { display: block; font-family: "Atkinson Hyperlegible", sans-serif; font-weight: 700; font-size: 1.125rem; }
+.scelta label { margin: 0; font-size: 1.3125rem; font-family: var(--serif); font-weight: 400; }
+.scelta .prezzo-livello { display: block; font-family: var(--sans); font-weight: 700; font-size: 1.125rem; }
 .scelta ul { margin: 0.75rem 0 0; padding-left: 1.1rem; font-size: 1rem; }
 
 .prodotti {
@@ -478,12 +594,12 @@
 .prodotto-immagine {
     aspect-ratio: 4 / 3;
     margin: 0 0 1rem;
-    border-radius: 4px;
+    border-radius: var(--raggio);
     overflow: hidden;
     background: var(--superficie);
 }
 .prodotto-immagine img { width: 100%; height: 100%; object-fit: cover; }
-.prodotto h3 { font-size: 1.3125rem; margin-bottom: 0.25rem; }
+.prodotto h3 { margin-bottom: 0.25rem; }
 .prodotto-mostra { font-size: 1rem; color: var(--testo-tenue); margin-bottom: 0.5rem; }
 .prodotto-prezzo { font-weight: 700; font-size: 1.3125rem; margin: auto 0 0.5rem; }
 .prodotto form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem; }
@@ -506,38 +622,45 @@
 .squadra .ruolo { font-weight: 700; margin-bottom: 0.5rem; }
 
 .temi { display: grid; gap: 0.75rem; margin: 0 0 4rem; padding: 0; list-style: none; }
-.temi li { padding: 1rem 1.25rem; border-radius: 4px; background: var(--sfondo); max-width: 48rem; }
+.temi li { padding: 1rem 1.25rem; border-radius: var(--raggio); background: var(--sfondo); max-width: 48rem; }
 .temi a { color: var(--link); font-weight: 700; }
 
-/* Chi preferisce meno movimento vede solo la dissolvenza, senza zoom né spostamento */
-@media (prefers-reduced-motion: reduce) {
-    .sfondo-mostra img { transform: none; }
+/* --- Piè di pagina scuro ------------------------------------------------------- */
+
+.v2-piede { padding: clamp(4rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) 2rem; }
+.v2-piede-griglia {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+    gap: 3rem clamp(2rem, 4vw, 4rem);
+    max-width: 90rem;
+    margin-inline: auto;
 }
-
-/* Inquadratura delle illustrazioni nelle cornici strette: tiene in vista il soggetto */
-.tema-celeste .arco img, [data-tema=celeste] .arco img { object-position: 76% 50%; }
-.tema-mitologia .arco img, [data-tema=mitologia] .arco img { object-position: 58% 50%; }
-.tema-dinosauri .arco img, [data-tema=dinosauri] .arco img { object-position: 74% 50%; }
-.tema-glaciale .arco img, [data-tema=glaciale] .arco img { object-position: 66% 50%; }
-/* --- Percorso "Ti trovi in" (briciole() in php/funzioni.php) --------------------- */
-
-.briciole ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 0.5rem;
-    margin: 0;
-    padding: 1.5rem 0 0;
-    list-style: none;
-    font-size: 1rem;
+@media (max-width: 64rem) { .v2-piede-griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .v2-piede-griglia { grid-template-columns: 1fr; } }
+.v2-piede h2 { font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: 0; margin-bottom: 1rem; }
+.v2-piede-motto { font-size: clamp(2.25rem, 1.5rem + 2.5vw, 3.5rem); margin: 0; }
+.v2-piede-link { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.v2-piede-link a { text-decoration: none; }
+.v2-piede-link a:hover { text-decoration: underline; }
+.orari-brevi div { display: flex; justify-content: space-between; gap: 1rem; max-width: 18rem; }
+.orari-brevi dt { font-weight: 400; }
+.orari-brevi dd { margin: 0; }
+/* Iscrizione alla newsletter: campo a una sola riga, solo la linea sotto */
+.riga-campo { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.riga-campo input { flex: 1 1 12rem; }
+.v2-piede input[type="email"] {
+    border: 0;
+    border-bottom: 1px solid var(--carta);
+    border-radius: 0;
+    background: transparent;
+    color: var(--carta);
 }
-.briciole li { max-width: none; }
-/* separatore solo visivo: il testo alternativo vuoto lo nasconde ai lettori di schermo */
-.briciole li + li::before { content: "›"; content: "›" / ""; margin-right: 0.5rem; }
-.briciole a { color: var(--link); }
-.briciole [aria-current="page"] { font-weight: 700; }
-.apertura .briciole ol { padding: 0 0 1.25rem; }
-
-/* Link per gestire i propri dati, nel piè di pagina */
-.piede-gestione { margin: 1rem 0 0; padding: 0; list-style: none; font-size: 1rem; }
-.piede-gestione li { margin-bottom: 0.35rem; }
+.v2-piede input::placeholder { color: rgb(244 244 242 / 0.7); }
 .piede-annulla { font-size: 1rem; margin: 0.75rem 0 0; }
+.v2-piede-fondo {
+    max-width: 90rem;
+    margin: 4rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bordo);
+    font-size: 0.9375rem;
+}
