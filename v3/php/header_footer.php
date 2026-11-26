@@ -153,7 +153,6 @@ function pagina_fine(): void
         </section>
     </div>
     <div class="v2-piede-fondo">
-        <p>Kronos è un museo immaginario, progetto per il corso di Tecnologie Web. Versioni precedenti: <a href="../../v1/">prima</a> e <a href="../../v2/">seconda</a>.</p>
         <a class="bottone bottone-secondario torna-su" href="#cima">Torna in cima</a>
     </div>
 </footer>

@@ -695,7 +695,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1rem 2rem;
     max-width: 90rem;
     margin: 4rem auto 0;
@@ -703,6 +703,5 @@
     border-top: 1px solid var(--bordo);
     font-size: 0.9375rem;
 }
-.v2-piede-fondo p { margin: 0; }
 /* porta alla testata (#cima): da lì si riparte con il menu */
 .torna-su { flex: none; }
