@@ -34,15 +34,4 @@ gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
             scrollTrigger: { trigger: arco.closest('.mondo'), start: 'top bottom', end: 'bottom top', scrub: true },
         });
     });
-
-    // Pagina mostra: il titolo d'apertura resta un attimo indietro e si dissolve nel velo
-    const apertura = document.querySelector('.apertura .contenitore');
-    if (apertura) {
-        gsap.to(apertura, {
-            y: () => window.innerHeight * 0.15,
-            opacity: 0.2,
-            ease: 'none',
-            scrollTrigger: { trigger: '.apertura', start: 'top top', end: 'bottom top', scrub: true },
-        });
-    }
 });

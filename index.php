@@ -1,5 +1,5 @@
 <?php
-// Punto di ingresso: le due versioni del sito vivono in v1/ e v2/, ognuna con il proprio codice.
+// Punto di ingresso: le tre versioni del sito vivono in v1/, v2/ e v3/, ognuna con il proprio codice.
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
@@ -13,10 +13,11 @@
 <body>
     <main>
         <h1>Kronos, Museo dei Mondi Perduti</h1>
-        <p>Il sito esiste in due versioni indipendenti, con gli stessi contenuti.</p>
+        <p>Il sito esiste in tre versioni indipendenti, con gli stessi contenuti. La terza è quella definitiva.</p>
         <ul>
             <li><a href="v1/">Versione 1</a>: sfera armillare 3D, colori delle cinque mostre</li>
             <li><a href="v2/">Versione 2</a>: ispirata a miligram.pt, sfera di puntini e macchina da scrivere</li>
+            <li><a href="v3/">Versione 3</a>: la definitiva, parte dalla seconda con il menu sempre visibile su schermi larghi</li>
         </ul>
     </main>
 </body>

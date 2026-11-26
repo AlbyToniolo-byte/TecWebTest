@@ -4,12 +4,17 @@ User-agent: *
 # pagine di servizio, senza contenuti da indicizzare
 Disallow: /v1/php/gestisci.php
 Disallow: /v2/php/gestisci.php
+Disallow: /v3/php/gestisci.php
 Disallow: /v1/php/gestisci-tessera.php
 Disallow: /v2/php/gestisci-tessera.php
+Disallow: /v3/php/gestisci-tessera.php
 Disallow: /v1/php/newsletter.php
 Disallow: /v1/php/disiscrizione.php
 Disallow: /v2/php/disiscrizione.php
+Disallow: /v3/php/disiscrizione.php
 Disallow: /v2/php/newsletter.php
+Disallow: /v3/php/newsletter.php
 
 Sitemap: http://localhost:8000/v1/sitemap.php
 Sitemap: http://localhost:8000/v2/sitemap.php
+Sitemap: http://localhost:8000/v3/sitemap.php

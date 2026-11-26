@@ -4,15 +4,16 @@
 
 Sito in HTML, PHP e JavaScript senza framework, con database PostgreSQL.
 
-## Due versioni indipendenti
+## Tre versioni indipendenti
 
 | Cartella | Versione |
 |---|---|
 | `v1/` | Prima versione: sfera armillare 3D, palette delle cinque mostre da `refs.md` |
 | `v2/` | Seconda versione, ispirata a miligram.pt: carta e inchiostro, macchina da scrivere, sfera di puntini 3D |
+| `v3/` | Terza versione, la definitiva: parte dalla seconda; il menu sta nella testata e diventa a schermo intero solo quando non c'è spazio |
 
 Ogni cartella contiene tutto il proprio codice (pagine PHP, CSS, JavaScript, immagini e librerie): si può modificare una versione senza toccare l'altra.
-In comune c'è solo il database, in `database/`: le due versioni leggono e scrivono gli stessi dati.
+In comune c'è solo il database, in `database/`: tutte le versioni leggono e scrivono gli stessi dati.
 
 ## Avvio in locale
 
@@ -24,14 +25,15 @@ psql -d kronos -f database/schema.sql
 psql -d kronos -f database/seed.sql
 cp v1/php/config.example.php v1/php/config.php   # poi inserisci utente e password
 cp v2/php/config.example.php v2/php/config.php   # le stesse credenziali
+cp v3/php/config.example.php v3/php/config.php   # le stesse credenziali
 php -S localhost:8000
 ```
 
-Su http://localhost:8000 una pagina rimanda alle due versioni: http://localhost:8000/v1/ e http://localhost:8000/v2/.
+Su http://localhost:8000 una pagina rimanda alle tre versioni: http://localhost:8000/v1/, http://localhost:8000/v2/ e http://localhost:8000/v3/.
 
 ## Struttura di una versione
 
-`v1/` e `v2/` hanno la stessa struttura:
+`v1/`, `v2/` e `v3/` hanno la stessa struttura:
 
 | Percorso | Contenuto |
 |---|---|
@@ -74,6 +76,14 @@ Solo in `v2/`:
 | `css/kronos2.css` | Stile della seconda versione, caricato dopo i fogli di base |
 | `js/kronos2.js` | Menu a schermo intero, macchina da scrivere, pausa delle animazioni |
 | `js/puntini.js` | Sfera di puntini 3D che si apre scorrendo (Three.js + GSAP) |
+
+Solo in `v3/` (stessa struttura di `v2/`, con i file rinominati):
+
+| Percorso | Contenuto |
+|---|---|
+| `css/kronos3.css` | Stile della terza versione, caricato dopo i fogli di base |
+| `js/kronos3.js` | Menu nella testata (a schermo intero quando le voci non ci stanno), macchina da scrivere, pausa delle animazioni |
+| `js/puntini.js` | Logo di puntini 3D che si apre in un alone scorrendo (Three.js + GSAP) |
 
 Fuori dalle versioni:
 
