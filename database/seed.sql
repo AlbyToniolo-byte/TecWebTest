@@ -87,10 +87,10 @@ INSERT INTO reperti (mostra_id, nome, datazione, descrizione, ordine) VALUES
 
 INSERT INTO eventi (mostra_id, titolo, descrizione, inizio, durata_min, luogo, prezzo, posti) VALUES
 ((SELECT id FROM mostre WHERE slug='mitologia'), 'Dall''Odissea al cinema', 'Un incontro su come il viaggio di Odisseo è stato raccontato, dipinto e filmato.', '2026-11-07 18:00', 90, 'Auditorium', 0, 180),
-((SELECT id FROM mostre WHERE slug='mondo-celeste'), 'Osservazione in terrazza', 'Con i telescopi del museo e un astronomo che guida l''osservazione. Si annulla in caso di nuvole.', '2026-11-13 20:30', 120, 'Terrazza', 8, 40),
-((SELECT id FROM mostre WHERE slug='dinosauri'), 'Piccoli paleontologi', 'Laboratorio per bambini dai 6 ai 10 anni: si scava, si pulisce e si riconosce un fossile.', '2026-11-15 10:30', 75, 'Laboratorio didattico', 5, 20),
+((SELECT id FROM mostre WHERE slug='mondo-celeste'), 'Osservazione in terrazza', 'Con i telescopi del museo e un astronomo che guida l''osservazione. Si annulla in caso di nuvole.', '2026-11-13 20:30', 120, 'Terrazza', 7.50, 40),
+((SELECT id FROM mostre WHERE slug='dinosauri'), 'Piccoli paleontologi', 'Laboratorio per bambini dai 6 ai 10 anni: si scava, si pulisce e si riconosce un fossile.', '2026-11-15 10:30', 75, 'Laboratorio didattico', 4.50, 20),
 ((SELECT id FROM mostre WHERE slug='atlantide'), 'Visita guidata: le città sommerse', 'Un''archeologa subacquea racconta come si scava sotto il mare.', '2026-11-21 16:00', 60, 'Sale 7–8', 4, 25),
-((SELECT id FROM mostre WHERE slug='era-glaciale'), 'Notte tra i ghiacci', 'Apertura serale con visita a lume di torcia nella sala della grotta.', '2026-11-28 21:00', 90, 'Sale 5–6', 10, 60),
+((SELECT id FROM mostre WHERE slug='era-glaciale'), 'Notte tra i ghiacci', 'Apertura serale con visita a lume di torcia nella sala della grotta.', '2026-11-28 21:00', 90, 'Sale 5–6', 9.50, 60),
 (NULL, 'Kronos per tutti: visita in LIS', 'Visita guidata a tutto il museo in Lingua dei Segni Italiana.', '2026-12-05 15:00', 90, 'Atrio', 0, 25),
 ((SELECT id FROM mostre WHERE slug='mitologia'), 'Dentro il cavallo', 'Visita guidata all''installazione con apertura del vano interno.', '2026-12-12 11:00', 45, 'Sala 9', 4, 15);
 
@@ -105,7 +105,7 @@ INSERT INTO orari (giorno, apertura, chiusura) VALUES
 
 INSERT INTO tipi_biglietto (nome, descrizione, prezzo, ordine) VALUES
 ('Intero', 'Dai 26 ai 64 anni', 16.00, 1),
-('Ridotto', 'Dai 18 ai 25 anni e dai 65 anni in su', 11.00, 2),
+('Ridotto', 'Dai 18 ai 25 anni e dai 65 anni in su', 11.50, 2),
 ('Ragazzi', 'Dai 6 ai 17 anni', 7.00, 3),
 ('Bambini', 'Fino a 5 anni', 0.00, 4);
 
@@ -128,15 +128,15 @@ INSERT INTO vantaggi_membership (livello_id, testo, ordine) VALUES
 
 INSERT INTO prodotti (mostra_id, nome, descrizione, categoria, prezzo, disponibili, immagine) VALUES
 ((SELECT id FROM mostre WHERE slug='dinosauri'), 'Kit di scavo del fossile', 'Un blocco di gesso con dentro la replica di un dente di T. rex, scalpello e pennello.', 'Bambini', 18.00, 40, 'img/prodotti/kit-scavo-fossile.svg'),
-((SELECT id FROM mostre WHERE slug='dinosauri'), 'Atlante dei dinosauri', 'Duecento specie illustrate, con mappe dei ritrovamenti. 240 pagine.', 'Libri', 29.00, 25, 'img/prodotti/atlante-dinosauri.svg'),
+((SELECT id FROM mostre WHERE slug='dinosauri'), 'Atlante dei dinosauri', 'Duecento specie illustrate, con mappe dei ritrovamenti. 240 pagine.', 'Libri', 29.50, 25, 'img/prodotti/atlante-dinosauri.svg'),
 ((SELECT id FROM mostre WHERE slug='mitologia'), 'Odissea, edizione illustrata', 'Traduzione integrale con le tavole della mostra. 512 pagine.', 'Libri', 34.00, 30, 'img/prodotti/odissea-illustrata.svg'),
 ((SELECT id FROM mostre WHERE slug='mitologia'), 'Cavallo di Troia in legno', 'Modellino da montare, 28 pezzi in legno di betulla.', 'Riproduzioni', 24.00, 15, 'img/prodotti/cavallo-troia-legno.svg'),
 ((SELECT id FROM mostre WHERE slug='mitologia'), 'Kylix a figure rosse', 'Riproduzione in ceramica di una coppa attica, dipinta a mano.', 'Riproduzioni', 65.00, 6, 'img/prodotti/kylix-figure-rosse.svg'),
 ((SELECT id FROM mostre WHERE slug='era-glaciale'), 'Mammut di peluche', 'Alto 30 cm, in fibra riciclata.', 'Bambini', 22.00, 0, 'img/prodotti/mammut-peluche.svg'),
-((SELECT id FROM mostre WHERE slug='era-glaciale'), 'Tazza termocromica Pleistocene', 'Con l''acqua calda il ghiaccio si ritira e compare la steppa.', 'Casa', 14.00, 50, 'img/prodotti/tazza-pleistocene.svg'),
+((SELECT id FROM mostre WHERE slug='era-glaciale'), 'Tazza termocromica Pleistocene', 'Con l''acqua calda il ghiaccio si ritira e compare la steppa.', 'Casa', 13.50, 50, 'img/prodotti/tazza-pleistocene.svg'),
 ((SELECT id FROM mostre WHERE slug='atlantide'), 'Platone, Timeo e Crizia', 'I due dialoghi che raccontano Atlantide, con testo greco a fronte.', 'Libri', 16.00, 20, 'img/prodotti/platone-timeo-crizia.svg'),
-((SELECT id FROM mostre WHERE slug='mondo-celeste'), 'Planisfero celeste girevole', 'Mostra il cielo visibile in ogni ora dell''anno alla latitudine dell''Italia.', 'Riproduzioni', 19.00, 35, 'img/prodotti/planisfero-celeste.svg'),
-((SELECT id FROM mostre WHERE slug='mondo-celeste'), 'Poster delle costellazioni', 'Stampa 50×70 cm su carta di cotone.', 'Casa', 25.00, 18, 'img/prodotti/poster-costellazioni.svg');
+((SELECT id FROM mostre WHERE slug='mondo-celeste'), 'Planisfero celeste girevole', 'Mostra il cielo visibile in ogni ora dell''anno alla latitudine dell''Italia.', 'Riproduzioni', 19.90, 35, 'img/prodotti/planisfero-celeste.svg'),
+((SELECT id FROM mostre WHERE slug='mondo-celeste'), 'Poster delle costellazioni', 'Stampa 50×70 cm su carta di cotone.', 'Casa', 24.90, 18, 'img/prodotti/poster-costellazioni.svg');
 
 INSERT INTO membri_team (nome, ruolo, bio, ordine) VALUES
 ('Elena Marchetti', 'Direttrice', 'Archeologa, ha guidato scavi a Creta e a Santorini prima di fondare Kronos.', 1),
