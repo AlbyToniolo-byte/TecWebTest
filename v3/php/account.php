@@ -85,10 +85,10 @@ $iscritto = (bool) query_riga('SELECT 1 FROM iscrizioni_newsletter WHERE email =
 $oggi = date('Y-m-d');
 $adesso = date('Y-m-d H:i:s');
 
+briciole([[null, 'Area personale']]);
 pagina_inizio('Area personale', 'Le tue prenotazioni, tessere e ordini al museo Kronos.', 'account');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Area personale']]); ?>
     <div class="intestazione-pagina">
         <h1>Ciao, <?= e($u['nome']) ?></h1>
         <p class="introduzione">Qui trovi tutto quello che hai fatto con il tuo account <strong><?= e($u['nome_utente']) ?></strong>.</p>

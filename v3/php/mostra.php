@@ -26,13 +26,13 @@ $eventi = query('SELECT id, titolo, descrizione, inizio, durata_min, luogo, prez
                  WHERE mostra_id = :id AND inizio >= NOW() ORDER BY inizio', ['id' => $id]);
 $prodotti = query('SELECT nome, prezzo FROM prodotti WHERE mostra_id = :id ORDER BY nome', ['id' => $id]);
 
+briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $mostra['titolo']]]);
 pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tema'], true, SCRIPT_SCORRIMENTO);
 ?>
 <div class="sfondo-mostra"><img src="<?= e(asset($mostra['immagine'])) ?>" alt="" width="1600" height="1000" fetchpriority="high" /></div>
 
 <header class="apertura">
     <div class="contenitore">
-        <?php briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $mostra['titolo']]]); ?>
         <?php if ($mostra['speciale']): ?>
             <p class="etichetta-speciale">Installazione speciale fino al <?= e(data_estesa($mostra['data_fine'], true)) ?></p>
         <?php endif; ?>

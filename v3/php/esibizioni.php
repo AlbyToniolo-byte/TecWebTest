@@ -20,10 +20,10 @@ $sql = 'SELECT e.id, e.titolo, e.descrizione, e.inizio, e.durata_min, e.luogo, e
         ORDER BY e.inizio';
 $eventi = query($sql, $filtro ? ['s' => $filtro] : []);
 
+briciole([[null, 'Mostre ed eventi']]);
 pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di visite guidate, laboratori e serate.', 'esibizioni');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Mostre ed eventi']]); ?>
     <div class="intestazione-pagina">
         <h1>Mostre ed eventi</h1>
         <p class="introduzione">Cinque mostre permanenti, disposte su quattro piani nell'ordine della discesa: dal cielo, in terrazza, fino al fondale di Atlantide, sotto il livello della strada.</p>

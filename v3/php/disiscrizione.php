@@ -4,10 +4,10 @@
 require_once __DIR__ . '/funzioni.php';
 require_once __DIR__ . '/header_footer.php';
 
+briciole([[null, 'Annulla l\'iscrizione alla newsletter']]);
 pagina_inizio('Annulla l\'iscrizione alla newsletter', 'Smetti di ricevere la newsletter del museo Kronos e cancella il tuo indirizzo.');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Annulla l\'iscrizione alla newsletter']]); ?>
     <div class="intestazione-pagina">
         <h1>Annulla l'iscrizione alla newsletter</h1>
         <p class="introduzione">Inserisci l'indirizzo iscritto: smetterai di ricevere la newsletter e l'indirizzo verrà cancellato dai nostri dati. Puoi iscriverti di nuovo quando vuoi dal piè di pagina.</p>

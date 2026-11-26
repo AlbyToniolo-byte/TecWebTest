@@ -93,6 +93,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
         </button>
     </div>
 </header>
+<?php stampa_briciole(); ?>
 <main id="contenuto" tabindex="-1">
 <?php
     $flash = leggi_flash();
