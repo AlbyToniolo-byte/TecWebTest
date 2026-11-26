@@ -100,21 +100,28 @@
    (finestra stretta o testo ingrandito) main.js mette la classe menu-compatto e il menu
    diventa il pannello a schermo intero aperto dal bottone Menu. */
 .v2-menu { margin-left: auto; }
-.v2-menu ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; margin: 0; padding: 0; list-style: none; }
+.v2-menu ul { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; margin: 0; padding: 0; list-style: none; }
 .js .v2-menu ul { flex-wrap: nowrap; }
 .v2-menu li { white-space: nowrap; }
-.v2-testata .v2-menu a {
+/* Voci a pillola, come i bottoni: testo pieno (non il serif sottile dei titoli), bordo al passaggio,
+   pagina corrente piena. L'area cliccabile è alta almeno 44px. */
+.v2-testata .v2-menu li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.3rem 0.95rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
     color: var(--testo);
-    font-size: 1.3rem;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 0.3em;
-    text-decoration-thickness: 1px;
-    transition: text-decoration-color 0.2s;
+    font-weight: 400;
+    font-size: 1.375rem;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
-.v2-testata .v2-menu a:visited { color: var(--link-visitato); }
-.v2-testata .v2-menu a:hover, .v2-testata .v2-menu a:focus-visible { text-decoration-color: currentColor; }
-.v2-testata .v2-menu a[aria-current="page"] { font-style: italic; text-decoration-color: var(--accento); }
+.v2-testata .v2-menu li a:visited { color: var(--link-visitato); }
+.v2-testata .v2-menu li a:hover, .v2-testata .v2-menu li a:focus-visible { border-color: currentColor; }
+.v2-testata .v2-menu li a[aria-current="page"] { background: var(--testo); border-color: var(--testo); color: var(--sfondo); font-style: italic; }
 .v2-menu-piede { display: none; }
 
 /* Menu compatto: pannello scuro a schermo intero, aperto dal bottone */
@@ -137,9 +144,11 @@
 }
 .menu-compatto .v2-menu[hidden] { display: none; }
 .menu-compatto .v2-menu ul { display: grid; gap: 0.15em; font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
-.menu-compatto .v2-testata .v2-menu a { font-size: inherit; color: var(--carta); text-decoration: none; }
-.menu-compatto .v2-testata .v2-menu a:visited { color: var(--link-visitato); }
-.menu-compatto .v2-testata .v2-menu a:hover, .menu-compatto .v2-testata .v2-menu a:focus-visible { font-style: italic; color: var(--verderame-chiaro); }
+/* nel pannello niente pillole: voci grandi su fondo scuro, la corrente in corsivo e verderame chiaro */
+.menu-compatto .v2-testata .v2-menu li a { display: inline; min-height: 0; padding: 0; border: 0; border-radius: 0; background: none; font-weight: 300; font-size: inherit; color: var(--carta); }
+.menu-compatto .v2-testata .v2-menu li a:visited { color: var(--link-visitato); }
+.menu-compatto .v2-testata .v2-menu li a:hover, .menu-compatto .v2-testata .v2-menu li a:focus-visible { font-style: italic; color: var(--verderame-chiaro); }
+.menu-compatto .v2-testata .v2-menu li a[aria-current="page"] { font-style: italic; color: var(--verderame-chiaro); }
 .menu-compatto .v2-menu-piede { display: block; margin: 2rem 0 0; }
 /* logo e bottoni restano sopra il pannello */
 .menu-compatto .v2-marchio, .menu-compatto .v2-testata-azioni { position: relative; z-index: 51; margin-left: auto; }
