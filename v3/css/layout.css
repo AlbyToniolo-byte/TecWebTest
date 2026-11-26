@@ -37,15 +37,14 @@
     color: inherit;
     font-family: var(--serif);
     font-weight: 400;
-    font-size: 2rem;
+    /* cresce con lo schermo: 32px sui telefoni, fino a 44px sugli schermi larghi */
+    font-size: clamp(2rem, 1.4rem + 1.2vw, 2.75rem);
     letter-spacing: -0.03em;
     line-height: 1.1;
     text-decoration: none;
 }
-.marchio-sfera { overflow: visible; }
-@media (max-width: 24rem) {
-    .marchio-sfera { width: 32px; height: 32px; }
-}
+/* la sfera segue la dimensione del nome (gli attributi width/height dell'SVG valgono senza CSS) */
+.v2-marchio .marchio-sfera { width: 1.05em; height: 1.05em; overflow: visible; }
 /* L'anello interno gira attorno all'asse inclinato: scaleX da 1 a -1 imita la rotazione in 3D (animazioni.css) */
 .marchio-gira { transform-box: fill-box; transform-origin: center; }
 
@@ -167,7 +166,8 @@
     margin: 0;
     padding: 0.25rem 0 0;
     list-style: none;
-    font-size: 1rem;
+    /* cresce con lo schermo insieme al logo: 16px sui telefoni, fino a 20px */
+    font-size: clamp(1rem, 0.85rem + 0.35vw, 1.25rem);
 }
 .briciole li { max-width: none; }
 /* separatore solo visivo: il testo alternativo vuoto lo nasconde ai lettori di schermo */
