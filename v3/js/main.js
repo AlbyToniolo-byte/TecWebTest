@@ -55,7 +55,9 @@ function totaleBiglietti() {
 
     const uscita = form.querySelector('[data-totale]');
     const campi = form.querySelectorAll('input[data-prezzo]');
-    const formato = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
+    // come prezzo() in PHP: niente ",00" per le cifre tonde
+    const euro = (n) => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR',
+        minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2 }).format(n);
 
     // Riavvia l'animazione "battito" del totale (classe in css/animazioni.css)
     const batti = () => {
@@ -74,7 +76,7 @@ function totaleBiglietti() {
         });
         uscita.textContent = pezzi === 0
             ? 'Nessun biglietto selezionato'
-            : `${pezzi} ${pezzi === 1 ? 'biglietto' : 'biglietti'}, totale ${formato.format(totale)}`;
+            : `${pezzi} ${pezzi === 1 ? 'biglietto' : 'biglietti'}, totale ${euro(totale)}`;
     };
 
     campi.forEach((c) => c.addEventListener('input', () => { calcola(); batti(); }));

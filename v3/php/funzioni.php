@@ -13,10 +13,14 @@ function e(?string $s): string
     return htmlspecialchars($s ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
+// "16 €" per le cifre tonde, "7,50 €" con i centesimi, "Gratis" per zero
 function prezzo(float|string $valore): string
 {
-    $v = (float) $valore;
-    return $v == 0 ? 'Gratis' : number_format($v, 2, ',', '.') . ' €';
+    $v = round((float) $valore, 2);
+    if ($v == 0) {
+        return 'Gratis';
+    }
+    return number_format($v, fmod($v, 1) == 0 ? 0 : 2, ',', '.') . ' €';
 }
 
 const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio',

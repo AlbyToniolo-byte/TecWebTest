@@ -2,7 +2,7 @@
 // Prenotazioni della visita: controlli, salvataggio e campi del modulo.
 // Usato da visit.php (nuova prenotazione) e da gestisci.php (modifica e cancellazione).
 
-const FASCE = ['mattina' => 'Mattina, 9:30–12:30', 'pomeriggio' => 'Pomeriggio, 12:30–16:00', 'tardi' => 'Dalle 16:00 alla chiusura'];
+const FASCE = ['mattina' => 'Mattina, 9:30–12:30', 'pomeriggio' => 'Pomeriggio, 12:30–16:00', 'tardi' => 'Sera, dalle 16:00'];
 const MAX_PER_TIPO = 10;
 const MAX_NOTE = 500;
 
