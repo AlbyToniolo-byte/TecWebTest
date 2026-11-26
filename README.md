@@ -85,7 +85,10 @@ In `v3/` non c'è un foglio di stile aggiuntivo: gli stessi file (`style.css`, `
 | `php/accedi.php`, `php/registrati.php`, `php/esci.php` | Accesso (nome utente o email e password), registrazione, uscita |
 | `php/account.php` | Area personale: prenotazioni, tessere, ordini, newsletter; aggiunta di quello fatto senza account (con codice ed email) |
 | `php/profilo.php` | Modifica di nome ed email, cambio password, eliminazione dell'account |
-| `php/admin.php` | Solo staff: eventi (aggiungi, modifica, cancella) e prenotazioni dei prossimi 14 giorni |
+| `php/evento.php?id=<n>` | Pagina di un evento con la prenotazione dei posti (posti rimasti calcolati dalle prenotazioni) |
+| `php/gestisci-evento.php` | Modifica (posti e nome) e cancellazione della prenotazione di un evento, con codice ed email |
+| `php/eventi.php` | Posti rimasti, controlli e campi del modulo, comuni a `evento.php` e `gestisci-evento.php` |
+| `php/admin.php` | Solo staff: eventi (aggiungi, modifica, cancella), chi li ha prenotati, prenotazioni delle visite dei prossimi 14 giorni |
 
 ### Account (solo `v3/`)
 
@@ -100,7 +103,7 @@ Account di prova (in `database/seed.sql`):
 Le password sono salvate con `password_hash()` (bcrypt); il login rigenera l'id di sessione, i moduli hanno il token CSRF,
 le pagine riservate controllano accesso e ruolo lato server. Prenotazioni, tessere e ordini fatti senza account si aggiungono
 all'area personale solo con il loro codice ed email: il sito non invia mail e non può verificare a chi appartiene un indirizzo.
-Per un database creato prima: `psql -d kronos -f database/migrazione-utenti.sql`.
+Per un database creato prima: `psql -d kronos -f database/migrazione-utenti.sql` e poi `database/migrazione-eventi.sql` (prenotazione degli eventi).
 
 Fuori dalle versioni:
 
@@ -108,7 +111,7 @@ Fuori dalle versioni:
 |---|---|
 | `index.php`, `scelta.css` | Pagina di scelta tra le due versioni |
 | `robots.txt` | Indica le due mappe del sito ed esclude le pagine di servizio |
-| `database/` | Schema e dati di esempio, comuni a tutte le versioni; `migrazione-requisiti.sql`, `migrazione-tessere.sql` e `migrazione-utenti.sql`, in questo ordine, aggiornano un database creato con uno schema precedente senza perdere i dati |
+| `database/` | Schema e dati di esempio, comuni a tutte le versioni; `migrazione-requisiti.sql`, `migrazione-tessere.sql`, `migrazione-utenti.sql` e `migrazione-eventi.sql`, in questo ordine, aggiornano un database creato con uno schema precedente senza perdere i dati |
 | `docs/schema-er.drawio` | Schema E/R del database (notazione di Chen), da aprire con draw.io o app.diagrams.net; UTENTE e le relazioni Effettua, Richiede e Fa riguardano solo la terza versione |
 | `docs/genera_svg.py`, `docs/genera_prodotti.py` | Generano le illustrazioni nei colori di `refs.md`, per esempio `python3 docs/genera_svg.py v1/img/mostre` |
 | `docs/contrasto.json` | Coppie di colori verificate per il contrasto WCAG AA, comprese quelle dei link visitati (3:1 rispetto ai non visitati), per entrambe le versioni |

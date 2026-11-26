@@ -2,7 +2,7 @@
 -- Schema PostgreSQL. Esegui con:  psql -d kronos -f database/schema.sql
 -- I totali di prenotazioni e ordini non sono salvati: si calcolano dalle righe (SUM di quantita * prezzo_unitario).
 
-DROP TABLE IF EXISTS ordini_righe, ordini, prodotti, utenti,
+DROP TABLE IF EXISTS prenotazioni_eventi, ordini_righe, ordini, prodotti, utenti,
     richieste_membership, vantaggi_membership, livelli_membership, iscrizioni_newsletter,
     prenotazioni_righe, prenotazioni, tipi_biglietto, orari,
     eventi, reperti, sezioni_mostra, mostre, membri_team CASCADE;
@@ -92,6 +92,18 @@ CREATE TABLE prenotazioni (
     note        VARCHAR(500),            -- testo libero: esigenze per la visita
     utente_id   INTEGER REFERENCES utenti(id) ON DELETE SET NULL,   -- NULL: fatta senza account
     creata_il   TIMESTAMP    NOT NULL DEFAULT NOW()
+);
+
+-- Prenotazioni degli eventi (terza versione): i posti rimasti si calcolano, eventi.posti meno la somma dei posti
+CREATE TABLE prenotazioni_eventi (
+    id        SERIAL PRIMARY KEY,
+    codice    VARCHAR(12)  NOT NULL UNIQUE,
+    evento_id INTEGER      NOT NULL REFERENCES eventi(id) ON DELETE CASCADE,
+    nome      VARCHAR(120) NOT NULL,
+    email     VARCHAR(200) NOT NULL,
+    posti     SMALLINT     NOT NULL CHECK (posti BETWEEN 1 AND 10),
+    utente_id INTEGER REFERENCES utenti(id) ON DELETE SET NULL,
+    creata_il TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE prenotazioni_righe (

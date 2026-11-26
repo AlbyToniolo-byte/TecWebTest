@@ -22,17 +22,17 @@ if (!$mostra) {
 $id = $mostra['id'];
 $sezioni = query('SELECT titolo, testo FROM sezioni_mostra WHERE mostra_id = :id ORDER BY ordine', ['id' => $id]);
 $reperti = query('SELECT nome, datazione, descrizione FROM reperti WHERE mostra_id = :id ORDER BY ordine', ['id' => $id]);
-$eventi = query('SELECT titolo, descrizione, inizio, durata_min, luogo, prezzo FROM eventi
+$eventi = query('SELECT id, titolo, descrizione, inizio, durata_min, luogo, prezzo FROM eventi
                  WHERE mostra_id = :id AND inizio >= NOW() ORDER BY inizio', ['id' => $id]);
 $prodotti = query('SELECT nome, prezzo FROM prodotti WHERE mostra_id = :id ORDER BY nome', ['id' => $id]);
 
+briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $mostra['titolo']]]);
 pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tema'], true, SCRIPT_SCORRIMENTO);
 ?>
 <div class="sfondo-mostra"><img src="<?= e(asset($mostra['immagine'])) ?>" alt="" width="1600" height="1000" fetchpriority="high" /></div>
 
 <header class="apertura">
     <div class="contenitore">
-        <?php briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $mostra['titolo']]]); ?>
         <?php if ($mostra['speciale']): ?>
             <p class="etichetta-speciale">Installazione speciale fino al <?= e(data_estesa($mostra['data_fine'], true)) ?></p>
         <?php endif; ?>
@@ -84,7 +84,7 @@ pagina_inizio($mostra['titolo'], $mostra['sommario'], 'esibizioni', $mostra['tem
                         <li class="evento">
                             <p class="evento-quando"><time datetime="<?= e(date('c', strtotime($ev['inizio']))) ?>"><?= e(data_estesa($ev['inizio'])) ?><span>ore <?= e(ora($ev['inizio'])) ?></span></time></p>
                             <div>
-                                <h3><?= e($ev['titolo']) ?></h3>
+                                <h3><a href="evento.php?id=<?= (int) $ev['id'] ?>"><?= e($ev['titolo']) ?></a></h3>
                                 <p><?= e($ev['descrizione']) ?></p>
                                 <dl class="evento-dettagli">
                                     <div><dt>Dove</dt><dd><?= e($ev['luogo']) ?></dd></div>

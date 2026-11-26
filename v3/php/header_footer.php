@@ -93,6 +93,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
         </button>
     </div>
 </header>
+<?php stampa_briciole(); ?>
 <main id="contenuto" tabindex="-1">
 <?php
     $flash = leggi_flash();
@@ -120,6 +121,7 @@ function pagina_fine(): void
             <ul class="v2-piede-link">
                 <li><a href="gestisci.php">Gestisci la prenotazione</a></li>
                 <li><a href="gestisci-tessera.php">Gestisci la tessera</a></li>
+                <li><a href="gestisci-evento.php">Gestisci un evento prenotato</a></li>
                 <li><a href="<?= utente() ? 'account.php">Area personale' : 'accedi.php">Accedi o registrati' ?></a></li>
             </ul>
         </section>

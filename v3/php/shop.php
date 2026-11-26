@@ -102,10 +102,10 @@ if ($carrello) {
     }
 }
 
+briciole([[null, 'Shop']]);
 pagina_inizio('Shop', 'Libri, riproduzioni e oggetti ispirati alle mostre di Kronos, da ritirare al bookshop del museo.', 'shop');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Shop']]); ?>
     <div class="intestazione-pagina">
         <h1>Shop</h1>
         <p class="introduzione">Libri, riproduzioni e oggetti ispirati alle mostre. Ordini qui e ritiri al bookshop del museo, anche senza biglietto.</p>

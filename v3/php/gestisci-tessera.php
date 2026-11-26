@@ -70,10 +70,10 @@ if ($richiesta && !isset($v)) {
     $v = ['livello' => (string) $richiesta['livello_id'], 'nome' => $richiesta['nome'], 'email' => $richiesta['email']];
 }
 
+briciole([['support.php', 'Sostienici'], [null, 'Gestisci la tessera']]);
 pagina_inizio('Gestisci la tessera', 'Cambia il tipo di tessera richiesto o annulla la richiesta di tessera del museo Kronos.', 'support');
 ?>
 <div class="contenitore">
-    <?php briciole([['support.php', 'Sostienici'], [null, 'Gestisci la tessera']]); ?>
     <div class="intestazione-pagina">
         <h1>Gestisci la tessera</h1>
         <?php if (!$richiesta): ?>

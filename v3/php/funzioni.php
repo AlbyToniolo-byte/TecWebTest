@@ -134,12 +134,22 @@ function stato_apertura_oggi(): string
 }
 
 /**
- * Percorso della pagina ("Ti trovi in"), per orientarsi nelle pagine interne.
- * @param array<array{0: ?string, 1: string}> $voci [indirizzo, testo]; l'ultima, senza indirizzo, è la pagina corrente
+ * Percorso della pagina ("Ti trovi in"). Si chiama prima di pagina_inizio(): la testata lo stampa
+ * subito sotto di sé, allineato al logo, fuori da <main> (il link "Vai al contenuto" lo salta).
+ * @param array<array{0: ?string, 1: string}> $voci [indirizzo, testo]; l'ultima, senza indirizzo, è la pagina corrente.
+ *        Nella home la lista è vuota: Home è la pagina corrente.
  */
 function briciole(array $voci): void
 {
-    // nella home la lista è vuota: Home è la pagina corrente, non un link
+    $GLOBALS['briciole_pagina'] = $voci;
+}
+
+function stampa_briciole(): void
+{
+    $voci = $GLOBALS['briciole_pagina'] ?? null;
+    if ($voci === null) {
+        return;
+    }
     echo '<nav class="briciole" aria-label="Ti trovi in"><ol>',
         $voci ? '<li><a href="index.php">Home</a></li>' : '<li aria-current="page">Home</li>';
     foreach ($voci as [$href, $testo]) {
@@ -147,7 +157,7 @@ function briciole(array $voci): void
             ? '<li><a href="' . e($href) . '">' . e($testo) . '</a></li>'
             : '<li aria-current="page">' . e($testo) . '</li>';
     }
-    echo '</ol></nav>';
+    echo '</ol></nav>', "\n";
 }
 
 /** Percorso di una risorsa statica (css, js, img) vista dalle pagine in php/. */
@@ -190,7 +200,7 @@ function entra(int $id): void
 function esci(): void
 {
     session_regenerate_id(true);
-    unset($_SESSION['utente_id'], $_SESSION['prenotazione_gestita'], $_SESSION['tessera_gestita']);
+    unset($_SESSION['utente_id'], $_SESSION['prenotazione_gestita'], $_SESSION['tessera_gestita'], $_SESSION['evento_gestito']);
 }
 
 // Pagine riservate: chi non ha fatto l'accesso va al login e poi torna qui

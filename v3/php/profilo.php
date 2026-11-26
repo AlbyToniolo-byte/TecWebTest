@@ -71,10 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
     }
 }
 
+briciole([['account.php', 'Area personale'], [null, 'Profilo']]);
 pagina_inizio('Il tuo profilo', 'Modifica i dati e la password del tuo account del museo Kronos.', 'account');
 ?>
 <div class="pagina-stretta">
-    <?php briciole([['account.php', 'Area personale'], [null, 'Profilo']]); ?>
     <div class="intestazione-pagina">
         <h1>Il tuo profilo</h1>
         <p class="introduzione">Nome utente: <strong><?= e($u['nome_utente']) ?></strong>. Il nome utente non si può cambiare.</p>

@@ -10,6 +10,9 @@ $pagine = ['index.php', 'esibizioni.php', 'visit.php', 'shop.php', 'support.php'
 foreach (query('SELECT slug FROM mostre ORDER BY ordine') as $m) {
     $pagine[] = 'mostra.php?m=' . $m['slug'];
 }
+foreach (query('SELECT id FROM eventi WHERE inizio >= NOW() ORDER BY inizio') as $ev) {
+    $pagine[] = 'evento.php?id=' . $ev['id'];
+}
 echo '<?xml version="1.0" encoding="UTF-8"?>', "\n", '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', "\n";
 foreach ($pagine as $p) {
     echo '  <url><loc>', e($base . $p), '</loc></url>', "\n";

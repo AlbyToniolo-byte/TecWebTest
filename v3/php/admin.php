@@ -62,6 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
 
     if ($azione === 'salva') {
         [$v, $errori] = evento_leggi($_POST, $idMostre);
+        // un evento già prenotato non può scendere sotto i posti venduti
+        $giaPrenotati = $v['id'] ? (int) query_riga('SELECT COALESCE(SUM(posti), 0) AS n FROM prenotazioni_eventi WHERE evento_id = :id',
+            ['id' => $v['id']])['n'] : 0;
+        if (!isset($errori['posti']) && (int) $v['posti'] < $giaPrenotati) {
+            $errori['posti'] = 'Sono già prenotati ' . $giaPrenotati . ' posti: la capienza non può essere più bassa';
+        }
         if (!$errori) {
             $p = ['t' => $v['titolo'], 'm' => $v['mostra'] === '' ? null : (int) $v['mostra'], 'd' => $v['descrizione'],
                   'i' => $v['data'] . ' ' . $v['ora'], 'du' => (int) $v['durata'], 'l' => $v['luogo'],
@@ -101,18 +107,22 @@ if (!$errori && isset($_GET['modifica'])) {
     }
 }
 
-$eventi = query('SELECT e.id, e.titolo, e.inizio, e.luogo, e.prezzo, e.posti, m.titolo AS mostra
+$eventi = query('SELECT e.id, e.titolo, e.inizio, e.luogo, e.prezzo, e.posti, m.titolo AS mostra,
+                        COALESCE((SELECT SUM(pe.posti) FROM prenotazioni_eventi pe WHERE pe.evento_id = e.id), 0) AS prenotati
                  FROM eventi e LEFT JOIN mostre m ON m.id = e.mostra_id ORDER BY e.inizio');
 $giorni = query("SELECT p.data_visita, p.fascia, COUNT(DISTINCT p.id) AS prenotazioni, COALESCE(SUM(r.quantita), 0) AS biglietti
                  FROM prenotazioni p LEFT JOIN prenotazioni_righe r ON r.prenotazione_id = p.id
                  WHERE p.data_visita BETWEEN CURRENT_DATE AND CURRENT_DATE + 13
                  GROUP BY p.data_visita, p.fascia ORDER BY p.data_visita, p.fascia");
 $adesso = date('Y-m-d H:i:s');
+$iscritti = query('SELECT e.titolo, e.inizio, pe.nome, pe.email, pe.posti, pe.codice
+                   FROM prenotazioni_eventi pe JOIN eventi e ON e.id = pe.evento_id
+                   WHERE e.inizio >= NOW() ORDER BY e.inizio, pe.creata_il');
 
+briciole([['account.php', 'Area personale'], [null, 'Gestione del museo']]);
 pagina_inizio('Gestione del museo', 'Area riservata allo staff del museo Kronos: eventi e prenotazioni.', 'admin');
 ?>
 <div class="contenitore">
-    <?php briciole([['account.php', 'Area personale'], [null, 'Gestione del museo']]); ?>
     <div class="intestazione-pagina">
         <h1>Gestione del museo</h1>
         <p class="introduzione">Il calendario degli eventi che compare in home e in «Mostre ed eventi», e l'affluenza prenotata dei prossimi giorni.</p>
@@ -121,7 +131,7 @@ pagina_inizio('Gestione del museo', 'Area riservata allo staff del museo Kronos:
     <?php if ($daCancellare): ?>
         <section class="blocco-form" aria-labelledby="titolo-conferma">
             <h2 id="titolo-conferma" tabindex="-1" data-focus-iniziale="">Vuoi cancellare l'evento «<?= e($daCancellare['titolo']) ?>»?</h2>
-            <p>È in programma <?= e(data_estesa($daCancellare['inizio'], true)) ?> alle <?= e(ora($daCancellare['inizio'])) ?>. Sparisce dal sito e non si può recuperare.</p>
+            <p>È in programma <?= e(data_estesa($daCancellare['inizio'], true)) ?> alle <?= e(ora($daCancellare['inizio'])) ?>. Sparisce dal sito e non si può recuperare<?= ($n = (int) query_riga('SELECT COALESCE(SUM(posti), 0) AS n FROM prenotazioni_eventi WHERE evento_id = :id', ['id' => $daCancellare['id']])['n']) ? ', insieme alle prenotazioni di ' . $n . ($n === 1 ? ' posto' : ' posti') . ': avvisa chi ha prenotato' : '' ?>.</p>
             <div class="azioni">
                 <form action="admin.php" method="post">
                     <?= campo_csrf() ?>
@@ -139,7 +149,7 @@ pagina_inizio('Gestione del museo', 'Area riservata allo staff del museo Kronos:
         <?php if ($eventi): ?>
             <div class="tabella-scorre" role="region" aria-labelledby="titolo-eventi" tabindex="0">
                 <table class="tabella-larga">
-                    <thead><tr><th scope="col">Evento</th><th scope="col">Quando</th><th scope="col">Dove</th><th scope="col" class="numero">Prezzo</th><th scope="col" class="numero">Posti</th><th scope="col"><span class="visually-hidden">Azioni</span></th></tr></thead>
+                    <thead><tr><th scope="col">Evento</th><th scope="col">Quando</th><th scope="col">Dove</th><th scope="col" class="numero">Prezzo</th><th scope="col" class="numero">Prenotati</th><th scope="col"><span class="visually-hidden">Azioni</span></th></tr></thead>
                     <tbody>
                         <?php foreach ($eventi as $ev): ?>
                             <tr>
@@ -147,7 +157,7 @@ pagina_inizio('Gestione del museo', 'Area riservata allo staff del museo Kronos:
                                 <td><?= e(data_estesa($ev['inizio'], true)) ?>, <?= e(ora($ev['inizio'])) ?><?= $ev['inizio'] < $adesso ? ' (passato)' : '' ?></td>
                                 <td><?= e($ev['luogo']) ?></td>
                                 <td class="numero"><?= e(prezzo($ev['prezzo'])) ?></td>
-                                <td class="numero"><?= (int) $ev['posti'] ?></td>
+                                <td class="numero"><?= (int) $ev['prenotati'] ?> su <?= (int) $ev['posti'] ?></td>
                                 <td>
                                     <div class="azioni-riga">
                                         <a href="admin.php?modifica=<?= (int) $ev['id'] ?>#modulo-evento">Modifica<span class="visually-hidden"> «<?= e($ev['titolo']) ?>»</span></a>
@@ -249,6 +259,30 @@ pagina_inizio('Gestione del museo', 'Area riservata allo staff del museo Kronos:
                 <?php endif; ?>
             </div>
         </form>
+    </section>
+
+    <section class="blocco-form" aria-labelledby="titolo-iscritti">
+        <h2 id="titolo-iscritti">Chi ha prenotato gli eventi in programma</h2>
+        <?php if ($iscritti): ?>
+            <div class="tabella-scorre" role="region" aria-labelledby="titolo-iscritti" tabindex="0">
+                <table class="tabella-larga">
+                    <thead><tr><th scope="col">Evento</th><th scope="col">Nome</th><th scope="col">Email</th><th scope="col" class="numero">Posti</th><th scope="col">Codice</th></tr></thead>
+                    <tbody>
+                        <?php foreach ($iscritti as $i): ?>
+                            <tr>
+                                <th scope="row"><?= e($i['titolo']) ?><br /><span class="v2-nota"><?= e(data_estesa($i['inizio'])) ?>, <?= e(ora($i['inizio'])) ?></span></th>
+                                <td><?= e($i['nome']) ?></td>
+                                <td><?= e($i['email']) ?></td>
+                                <td class="numero"><?= (int) $i['posti'] ?></td>
+                                <td><?= e($i['codice']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <p>Nessuna prenotazione per gli eventi in programma.</p>
+        <?php endif; ?>
     </section>
 
     <section class="blocco-form" aria-labelledby="titolo-affluenza">

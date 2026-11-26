@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+briciole([[null, 'Sostienici']]);
 pagina_inizio('Sostienici', 'Diventa socio di Kronos o sostieni il museo con una donazione.', 'support');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Sostienici']]); ?>
     <div class="intestazione-pagina">
         <h1>Sostieni Kronos</h1>
         <p class="introduzione">Kronos vive di biglietti, tessere e donazioni. Con una tessera entri tutte le volte che vuoi e ci aiuti a restaurare i reperti, a pagare le visite in LIS e i laboratori gratuiti per le scuole.</p>

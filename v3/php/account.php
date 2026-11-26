@@ -12,6 +12,7 @@ const COLLEGABILI = [
     'prenotazione' => ['prenotazioni', 'la prenotazione'],
     'tessera'      => ['richieste_membership', 'la richiesta di tessera'],
     'ordine'       => ['ordini', 'l\'ordine'],
+    'evento'       => ['prenotazioni_eventi', 'la prenotazione dell\'evento'],
 ];
 
 $errori = [];
@@ -26,6 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
         && query_riga('SELECT 1 FROM prenotazioni WHERE id = :id AND utente_id = :u', ['id' => $id, 'u' => $u['id']])) {
         $_SESSION['prenotazione_gestita'] = $id;
         vai('gestisci.php');
+    }
+    if ($azione === 'apri-evento'
+        && query_riga('SELECT 1 FROM prenotazioni_eventi WHERE id = :id AND utente_id = :u', ['id' => $id, 'u' => $u['id']])) {
+        $_SESSION['evento_gestito'] = $id;
+        vai('gestisci-evento.php');
     }
     if ($azione === 'apri-tessera'
         && query_riga('SELECT 1 FROM richieste_membership WHERE id = :id AND utente_id = :u', ['id' => $id, 'u' => $u['id']])) {
@@ -65,6 +71,9 @@ $prenotazioni = query('SELECT p.id, p.codice, p.data_visita, p.fascia,
                               COALESCE(SUM(r.quantita), 0) AS biglietti, COALESCE(SUM(r.quantita * r.prezzo_unitario), 0) AS totale
                        FROM prenotazioni p LEFT JOIN prenotazioni_righe r ON r.prenotazione_id = p.id
                        WHERE p.utente_id = :u GROUP BY p.id ORDER BY p.data_visita DESC', ['u' => $u['id']]);
+$eventi = query('SELECT pe.id, pe.codice, pe.posti, e.titolo, e.inizio, e.luogo, e.prezzo
+                 FROM prenotazioni_eventi pe JOIN eventi e ON e.id = pe.evento_id
+                 WHERE pe.utente_id = :u ORDER BY e.inizio DESC', ['u' => $u['id']]);
 $tessere = query('SELECT r.id, r.codice, r.creata_il, l.nome AS livello, l.prezzo
                   FROM richieste_membership r JOIN livelli_membership l ON l.id = r.livello_id
                   WHERE r.utente_id = :u ORDER BY r.creata_il DESC', ['u' => $u['id']]);
@@ -74,11 +83,12 @@ $ordini = query("SELECT o.codice, o.creato_il, string_agg(r.quantita || ' × ' |
                  WHERE o.utente_id = :u GROUP BY o.id ORDER BY o.creato_il DESC", ['u' => $u['id']]);
 $iscritto = (bool) query_riga('SELECT 1 FROM iscrizioni_newsletter WHERE email = :e', ['e' => $u['email']]);
 $oggi = date('Y-m-d');
+$adesso = date('Y-m-d H:i:s');
 
+briciole([[null, 'Area personale']]);
 pagina_inizio('Area personale', 'Le tue prenotazioni, tessere e ordini al museo Kronos.', 'account');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Area personale']]); ?>
     <div class="intestazione-pagina">
         <h1>Ciao, <?= e($u['nome']) ?></h1>
         <p class="introduzione">Qui trovi tutto quello che hai fatto con il tuo account <strong><?= e($u['nome_utente']) ?></strong>.</p>
@@ -124,6 +134,28 @@ pagina_inizio('Area personale', 'Le tue prenotazioni, tessere e ordini al museo 
             <p>Non hai ancora prenotazioni.</p>
         <?php endif; ?>
         <p><a class="bottone" href="visit.php#prenota">Prenota una visita</a></p>
+    </section>
+
+    <section class="blocco-form" aria-labelledby="titolo-eventi-account">
+        <h2 id="titolo-eventi-account">Eventi</h2>
+        <?php if ($eventi): ?>
+            <ul class="elenco-account">
+                <?php foreach ($eventi as $ev): ?>
+                    <li>
+                        <p><strong><?= e($ev['titolo']) ?></strong>, <?= e(data_estesa($ev['inizio'], true)) ?> ore <?= e(ora($ev['inizio'])) ?>, <?= e($ev['luogo']) ?><?= $ev['inizio'] < $adesso ? ' (concluso)' : '' ?>.
+                            <?= (int) $ev['posti'] ?> <?= (int) $ev['posti'] === 1 ? 'posto' : 'posti' ?>, <?= e(prezzo((int) $ev['posti'] * (float) $ev['prezzo'])) ?>. Codice <?= e($ev['codice']) ?>.</p>
+                        <form action="account.php" method="post">
+                            <?= campo_csrf() ?>
+                            <input type="hidden" name="azione" value="apri-evento" />
+                            <input type="hidden" name="id" value="<?= (int) $ev['id'] ?>" />
+                            <button class="bottone-testo" type="submit">Modifica o cancella<span class="visually-hidden"> la prenotazione <?= e($ev['codice']) ?></span></button>
+                        </form>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Non hai prenotato eventi. <a href="esibizioni.php#eventi">Guarda il calendario</a>.</p>
+        <?php endif; ?>
     </section>
 
     <section class="blocco-form" aria-labelledby="titolo-tessere">
@@ -180,14 +212,14 @@ pagina_inizio('Area personale', 'Le tue prenotazioni, tessere e ordini al museo 
 
     <section id="collega" class="blocco-form" aria-labelledby="titolo-collega">
         <h2 id="titolo-collega">Aggiungi qualcosa fatto senza account</h2>
-        <p>Se hai prenotato, chiesto una tessera o ordinato prima di registrarti, inserisci il codice e l'email del messaggio di conferma: lo ritroverai qui.</p>
+        <p>Se hai prenotato una visita o un evento, chiesto una tessera o ordinato prima di registrarti, inserisci il codice e l'email del messaggio di conferma: lo ritroverai qui.</p>
         <?= riepilogo_errori($errori) ?>
         <form action="account.php#collega" method="post" novalidate="novalidate" data-valida="">
             <?= campo_csrf() ?>
             <input type="hidden" name="azione" value="collega" />
             <fieldset>
                 <legend>Che cosa vuoi aggiungere?</legend>
-                <?php foreach (['prenotazione' => 'Una prenotazione', 'tessera' => 'Una richiesta di tessera', 'ordine' => 'Un ordine dello shop'] as $val => $etichetta):
+                <?php foreach (['prenotazione' => 'Una prenotazione della visita', 'evento' => 'Una prenotazione di un evento', 'tessera' => 'Una richiesta di tessera', 'ordine' => 'Un ordine dello shop'] as $val => $etichetta):
                     $id = $val === 'prenotazione' ? 'tipo' : 'tipo-' . $val;   // il primo ha l'id del campo: ci porta il riepilogo errori ?>
                     <div class="scelta-riga">
                         <input type="radio" id="<?= e($id) ?>" name="tipo" value="<?= e($val) ?>"<?= $c['tipo'] === $val ? ' checked="checked"' : '' ?> required="required"

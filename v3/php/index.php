@@ -7,17 +7,16 @@ $mostre = query("SELECT m.slug, m.titolo, m.sottotitolo, m.sommario, m.collocazi
                         m.nota_speciale, m.data_fine,
                         (SELECT string_agg(s.titolo, '|' ORDER BY s.ordine) FROM sezioni_mostra s WHERE s.mostra_id = m.id) AS sezioni
                  FROM mostre m ORDER BY m.ordine");
-$eventi = query('SELECT e.titolo, e.descrizione, e.inizio, e.luogo, e.prezzo
+$eventi = query('SELECT e.id, e.titolo, e.descrizione, e.inizio, e.luogo, e.prezzo
                  FROM eventi e WHERE e.inizio >= NOW() ORDER BY e.inizio LIMIT 3');
 $biglietti = query('SELECT nome, prezzo FROM tipi_biglietto ORDER BY prezzo DESC');
 $speciale = array_values(array_filter($mostre, fn($m) => $m['speciale']))[0] ?? null;
 $oggi = stato_apertura_oggi();
 
+briciole([]);
 pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologia greca, era glaciale, Atlantide e mondo celeste in un unico percorso.',
     'home', null, false, ['vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'puntini.js']);
 ?>
-
-<div class="contenitore v2-briciole-home"><?php briciole([]); ?></div>
 
 <section class="v2-eroe" aria-labelledby="titolo-home">
     <h1 id="titolo-home">
@@ -108,7 +107,7 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
             <?php foreach ($eventi as $ev): ?>
                 <li>
                     <p class="v2-evento-data"><time datetime="<?= e(date('c', strtotime($ev['inizio']))) ?>"><?= e(data_estesa($ev['inizio'])) ?>, ore <?= e(ora($ev['inizio'])) ?></time></p>
-                    <h3><?= e($ev['titolo']) ?></h3>
+                    <h3><a href="evento.php?id=<?= (int) $ev['id'] ?>"><?= e($ev['titolo']) ?></a></h3>
                     <p><?= e($ev['descrizione']) ?></p>
                     <p class="v2-nota"><?= e($ev['luogo']) ?>, <?= e(prezzo($ev['prezzo'])) ?></p>
                 </li>

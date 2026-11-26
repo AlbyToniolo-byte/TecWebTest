@@ -12,16 +12,18 @@ if (!isset($slugValidi[$filtro])) {
     $filtro = '';
 }
 
-$sql = 'SELECT e.titolo, e.descrizione, e.inizio, e.durata_min, e.luogo, e.prezzo, e.posti, m.titolo AS mostra, m.slug
+// rimasti: capienza meno i posti già prenotati online
+$sql = 'SELECT e.id, e.titolo, e.descrizione, e.inizio, e.durata_min, e.luogo, e.prezzo, e.posti,
+               e.posti - COALESCE((SELECT SUM(pe.posti) FROM prenotazioni_eventi pe WHERE pe.evento_id = e.id), 0) AS rimasti, m.titolo AS mostra, m.slug
         FROM eventi e LEFT JOIN mostre m ON m.id = e.mostra_id
         WHERE e.inizio >= NOW()' . ($filtro ? ' AND m.slug = :s' : '') . '
         ORDER BY e.inizio';
 $eventi = query($sql, $filtro ? ['s' => $filtro] : []);
 
+briciole([[null, 'Mostre ed eventi']]);
 pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di visite guidate, laboratori e serate.', 'esibizioni');
 ?>
 <div class="contenitore">
-    <?php briciole([[null, 'Mostre ed eventi']]); ?>
     <div class="intestazione-pagina">
         <h1>Mostre ed eventi</h1>
         <p class="introduzione">Cinque mostre permanenti, disposte su quattro piani nell'ordine della discesa: dal cielo, in terrazza, fino al fondale di Atlantide, sotto il livello della strada.</p>
@@ -67,15 +69,22 @@ pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di
                     <li class="evento">
                         <p class="evento-quando"><time datetime="<?= e(date('c', strtotime($ev['inizio']))) ?>"><?= e(data_estesa($ev['inizio'])) ?><span>ore <?= e(ora($ev['inizio'])) ?></span></time></p>
                         <div>
-                            <h3><?= e($ev['titolo']) ?></h3>
+                            <h3><a href="evento.php?id=<?= (int) $ev['id'] ?>"><?= e($ev['titolo']) ?></a></h3>
                             <p><?= e($ev['descrizione']) ?></p>
                             <dl class="evento-dettagli">
                                 <div><dt>Mostra</dt><dd><?= $ev['slug'] ? '<a href="mostra.php?m=' . e($ev['slug']) . '">' . e($ev['mostra']) . '</a>' : 'Tutto il museo' ?></dd></div>
                                 <div><dt>Dove</dt><dd><?= e($ev['luogo']) ?></dd></div>
                                 <div><dt>Durata</dt><dd><?= (int) $ev['durata_min'] ?> minuti</dd></div>
                                 <div><dt>Costo</dt><dd><?= e(prezzo($ev['prezzo'])) ?></dd></div>
-                                <div><dt>Posti</dt><dd><?= (int) $ev['posti'] ?></dd></div>
+                                <div><dt>Posti liberi</dt><dd><?= max(0, (int) $ev['rimasti']) ?> su <?= (int) $ev['posti'] ?></dd></div>
                             </dl>
+                            <p class="evento-prenota">
+                                <?php if ((int) $ev['rimasti'] > 0): ?>
+                                    <a href="evento.php?id=<?= (int) $ev['id'] ?>#prenota">Prenota<span class="visually-hidden"> «<?= e($ev['titolo']) ?>»</span></a>
+                                <?php else: ?>
+                                    <strong>Posti esauriti</strong>
+                                <?php endif; ?>
+                            </p>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -83,7 +92,7 @@ pagina_inizio('Mostre ed eventi', 'Le cinque mostre di Kronos e il calendario di
         <?php else: ?>
             <p>Per questa mostra non ci sono eventi in programma. <a href="esibizioni.php#eventi">Vedi gli eventi di tutte le mostre</a>.</p>
         <?php endif; ?>
-        <p>Gli eventi si prenotano in biglietteria o scrivendo a <a href="mailto:eventi@kronos-museo.it">eventi@kronos-museo.it</a>.</p>
+        <p>Gli eventi si prenotano online dalla pagina di ciascuno, oppure in biglietteria. Hai già prenotato? <a href="gestisci-evento.php">Modifica o cancella la prenotazione</a>.</p>
     </section>
 </div>
 <?php pagina_fine();

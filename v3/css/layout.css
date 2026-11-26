@@ -158,12 +158,14 @@
 
 /* --- Percorso "Ti trovi in" (briciole() in php/funzioni.php) --------------------- */
 
+/* Subito sotto la testata, con lo stesso margine laterale: il percorso parte sotto il logo */
+.briciole { padding: 0 clamp(1rem, 4vw, 3rem) 1rem; }
 .briciole ol {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem 0.5rem;
     margin: 0;
-    padding: 1.5rem 0 0;
+    padding: 0.25rem 0 0;
     list-style: none;
     font-size: 1rem;
 }
@@ -172,8 +174,6 @@
 .briciole li + li::before { content: "›"; content: "›" / ""; margin-right: 0.5rem; }
 .briciole a { color: var(--link); }
 .briciole [aria-current="page"] { font-weight: 700; }
-/* nella home si allinea al titolo, che usa la larghezza delle sezioni (90rem) */
-.v2-briciole-home { max-width: 90rem; }
 
 /* --- Sezioni comuni --------------------------------------------------------------- */
 
@@ -380,6 +380,7 @@
 .evento-dettagli dt { font-weight: 700; }
 .evento-dettagli dd { margin: 0; }
 .evento p { margin-bottom: 0.5rem; }
+.evento-prenota { margin: 0.75rem 0 0; font-weight: 600; }
 @media (max-width: 36rem) {
     .evento { grid-template-columns: 1fr; }
 }
@@ -425,7 +426,6 @@
 }
 .apertura h1 { max-width: 18ch; }
 .apertura .sottotitolo { font-size: clamp(1.3125rem, 1rem + 1vw, 1.875rem); max-width: 30ch; margin: 0; }
-.apertura .briciole ol { padding: 0 0 1.25rem; }
 
 .dati-mostra {
     display: flex;
