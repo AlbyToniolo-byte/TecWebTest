@@ -112,7 +112,7 @@ Fuori dalle versioni:
 | `index.php`, `scelta.css` | Pagina di scelta tra le due versioni |
 | `robots.txt` | Indica le due mappe del sito ed esclude le pagine di servizio |
 | `database/` | Schema e dati di esempio, comuni a tutte le versioni; `migrazione-requisiti.sql`, `migrazione-tessere.sql`, `migrazione-utenti.sql` e `migrazione-eventi.sql`, in questo ordine, aggiornano un database creato con uno schema precedente senza perdere i dati |
-| `docs/schema-er.drawio` | Schema E/R del database (notazione di Chen), da aprire con draw.io o app.diagrams.net; UTENTE e le relazioni Effettua, Richiede e Fa riguardano solo la terza versione |
+| `docs/schema-er.drawio` | Schema E/R del database (notazione di Chen), da aprire con draw.io o app.diagrams.net; UTENTE, PRENOTAZIONE EVENTO e le relazioni Effettua, Richiede, Fa, Riguarda e Riserva riguardano solo la terza versione |
 | `docs/genera_svg.py`, `docs/genera_prodotti.py` | Generano le illustrazioni nei colori di `refs.md`, per esempio `python3 docs/genera_svg.py v1/img/mostre` |
 | `docs/contrasto.json` | Coppie di colori verificate per il contrasto WCAG AA, comprese quelle dei link visitati (3:1 rispetto ai non visitati), per entrambe le versioni |
 

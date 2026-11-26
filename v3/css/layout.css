@@ -192,7 +192,9 @@
 
 /* --- Home: prima schermata ----------------------------------------------------- */
 
-.v2-eroe { padding-top: clamp(3rem, 8vw, 7rem); min-height: calc(100svh - 5rem); }
+/* altezza del contenuto, non di tutta la finestra: niente vuoto prima della sezione dopo */
+.v2-eroe { padding-top: clamp(3rem, 8vw, 7rem); padding-bottom: clamp(2rem, 4vw, 3rem); }
+.v2-eroe + .v2-sezione { padding-top: clamp(2rem, 5vw, 4rem); }
 .v2-eroe h1 { margin-bottom: 2.5rem; }
 .v2-riga { display: block; }
 .v2-rientro { padding-left: 0.45em; }
