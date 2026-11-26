@@ -150,6 +150,7 @@ a.bottone-secondario:visited { background-color: transparent; color: var(--link-
 a.bottone-secondario:visited:hover { background-color: var(--link-visitato); color: var(--sfondo); }
 
 .bottone-testo {
+    min-height: 2.75rem;   /* 44px: facile da toccare anche se sembra un link */
     border: 0;
     background: none;
     padding: 0.25rem 0;

@@ -186,7 +186,9 @@
 .v2-nota { font-size: 0.9375rem; }
 .v2-occhiello { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.75rem; }
 .v2-titolo-centro { text-align: center; margin-inline: auto; }
-.azioni { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
+/* riga di bottoni e link: tutti centrati in verticale, qualunque sia la loro altezza */
+.azioni { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 2.5rem; }
+.azioni form { margin: 0; }
 
 /* --- Home: prima schermata ----------------------------------------------------- */
 
@@ -636,8 +638,6 @@
 
 /* --- Account: area personale, profilo, gestione ---------------------------------------- */
 
-.intestazione-pagina .azioni { align-items: center; }
-.azioni form { margin: 0; }
 /* Le tabelle larghe scorrono da sole su schermi stretti, senza allargare la pagina */
 /* position: relative tiene dentro anche i testi nascosti per i lettori di schermo (posizionati in assoluto) */
 .tabella-scorre { position: relative; overflow-x: auto; margin-bottom: 1.5rem; }
