@@ -41,7 +41,7 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
 <section class="v2-sezione v2-doppia" aria-labelledby="titolo-tempo">
     <figure class="v2-media" data-rivela=""><img src="<?= e(asset('img/mostre/dinosauri.svg')) ?>" alt="" width="1600" height="1000" loading="lazy" /></figure>
     <div>
-        <h2 id="titolo-tempo">Qui, il <em>tempo</em> si visita a piedi.</h2>
+        <h2 id="titolo-tempo">Qui, il tempo si visita a piedi.</h2>
         <p>Prende il nome da Crono, il titano che divorava i figli, e da Chronos, il tempo che tutto consuma. Ogni piano è un'epoca che non c'è più: la attraversi in un pomeriggio, scendendo dalle stelle al mare.</p>
         <p>Fossili, reperti e ricostruzioni, con almeno un oggetto da toccare in ogni sala.</p>
         <a class="bottone bottone-secondario" href="about.php">Chi siamo</a>
@@ -63,7 +63,7 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
 <?php endif; ?>
 
 <section class="v2-sezione" aria-labelledby="titolo-biglietto">
-    <h2 id="titolo-biglietto" class="v2-titolo-largo">Non serve una macchina del tempo,<br />basta un <em>biglietto</em>.</h2>
+    <h2 id="titolo-biglietto" class="v2-titolo-largo">Non serve una macchina del tempo,<br />basta un biglietto.</h2>
     <div class="v2-colonne">
         <p class="v2-colonna-intro">Il biglietto vale per tutte e cinque le mostre, compresa l'installazione speciale. Prenotando online scegli la fascia oraria ed eviti la coda.</p>
         <div>
@@ -102,7 +102,7 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
 </section>
 
 <section class="v2-scuro v2-fascia" aria-labelledby="titolo-eventi">
-    <h2 id="titolo-eventi" class="v2-titolo-centro">Prossimi <em>eventi</em></h2>
+    <h2 id="titolo-eventi" class="v2-titolo-centro">Prossimi eventi</h2>
     <?php if ($eventi): ?>
         <ul class="v2-eventi">
             <?php foreach ($eventi as $ev): ?>
@@ -124,14 +124,14 @@ pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologi
     <div class="v2-puntini-fisso">
         <div class="v2-puntini-scena" aria-hidden="true"></div>
         <div class="v2-puntini-testo">
-            <h2 id="titolo-percorso">Dal cielo all'abisso,<br /><em>un solo</em> percorso.</h2>
+            <h2 id="titolo-percorso">Dal cielo all'abisso,<br />un solo percorso.</h2>
             <button class="bottone-testo v2-pausa" type="button" data-pausa="" hidden="hidden">Ferma le animazioni</button>
         </div>
     </div>
 </section>
 
 <section class="v2-sezione v2-domande" aria-labelledby="titolo-domande">
-    <h2 id="titolo-domande">Le domande di chi viene<br />per la <em>prima</em> volta</h2>
+    <h2 id="titolo-domande">Le domande di chi viene<br />per la prima volta</h2>
     <div>
         <details>
             <summary>Serve prenotare?</summary>
