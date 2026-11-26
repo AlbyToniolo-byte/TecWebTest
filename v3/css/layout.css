@@ -594,6 +594,12 @@
 .scelta label { margin: 0; font-size: 1.3125rem; font-family: var(--serif); font-weight: 400; }
 .scelta .prezzo-livello { display: block; font-family: var(--sans); font-weight: 700; font-size: 1.125rem; }
 .scelta ul { margin: 0.75rem 0 0; padding-left: 1.1rem; font-size: 1rem; }
+/* Fasce orarie: schede più piccole in riga; l'etichetta occupa tutta la scheda, così si clicca ovunque */
+.scelte-fasce { grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: 0.75rem; }
+.scelte-fasce .scelta { position: relative; align-items: center; padding: 1rem 1.25rem; }
+.scelte-fasce .scelta label { font-size: 1.25rem; }
+.scelte-fasce .scelta label::after { content: ""; position: absolute; inset: 0; }
+.orario-fascia { display: block; font-family: var(--sans); font-size: 1rem; font-weight: 400; }
 
 .prodotti {
     display: grid;

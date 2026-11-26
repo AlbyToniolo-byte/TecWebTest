@@ -138,16 +138,23 @@ function prenotazione_campi(array $v, array $errori, array $tipi, bool $conEmail
                 <?= errore_campo('data', $errori) ?>
             </div>
 
-            <div class="campo">
-                <label for="fascia">Fascia oraria di ingresso <span class="obbligatorio" aria-hidden="true">*</span></label>
-                <select id="fascia" name="fascia" required="required" aria-required="true" data-msg-vuoto="Scegli la fascia oraria di ingresso"<?= attr_campo('fascia', $errori) ?>>
-                    <option value="">Scegli una fascia</option>
-                    <?php foreach (FASCE as $k => $etichetta): ?>
-                        <option value="<?= e($k) ?>"<?= $k === $v['fascia'] ? ' selected="selected"' : '' ?>><?= e($etichetta) ?></option>
+            <!-- Fascia oraria: pulsanti di scelta invece di un menu a tendina, tutte le opzioni visibili;
+                 il primo ha id="fascia", così il riepilogo degli errori porta qui -->
+            <fieldset class="campo">
+                <legend>Fascia oraria di ingresso <span class="obbligatorio" aria-hidden="true">*</span></legend>
+                <div class="scelte scelte-fasce">
+                    <?php $i = 0; foreach (FASCE as $k => $etichetta):
+                        $id = $i++ === 0 ? 'fascia' : 'fascia-' . $k;
+                        [$nome, $orario] = array_pad(explode(', ', $etichetta, 2), 2, ''); ?>
+                        <div class="scelta">
+                            <input type="radio" id="<?= e($id) ?>" name="fascia" value="<?= e($k) ?>" required="required"
+                                   data-msg-vuoto="Scegli la fascia oraria di ingresso"<?= $k === $v['fascia'] ? ' checked="checked"' : '' ?><?= isset($errori['fascia']) ? ' aria-invalid="true" aria-describedby="fascia-errore"' : '' ?> />
+                            <label for="<?= e($id) ?>"><?= e($nome) ?><?php if ($orario !== ''): ?> <span class="orario-fascia"><?= e($orario) ?></span><?php endif; ?></label>
+                        </div>
                     <?php endforeach; ?>
-                </select>
+                </div>
                 <?= errore_campo('fascia', $errori) ?>
-            </div>
+            </fieldset>
 
             <fieldset id="biglietti" data-almeno-uno="Scegli almeno un biglietto">
                 <legend>Biglietti</legend>
