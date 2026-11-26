@@ -9,10 +9,10 @@ $id = (int) ($_GET['id'] ?? 0);
 $evento = $id ? evento_con_posti($id) : null;
 if (!$evento) {
     http_response_code(404);
-    briciole([['esibizioni.php', 'Mostre ed eventi'], [null, 'Evento non trovato']]);
     pagina_inizio('Evento non trovato', 'L\'evento cercato non è in calendario.', 'esibizioni');
     ?>
     <div class="contenitore intestazione-pagina">
+        <?php briciole([['esibizioni.php', 'Mostre ed eventi'], [null, 'Evento non trovato']]); ?>
         <h1>Evento non trovato</h1>
         <p>Forse è stato tolto dal calendario. Trovi gli eventi in programma nella pagina <a href="esibizioni.php#eventi">Mostre ed eventi</a>.</p>
     </div>
@@ -50,10 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$evento['passato']) {
     }
 }
 
-briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $evento['titolo']]]);
 pagina_inizio($evento['titolo'], mb_substr($evento['descrizione'], 0, 155), 'esibizioni');
 ?>
 <div class="contenitore">
+    <?php briciole([['esibizioni.php', 'Mostre ed eventi'], [null, $evento['titolo']]]); ?>
     <div class="intestazione-pagina">
         <h1><?= e($evento['titolo']) ?></h1>
         <p class="introduzione"><?= e($evento['descrizione']) ?></p>

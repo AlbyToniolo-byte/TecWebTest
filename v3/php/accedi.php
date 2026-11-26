@@ -44,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-briciole([[null, 'Accedi']]);
 pagina_inizio('Accedi', 'Accedi al tuo account del museo Kronos per gestire prenotazioni, tessere e ordini.', 'accedi');
 ?>
 <div class="pagina-stretta">
+    <?php briciole([[null, 'Accedi']]); ?>
     <div class="intestazione-pagina">
         <h1>Accedi</h1>
         <p class="introduzione">Con un account trovi in un solo posto le tue prenotazioni, le tessere e gli ordini dello shop. Non è obbligatorio: puoi prenotare anche senza.</p>

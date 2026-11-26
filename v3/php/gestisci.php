@@ -75,10 +75,10 @@ if ($pren && !isset($v)) {
     }
 }
 
-briciole([['visit.php', 'Visita'], [null, 'Gestisci la prenotazione']]);
 pagina_inizio('Gestisci la prenotazione', 'Modifica o cancella la prenotazione della visita al museo Kronos.', 'visit');
 ?>
 <div class="contenitore">
+    <?php briciole([['visit.php', 'Visita'], [null, 'Gestisci la prenotazione']]); ?>
     <div class="intestazione-pagina">
         <h1>Gestisci la prenotazione</h1>
         <?php if (!$pren): ?>

@@ -13,10 +13,11 @@ $biglietti = query('SELECT nome, prezzo FROM tipi_biglietto ORDER BY prezzo DESC
 $speciale = array_values(array_filter($mostre, fn($m) => $m['speciale']))[0] ?? null;
 $oggi = stato_apertura_oggi();
 
-briciole([]);
 pagina_inizio('Home', 'Kronos è il museo dei mondi perduti: dinosauri, mitologia greca, era glaciale, Atlantide e mondo celeste in un unico percorso.',
     'home', null, false, ['vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'puntini.js']);
 ?>
+
+<div class="contenitore v2-briciole-home"><?php briciole([]); ?></div>
 
 <section class="v2-eroe" aria-labelledby="titolo-home">
     <h1 id="titolo-home">

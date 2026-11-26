@@ -119,10 +119,10 @@ $iscritti = query('SELECT e.titolo, e.inizio, pe.nome, pe.email, pe.posti, pe.co
                    FROM prenotazioni_eventi pe JOIN eventi e ON e.id = pe.evento_id
                    WHERE e.inizio >= NOW() ORDER BY e.inizio, pe.creata_il');
 
-briciole([['account.php', 'Area personale'], [null, 'Gestione del museo']]);
 pagina_inizio('Gestione del museo', 'Area riservata allo staff del museo Kronos: eventi e prenotazioni.', 'admin');
 ?>
 <div class="contenitore">
+    <?php briciole([['account.php', 'Area personale'], [null, 'Gestione del museo']]); ?>
     <div class="intestazione-pagina">
         <h1>Gestione del museo</h1>
         <p class="introduzione">Il calendario degli eventi che compare in home e in «Mostre ed eventi», e l'affluenza prenotata dei prossimi giorni.</p>

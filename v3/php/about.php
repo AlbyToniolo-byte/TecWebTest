@@ -5,10 +5,10 @@ require_once __DIR__ . '/header_footer.php';
 $mostre = query('SELECT slug, titolo, sommario, tema FROM mostre ORDER BY ordine');
 $team = query('SELECT nome, ruolo, bio FROM membri_team ORDER BY ordine');
 
-briciole([[null, 'Chi siamo']]);
 pagina_inizio('Chi siamo', 'Perché un museo dei mondi perduti, da dove viene il nome Kronos e chi ci lavora.', 'about');
 ?>
 <div class="contenitore">
+    <?php briciole([[null, 'Chi siamo']]); ?>
     <div class="intestazione-pagina">
         <h1>Chi siamo</h1>
         <p class="introduzione">Kronos raccoglie sotto lo stesso tetto mondi che non esistono più, o che forse non sono mai esistiti. Li mettiamo uno accanto all'altro perché si capiscono meglio insieme: la scienza spiega il passato, il mito racconta come lo abbiamo immaginato.</p>

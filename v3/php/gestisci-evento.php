@@ -77,10 +77,10 @@ if ($pren && !isset($v)) {
     $v = ['posti' => (string) $pren['posti'], 'nome' => $pren['nome'], 'email' => $pren['email']];
 }
 
-briciole([['esibizioni.php', 'Mostre ed eventi'], [null, 'Gestisci un evento prenotato']]);
 pagina_inizio('Gestisci un evento prenotato', 'Modifica o cancella la prenotazione di un evento del museo Kronos.', 'esibizioni');
 ?>
 <div class="contenitore">
+    <?php briciole([['esibizioni.php', 'Mostre ed eventi'], [null, 'Gestisci un evento prenotato']]); ?>
     <div class="intestazione-pagina">
         <h1>Gestisci un evento prenotato</h1>
         <?php if (!$pren): ?>

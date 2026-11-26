@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-briciole([['accedi.php', 'Accedi'], [null, 'Registrati']]);
 pagina_inizio('Registrati', 'Crea un account del museo Kronos per gestire prenotazioni, tessere e ordini in un solo posto.', 'accedi');
 ?>
 <div class="pagina-stretta">
+    <?php briciole([['accedi.php', 'Accedi'], [null, 'Registrati']]); ?>
     <div class="intestazione-pagina">
         <h1>Crea un account</h1>
         <p class="introduzione">Ti servono un nome utente e una password. L'email la usiamo solo per mostrarti le tue prenotazioni e la newsletter, se la vuoi.</p>

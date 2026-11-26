@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-briciole([[null, 'Visita']]);
 pagina_inizio('Visita', 'Orari, biglietti, come arrivare e prenotazione della visita al museo Kronos.', 'visit');
 ?>
 <div class="contenitore">
+    <?php briciole([[null, 'Visita']]); ?>
     <div class="intestazione-pagina">
         <h1>Visita il museo</h1>
         <p class="introduzione"><?= e(stato_apertura_oggi()) ?>. Per vedere tutte e cinque le mostre servono circa tre ore; il percorso si fa dall'alto verso il basso, partendo dalla terrazza.</p>
