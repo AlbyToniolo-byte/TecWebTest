@@ -2,7 +2,7 @@
 -- Schema PostgreSQL. Esegui con:  psql -d kronos -f database/schema.sql
 -- I totali di prenotazioni e ordini non sono salvati: si calcolano dalle righe (SUM di quantita * prezzo_unitario).
 
-DROP TABLE IF EXISTS ordini_righe, ordini, prodotti,
+DROP TABLE IF EXISTS ordini_righe, ordini, prodotti, utenti,
     richieste_membership, vantaggi_membership, livelli_membership, iscrizioni_newsletter,
     prenotazioni_righe, prenotazioni, tipi_biglietto, orari,
     eventi, reperti, sezioni_mostra, mostre, membri_team CASCADE;
@@ -70,6 +70,18 @@ CREATE TABLE tipi_biglietto (
     ordine      SMALLINT     NOT NULL
 );
 
+-- Account dei visitatori e dello staff (terza versione del sito). Il login è facoltativo:
+-- prenotazioni, tessere e ordini restano possibili anche senza account (utente_id NULL).
+CREATE TABLE utenti (
+    id            SERIAL PRIMARY KEY,
+    nome_utente   VARCHAR(30)  NOT NULL UNIQUE,   -- minuscolo: lettere, cifre, punto, trattino, trattino basso
+    nome          VARCHAR(120) NOT NULL,
+    email         VARCHAR(200) NOT NULL UNIQUE,   -- minuscolo
+    password_hash VARCHAR(255) NOT NULL,          -- password_hash() di PHP, mai la password in chiaro
+    ruolo         VARCHAR(12)  NOT NULL DEFAULT 'visitatore' CHECK (ruolo IN ('visitatore', 'admin')),
+    creato_il     TIMESTAMP    NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE prenotazioni (
     id          SERIAL PRIMARY KEY,
     codice      VARCHAR(12)  NOT NULL UNIQUE,
@@ -78,6 +90,7 @@ CREATE TABLE prenotazioni (
     data_visita DATE         NOT NULL,
     fascia      VARCHAR(20)  NOT NULL,
     note        VARCHAR(500),            -- testo libero: esigenze per la visita
+    utente_id   INTEGER REFERENCES utenti(id) ON DELETE SET NULL,   -- NULL: fatta senza account
     creata_il   TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
@@ -116,6 +129,7 @@ CREATE TABLE richieste_membership (
     livello_id INTEGER      NOT NULL REFERENCES livelli_membership(id),
     nome       VARCHAR(120) NOT NULL,
     email      VARCHAR(200) NOT NULL,
+    utente_id  INTEGER REFERENCES utenti(id) ON DELETE SET NULL,
     creata_il  TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
@@ -136,6 +150,7 @@ CREATE TABLE ordini (
     codice    VARCHAR(12)  NOT NULL UNIQUE,
     nome      VARCHAR(120) NOT NULL,
     email     VARCHAR(200) NOT NULL,
+    utente_id INTEGER REFERENCES utenti(id) ON DELETE SET NULL,
     creato_il TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 

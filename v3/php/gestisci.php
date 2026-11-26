@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db()->prepare('DELETE FROM prenotazioni WHERE id = :id')->execute(['id' => $pren['id']]);
             unset($_SESSION['prenotazione_gestita']);
             flash('Prenotazione ' . $pren['codice'] . ' cancellata. Se cambi idea puoi prenotare di nuovo dalla pagina Visita.');
-            vai('gestisci.php');
+            vai(utente() ? 'account.php' : 'gestisci.php');
         } elseif ($azione === 'esci') {
             unset($_SESSION['prenotazione_gestita']);
             vai('gestisci.php');
@@ -165,6 +165,9 @@ pagina_inizio('Gestisci la prenotazione', 'Modifica o cancella la prenotazione d
                     <input type="hidden" name="azione" value="esci" />
                     <button class="bottone-testo" type="submit">Gestisci un'altra prenotazione</button>
                 </form>
+                <?php if (utente()): ?>
+                    <a href="account.php">Torna all'area personale</a>
+                <?php endif; ?>
             </div>
         </section>
     <?php endif; ?>

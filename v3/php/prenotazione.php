@@ -84,16 +84,18 @@ function prenotazione_leggi(array $post, array $tipi, bool $conEmail = true): ar
  * Salva una prenotazione nuova ($id null) o aggiorna quella esistente, in un'unica transazione.
  * Le righe dei biglietti si riscrivono da capo con i prezzi di oggi. Restituisce il codice.
  */
-function prenotazione_salva(array $v, array $tipi, ?int $id = null): string
+// $utenteId: l'account di chi prenota (solo per le nuove prenotazioni; NULL senza accesso)
+function prenotazione_salva(array $v, array $tipi, ?int $id = null, ?int $utenteId = null): string
 {
     $pdo = db();
     $pdo->beginTransaction();
     $note = $v['note'] === '' ? null : $v['note'];
     if ($id === null) {
         $codice = codice_casuale();
-        $st = $pdo->prepare('INSERT INTO prenotazioni (codice, nome, email, data_visita, fascia, note)
-                             VALUES (:c, :n, :e, :d, :f, :o) RETURNING id');
-        $st->execute(['c' => $codice, 'n' => $v['nome'], 'e' => $v['email'], 'd' => $v['data'], 'f' => $v['fascia'], 'o' => $note]);
+        $st = $pdo->prepare('INSERT INTO prenotazioni (codice, nome, email, data_visita, fascia, note, utente_id)
+                             VALUES (:c, :n, :e, :d, :f, :o, :u) RETURNING id');
+        $st->execute(['c' => $codice, 'n' => $v['nome'], 'e' => $v['email'], 'd' => $v['data'], 'f' => $v['fascia'], 'o' => $note,
+                      'u' => $utenteId]);
         $id = (int) $st->fetchColumn();
     } else {
         $st = $pdo->prepare('UPDATE prenotazioni SET nome = :n, data_visita = :d, fascia = :f, note = :o

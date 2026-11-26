@@ -6,16 +6,17 @@ require_once __DIR__ . '/tessera.php';
 [$livelli, $vantaggi] = livelli_tessera();
 
 $errori = [];
-$v = ['livello' => '', 'nome' => '', 'email' => ''];
+$u = utente();
+$v = ['livello' => '', 'nome' => $u['nome'] ?? '', 'email' => $u['email'] ?? ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     [$v, $errori] = tessera_leggi($_POST, $livelli);
     if (!$errori) {
         $codice = codice_casuale();
-        $st = db()->prepare('INSERT INTO richieste_membership (codice, livello_id, nome, email) VALUES (:c, :l, :n, :e)');
-        $st->execute(['c' => $codice, 'l' => (int) $v['livello'], 'n' => $v['nome'], 'e' => $v['email']]);
+        $st = db()->prepare('INSERT INTO richieste_membership (codice, livello_id, nome, email, utente_id) VALUES (:c, :l, :n, :e, :u)');
+        $st->execute(['c' => $codice, 'l' => (int) $v['livello'], 'n' => $v['nome'], 'e' => $v['email'], 'u' => $u['id'] ?? null]);
         flash('Richiesta inviata. La tessera ' . nome_livello($livelli, (int) $v['livello']) . ' ti aspetta in biglietteria: la attivi alla prima visita. '
-            . 'Codice ' . $codice . ': con il codice e la tua email puoi cambiarla o annullarla da «Gestisci la tessera».');
+            . 'Codice ' . $codice . ': ' . ($u ? 'la trovi nella tua area personale.' : 'con il codice e la tua email puoi cambiarla o annullarla da «Gestisci la tessera».'));
         vai('support.php');
     }
 }
@@ -31,7 +32,11 @@ pagina_inizio('Sostienici', 'Diventa socio di Kronos o sostieni il museo con una
 
     <section class="blocco-form" aria-labelledby="titolo-tessere">
         <h2 id="titolo-tessere">Diventa socio</h2>
-        <p>Hai già richiesto una tessera? <a href="gestisci-tessera.php">Cambiala o annulla la richiesta</a>.</p>
+        <?php if ($u): ?>
+            <p>Le tue richieste di tessera sono nella tua <a href="account.php">area personale</a>.</p>
+        <?php else: ?>
+            <p>Hai già richiesto una tessera? <a href="gestisci-tessera.php">Cambiala o annulla la richiesta</a>.</p>
+        <?php endif; ?>
         <?= riepilogo_errori($errori) ?>
         <form action="support.php" method="post" novalidate="novalidate" data-valida="">
             <?= campo_csrf() ?>

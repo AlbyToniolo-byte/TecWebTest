@@ -5,7 +5,8 @@ require_once __DIR__ . '/header_footer.php';
 $_SESSION['carrello'] ??= [];
 $carrello = &$_SESSION['carrello'];
 $errori = [];
-$v = ['nome' => '', 'email' => ''];
+$u = utente();
+$v = ['nome' => $u['nome'] ?? '', 'email' => $u['email'] ?? ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
     $azione = (string) ($_POST['azione'] ?? '');
@@ -55,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido()) {
                 $pdo->rollBack();
             } else {
                 $codice = codice_casuale();
-                $st = $pdo->prepare('INSERT INTO ordini (codice, nome, email) VALUES (:c, :n, :e) RETURNING id');
-                $st->execute(['c' => $codice, 'n' => $v['nome'], 'e' => $v['email']]);
+                $st = $pdo->prepare('INSERT INTO ordini (codice, nome, email, utente_id) VALUES (:c, :n, :e, :u) RETURNING id');
+                $st->execute(['c' => $codice, 'n' => $v['nome'], 'e' => $v['email'], 'u' => $u['id'] ?? null]);
                 $idOrdine = $st->fetchColumn();
                 $riga = $pdo->prepare('INSERT INTO ordini_righe VALUES (:o, :p, :q, :u)');
                 $scala = $pdo->prepare('UPDATE prodotti SET disponibili = disponibili - :q WHERE id = :p');

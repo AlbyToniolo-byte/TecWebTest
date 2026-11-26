@@ -77,7 +77,10 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
     <!-- Menu nella testata; se non c'è spazio diventa un pannello a schermo intero (js/main.js) -->
     <nav id="v2-menu" class="v2-menu" aria-label="Principale">
         <ul>
-            <?php foreach (VOCI_MENU as $chiave => [$href, $etichetta]): ?>
+            <?php
+            // Ultima voce: l'accesso, oppure l'area personale per chi ha già fatto l'accesso
+            $voci = VOCI_MENU + (utente() ? ['account' => ['account.php', 'Area personale']] : ['accedi' => ['accedi.php', 'Accedi']]);
+            foreach ($voci as $chiave => [$href, $etichetta]): ?>
                 <li><a href="<?= e($href) ?>"<?= $chiave === $attiva ? ' aria-current="page"' : '' ?>><?= e($etichetta) ?></a></li>
             <?php endforeach; ?>
         </ul>
@@ -117,6 +120,7 @@ function pagina_fine(): void
             <ul class="v2-piede-link">
                 <li><a href="gestisci.php">Gestisci la prenotazione</a></li>
                 <li><a href="gestisci-tessera.php">Gestisci la tessera</a></li>
+                <li><a href="<?= utente() ? 'account.php">Area personale' : 'accedi.php">Accedi o registrati' ?></a></li>
             </ul>
         </section>
         <section aria-labelledby="piede-orari">

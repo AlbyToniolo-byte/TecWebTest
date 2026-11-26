@@ -625,6 +625,29 @@
 .temi li { padding: 1rem 1.25rem; border-radius: var(--raggio); background: var(--sfondo); max-width: 48rem; }
 .temi a { color: var(--link); font-weight: 700; }
 
+/* --- Account: area personale, profilo, gestione ---------------------------------------- */
+
+.intestazione-pagina .azioni { align-items: center; }
+.azioni form { margin: 0; }
+/* Le tabelle larghe scorrono da sole su schermi stretti, senza allargare la pagina */
+/* position: relative tiene dentro anche i testi nascosti per i lettori di schermo (posizionati in assoluto) */
+.tabella-scorre { position: relative; overflow-x: auto; margin-bottom: 1.5rem; }
+.tabella-larga { max-width: none; min-width: 34rem; }
+.tabella-larga th, .tabella-larga td { padding-right: 1.25rem; }
+.tabella-larga th:last-child, .tabella-larga td:last-child { padding-right: 0; }
+.tabella-larga form { margin: 0; }
+.elenco-account { margin: 0 0 1.5rem; padding: 0; list-style: none; border-top: 1px solid var(--bordo); }
+.elenco-account li { max-width: none; padding: 1rem 0; border-bottom: 1px solid var(--bordo); }
+.elenco-account p { margin: 0 0 0.25rem; }
+.elenco-account .azioni { margin: 0.5rem 0 0; }
+.azioni-riga { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1rem; }
+.azioni-riga form { margin: 0; }
+/* Campi brevi (data, ora, numeri) affiancati finché c'è spazio */
+.campi-affiancati { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
+.campi-affiancati .campo { flex: 1 1 10rem; }
+.scelta-riga { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.5rem; }
+.scelta-riga label { margin: 0; font-weight: 400; }
+
 /* --- Piè di pagina scuro ------------------------------------------------------- */
 
 .v2-piede { padding: clamp(4rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) 2rem; }

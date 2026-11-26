@@ -7,15 +7,17 @@ $orari = query('SELECT giorno, apertura, chiusura FROM orari ORDER BY giorno');
 $tipi = tipi_biglietto();
 
 $errori = [];
-$v = ['data' => '', 'fascia' => '', 'nome' => '', 'email' => '', 'note' => '', 'q' => []];
+// Con l'accesso fatto nome ed email sono già compilati, e la prenotazione finisce nell'area personale
+$u = utente();
+$v = ['data' => '', 'fascia' => '', 'nome' => $u['nome'] ?? '', 'email' => $u['email'] ?? '', 'note' => '', 'q' => []];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     [$v, $errori] = prenotazione_leggi($_POST, $tipi);
     if (!$errori) {
-        $codice = prenotazione_salva($v, $tipi);
+        $codice = prenotazione_salva($v, $tipi, null, $u['id'] ?? null);
         $totale = array_sum(array_map(fn($t) => $v['q'][$t['id']] * (float) $t['prezzo'], $tipi));
         flash(sprintf('Prenotazione confermata per %s, %s. Codice %s: mostralo in biglietteria e paga %s all\'ingresso. '
-            . 'Con il codice e la tua email puoi modificarla o cancellarla da «Gestisci la prenotazione».',
+            . ($u ? 'La trovi nella tua area personale.' : 'Con il codice e la tua email puoi modificarla o cancellarla da «Gestisci la prenotazione».'),
             data_estesa($v['data'], true), mb_strtolower(FASCE[$v['fascia']]), $codice, prezzo($totale)));
         vai('visit.php');
     }
@@ -77,7 +79,11 @@ pagina_inizio('Visita', 'Orari, biglietti, come arrivare e prenotazione della vi
     <section id="prenota" class="blocco-form" aria-labelledby="titolo-prenota">
         <h2 id="titolo-prenota">Prenota la visita</h2>
         <p>Scegli giorno, fascia oraria e biglietti. Paghi in biglietteria il giorno della visita.</p>
-        <p>Hai già prenotato? <a href="gestisci.php">Modifica o cancella la tua prenotazione</a>.</p>
+        <?php if ($u): ?>
+            <p>Le tue prenotazioni sono nella tua <a href="account.php">area personale</a>, dove puoi modificarle o cancellarle.</p>
+        <?php else: ?>
+            <p>Hai già prenotato? <a href="gestisci.php">Modifica o cancella la tua prenotazione</a>. Con un <a href="accedi.php?torna=visit.php%23prenota">account</a> le ritrovi tutte in un posto.</p>
+        <?php endif; ?>
         <?= riepilogo_errori($errori) ?>
         <form action="visit.php#prenota" method="post" novalidate="novalidate" data-valida="" data-totale-biglietti="">
             <?= campo_csrf() ?>

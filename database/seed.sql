@@ -144,3 +144,9 @@ INSERT INTO membri_team (nome, ruolo, bio, ordine) VALUES
 ('Sofia Greco', 'Curatrice, Mitologia e Atlantide', 'Filologa classica, si occupa della ricezione di Omero nel cinema.', 3),
 ('Marco Bellini', 'Curatore, Mondo Celeste', 'Astrofisico e divulgatore, cura le serate di osservazione in terrazza.', 4),
 ('Giulia Ferri', 'Accessibilità e servizi educativi', 'Progetta percorsi tattili, visite in LIS e laboratori per le scuole.', 5);
+
+-- Account di prova (terza versione): admin / admin e user / user.
+-- Le password sono salvate come hash bcrypt (password_hash di PHP).
+INSERT INTO utenti (nome_utente, nome, email, password_hash, ruolo) VALUES
+('admin', 'Staff del museo', 'admin@kronos-museo.it', '$2y$12$R6wHoOKenYBky7iQIhDpPOJUsBTKGiccCb638BzonWVZd2PgmvyK.', 'admin'),
+('user', 'Visitatore di prova', 'user@kronos-museo.it', '$2y$12$a3CkqOLfuC7KQLnBXznXkuItuQaXaVHrOplmWS5p6ourL/X1iL2.y', 'visitatore');

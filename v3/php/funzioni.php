@@ -1,6 +1,8 @@
 <?php
 // Funzioni di supporto comuni a tutte le pagine.
 
+// Cookie di sessione non leggibile da JavaScript e non inviato da altri siti nelle richieste POST
+session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax']);
 session_start();
 
 require_once __DIR__ . '/connection.php';
@@ -152,4 +154,88 @@ function briciole(array $voci): void
 function asset(string $percorso): string
 {
     return '../' . ltrim($percorso, '/');
+}
+
+// --- Account e accesso ---------------------------------------------------------
+// In sessione c'è solo l'id dell'utente; i suoi dati si rileggono dal database a ogni pagina,
+// così un account cancellato o un ruolo cambiato valgono subito.
+
+const RUOLI = ['visitatore', 'admin'];
+
+function utente(): ?array
+{
+    static $utente = false;
+    if ($utente === false) {
+        $id = $_SESSION['utente_id'] ?? null;
+        $utente = $id ? query_riga('SELECT id, nome_utente, nome, email, ruolo FROM utenti WHERE id = :id', ['id' => $id]) : null;
+        if ($id && !$utente) {
+            unset($_SESSION['utente_id']);
+        }
+    }
+    return $utente;
+}
+
+function e_admin(): bool
+{
+    return (utente()['ruolo'] ?? '') === 'admin';
+}
+
+// Nuovo id di sessione a ogni cambio di identità: un id rubato prima del login non serve
+function entra(int $id): void
+{
+    session_regenerate_id(true);
+    $_SESSION['utente_id'] = $id;
+}
+
+function esci(): void
+{
+    session_regenerate_id(true);
+    unset($_SESSION['utente_id'], $_SESSION['prenotazione_gestita'], $_SESSION['tessera_gestita']);
+}
+
+// Pagine riservate: chi non ha fatto l'accesso va al login e poi torna qui
+function richiedi_accesso(): array
+{
+    $u = utente();
+    if (!$u) {
+        flash('Accedi per vedere questa pagina.');
+        vai('accedi.php?torna=' . rawurlencode(basename($_SERVER['SCRIPT_NAME'])));
+    }
+    return $u;
+}
+
+function richiedi_admin(): array
+{
+    $u = richiedi_accesso();
+    if ($u['ruolo'] !== 'admin') {
+        flash('Questa pagina è riservata allo staff del museo.');
+        vai('account.php');
+    }
+    return $u;
+}
+
+// Indirizzo di ritorno dopo il login: solo una pagina di questo sito, mai un indirizzo esterno
+function ritorno_sicuro(?string $torna, string $predefinito = 'account.php'): string
+{
+    return $torna !== null && preg_match('/^[a-z-]+\.php(\?[\w=&%-]*)?(#[\w-]+)?$/', $torna) ? $torna : $predefinito;
+}
+
+const PASSWORD_MIN = 8;
+
+/**
+ * Controlli comuni a registrazione e cambio password.
+ * @return array<string,string> errori per campo
+ */
+function controlla_password(string $password, string $conferma, string $campo = 'password', string $campoConferma = 'conferma'): array
+{
+    $errori = [];
+    if (mb_strlen($password) < PASSWORD_MIN) {
+        $errori[$campo] = 'La password deve avere almeno ' . PASSWORD_MIN . ' caratteri';
+    } elseif (mb_strlen($password) > 72) {
+        $errori[$campo] = 'La password può avere al massimo 72 caratteri';   // limite di bcrypt
+    }
+    if ($conferma !== $password) {
+        $errori[$campoConferma] = 'Le due password non coincidono';
+    }
+    return $errori;
 }

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db()->prepare('DELETE FROM richieste_membership WHERE id = :id')->execute(['id' => $richiesta['id']]);
             unset($_SESSION['tessera_gestita']);
             flash('Richiesta di tessera ' . $richiesta['codice'] . ' annullata e cancellata dai nostri dati.');
-            vai('gestisci-tessera.php');
+            vai(utente() ? 'account.php' : 'gestisci-tessera.php');
         } elseif ($azione === 'esci') {
             unset($_SESSION['tessera_gestita']);
             vai('gestisci-tessera.php');
@@ -157,6 +157,9 @@ pagina_inizio('Gestisci la tessera', 'Cambia il tipo di tessera richiesto o annu
                     <input type="hidden" name="azione" value="esci" />
                     <button class="bottone-testo" type="submit">Gestisci un'altra richiesta</button>
                 </form>
+                <?php if (utente()): ?>
+                    <a href="account.php">Torna all'area personale</a>
+                <?php endif; ?>
             </div>
         </section>
     <?php endif; ?>

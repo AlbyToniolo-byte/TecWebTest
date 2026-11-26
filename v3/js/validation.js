@@ -67,6 +67,13 @@ function controlla(campo) {
     if (campo.maxLength > 0 && campo.value.length > campo.maxLength) {
         return d.msgLunghezza || `Puoi scrivere al massimo ${campo.maxLength} caratteri`;
     }
+    if (campo.minLength > 0 && campo.value.length < campo.minLength) {
+        return d.msgCorta || `Scrivi almeno ${campo.minLength} caratteri`;
+    }
+    // Conferma: deve coincidere con un altro campo (per esempio la password)
+    if (d.ugualeA && campo.value !== (document.getElementById(d.ugualeA)?.value ?? '')) {
+        return d.msgDiverso || 'I due campi non coincidono';
+    }
     if (campo.pattern && !new RegExp(`^(?:${campo.pattern})$`).test(valore)) {
         return d.msgFormato || `Controlla il formato del campo ${etichetta(campo)}`;
     }

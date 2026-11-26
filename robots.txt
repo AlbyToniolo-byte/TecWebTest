@@ -14,6 +14,13 @@ Disallow: /v2/php/disiscrizione.php
 Disallow: /v3/php/disiscrizione.php
 Disallow: /v2/php/newsletter.php
 Disallow: /v3/php/newsletter.php
+# area con account (terza versione)
+Disallow: /v3/php/accedi.php
+Disallow: /v3/php/registrati.php
+Disallow: /v3/php/esci.php
+Disallow: /v3/php/account.php
+Disallow: /v3/php/profilo.php
+Disallow: /v3/php/admin.php
 
 Sitemap: http://localhost:8000/v1/sitemap.php
 Sitemap: http://localhost:8000/v2/sitemap.php
