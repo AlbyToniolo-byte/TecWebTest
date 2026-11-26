@@ -692,9 +692,17 @@
 .v2-piede input::placeholder { color: rgb(244 244 242 / 0.7); }
 .piede-annulla { font-size: 1rem; margin: 0.75rem 0 0; }
 .v2-piede-fondo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
     max-width: 90rem;
     margin: 4rem auto 0;
     padding-top: 1.5rem;
     border-top: 1px solid var(--bordo);
     font-size: 0.9375rem;
 }
+.v2-piede-fondo p { margin: 0; }
+/* porta alla testata (#cima): da lì si riparte con il menu */
+.torna-su { flex: none; }

@@ -11,6 +11,9 @@
 
 @media (prefers-reduced-motion: no-preference) {
 
+    /* I salti dentro la pagina (Torna in cima, #prenota, ...) scorrono invece di saltare */
+    html { scroll-behavior: smooth; }
+
     /* --- Home: il titolo entra, la parola in corsivo si riscrive (js/main.js) ------ */
 
     .v2-eroe .v2-riga { animation: emerge 1s var(--morbida) both; }

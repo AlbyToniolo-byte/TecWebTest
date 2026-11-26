@@ -261,7 +261,7 @@ td.numero, th.numero { text-align: right; padding-right: 0; }
         transition: none !important;
     }
     body { background: #ffffff; color: #000000; font-size: 12pt; }
-    .salta, .v2-testata-azioni, .v2-menu, .cambia-schema, [data-pausa], form,
+    .salta, .v2-testata-azioni, .v2-menu, .cambia-schema, [data-pausa], form, .torna-su,
     .v2-puntini-scena, .sfondo-mostra, .v2-piede form { display: none !important; }
     .js [data-rivela], .js [data-rivela-gruppo] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; }
     a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 10pt; }

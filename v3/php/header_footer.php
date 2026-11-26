@@ -69,7 +69,7 @@ function pagina_inizio(string $titolo, string $descrizione, string $attiva = '',
 </head>
 <body class="<?= e($classi) ?>">
 <a class="salta" href="#contenuto">Vai al contenuto</a>
-<header class="v2-testata">
+<header id="cima" class="v2-testata">
     <a class="v2-marchio marchio" href="index.php"<?= $attiva === 'home' ? ' aria-current="page"' : '' ?>>
         <?= marchio_sfera(34) ?>
         <span translate="no">Kronos</span>
@@ -152,7 +152,10 @@ function pagina_fine(): void
             <p class="piede-annulla">Non vuoi più riceverla? <a href="disiscrizione.php">Annulla l'iscrizione</a></p>
         </section>
     </div>
-    <p class="v2-piede-fondo">Kronos è un museo immaginario, progetto per il corso di Tecnologie Web. Versioni precedenti: <a href="../../v1/">prima</a> e <a href="../../v2/">seconda</a>.</p>
+    <div class="v2-piede-fondo">
+        <p>Kronos è un museo immaginario, progetto per il corso di Tecnologie Web. Versioni precedenti: <a href="../../v1/">prima</a> e <a href="../../v2/">seconda</a>.</p>
+        <a class="bottone bottone-secondario torna-su" href="#cima">Torna in cima</a>
+    </div>
 </footer>
 </body>
 </html>
