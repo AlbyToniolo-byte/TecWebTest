@@ -176,5 +176,8 @@ set_exception_handler(function (Throwable $e) {
     }
     http_response_code(500);
     error_log('Kronos: ' . $e);
+    // copia in un file temporaneo, fuori dalle cartelle del sito: il server di sviluppo può non avere un log
+    error_log(date('c') . ' ' . ($_SERVER['REQUEST_METHOD'] ?? '') . ' ' . ($_SERVER['REQUEST_URI'] ?? '') . "\n" . $e . "\n\n", 3,
+        sys_get_temp_dir() . '/kronos-errori.log');
     echo '<p>Si è verificato un errore. Ricarica la pagina tra qualche istante.</p>';
 });
