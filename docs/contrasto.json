@@ -657,6 +657,118 @@
    "background": "#eff8d2",
    "type": "text-normal",
    "notes": ""
+  },
+  {
+   "id": "v3-chiaro-bottone-visitato-testo",
+   "foreground": "#f4f4f2",
+   "background": "#3a7463",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-chiaro-bottone-visitato-vs-pieno",
+   "foreground": "#3a7463",
+   "background": "#161616",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-chiaro-bottone-visitato-fondo",
+   "foreground": "#3a7463",
+   "background": "#f4f4f2",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-chiaro-secondario-visitato",
+   "foreground": "#3a7463",
+   "background": "#f4f4f2",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-chiaro-secondario-visitato-hover",
+   "foreground": "#f4f4f2",
+   "background": "#3a7463",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-scuro-bottone-visitato-testo",
+   "foreground": "#161616",
+   "background": "#4b9680",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-scuro-bottone-visitato-vs-pieno",
+   "foreground": "#4b9680",
+   "background": "#f4f4f2",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-scuro-bottone-visitato-fondo",
+   "foreground": "#4b9680",
+   "background": "#101010",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-scuro-link-visitato",
+   "foreground": "#4b9680",
+   "background": "#101010",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-scuro-secondario-visitato-hover",
+   "foreground": "#101010",
+   "background": "#4b9680",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-fascia-bottone-visitato-testo",
+   "foreground": "#161616",
+   "background": "#4b9680",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-fascia-bottone-visitato-vs-pieno",
+   "foreground": "#4b9680",
+   "background": "#f4f4f2",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-fascia-bottone-visitato-fondo",
+   "foreground": "#4b9680",
+   "background": "#161616",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-fascia-link-visitato",
+   "foreground": "#4b9680",
+   "background": "#161616",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-fascia-secondario-visitato-hover",
+   "foreground": "#161616",
+   "background": "#4b9680",
+   "type": "text-normal",
+   "notes": "v3: bottoni e menu visitati"
+  },
+  {
+   "id": "v3-pannello-menu-visitato-vs-carta",
+   "foreground": "#4b9680",
+   "background": "#f4f4f2",
+   "type": "ui",
+   "notes": "v3: bottoni e menu visitati"
   }
  ]
 }

@@ -51,8 +51,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Link visitati: un colore diverso, con almeno 3:1 di contrasto rispetto ai non visitati, ed entrambi
    almeno 4.5:1 sul fondo (coppie in docs/contrasto.json). --link-visitato è definito da ogni tema:
-   dove manca resta il colore dei non visitati. Bottoni, logo e link «vai al contenuto» non cambiano; il menu principale
-   ha una regola più avanti (layout.css) che lo esclude: lì lo stato visitato non aiuta a orientarsi. */
+   dove manca resta il colore dei non visitati. Logo e link «vai al contenuto» non cambiano; bottoni e menu
+   hanno le loro regole per i visitati in kronos3.css. */
 a:not(.bottone, .marchio, .salta):visited { color: var(--link-visitato, var(--link)); }
 
 

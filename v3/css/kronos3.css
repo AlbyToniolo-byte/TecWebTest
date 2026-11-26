@@ -136,6 +136,13 @@
 }
 .v2 .bottone-secondario { background: transparent; color: var(--testo); border-color: var(--testo); }
 .v2 .bottone-secondario:hover { background: var(--testo); color: var(--sfondo); }
+/* Bottoni-link già visitati: il verderame (--link-visitato) prende il posto dell'inchiostro, o della
+   carta sui fondi scuri, come per i link di testo. Contrasti: 3.2-3.3:1 dal bottone non visitato,
+   testo almeno 4.9:1 (docs/contrasto.json). :visited cambia solo i colori. */
+.v2 a.bottone:visited { background-color: var(--link-visitato); border-color: var(--link-visitato); }
+.v2 a.bottone:visited:hover { background-color: transparent; color: var(--link-visitato); }
+.v2 a.bottone-secondario:visited { background-color: transparent; color: var(--link-visitato); }
+.v2 a.bottone-secondario:visited:hover { background-color: var(--link-visitato); color: var(--sfondo); }
 
 /* --- Testata e menu a schermo intero ------------------------------------------- */
 
@@ -221,7 +228,6 @@
 .v2-menu ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; margin: 0; padding: 0; list-style: none; }
 .js .v2-menu ul { flex-wrap: nowrap; }
 .v2-menu li { white-space: nowrap; }
-/* stessa specificità della regola dei link visitati (style.css), che qui non serve: è la navigazione */
 .v2-testata .v2-menu a {
     color: var(--testo);
     font-size: 1.3rem;
@@ -231,6 +237,7 @@
     text-decoration-thickness: 1px;
     transition: text-decoration-color 0.2s;
 }
+.v2-testata .v2-menu a:visited { color: var(--link-visitato); }
 .v2-testata .v2-menu a:hover, .v2-testata .v2-menu a:focus-visible { text-decoration-color: currentColor; }
 .v2-testata .v2-menu a[aria-current="page"] { font-style: italic; text-decoration-color: var(--accento); }
 .v2-menu-piede { display: none; }
@@ -250,11 +257,13 @@
     --testo: var(--carta);
     --sfondo: var(--inchiostro);
     --focus: var(--carta);
+    --link-visitato: #4b9680;   /* come nelle fasce scure */
     color: var(--carta);
 }
 .menu-compatto .v2-menu[hidden] { display: none; }
 .menu-compatto .v2-menu ul { display: grid; gap: 0.15em; font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
 .menu-compatto .v2-testata .v2-menu a { font-size: inherit; color: var(--carta); text-decoration: none; }
+.menu-compatto .v2-testata .v2-menu a:visited { color: var(--link-visitato); }
 .menu-compatto .v2-testata .v2-menu a:hover, .menu-compatto .v2-testata .v2-menu a:focus-visible { font-style: italic; color: var(--verderame-chiaro); }
 .menu-compatto .v2-menu-piede { display: block; margin: 2rem 0 0; }
 /* logo e bottoni restano sopra il pannello */
@@ -336,6 +345,7 @@
     color: var(--inchiostro);
     --testo: var(--inchiostro);
     --link: var(--inchiostro);
+    --link-visitato: #3a7463;   /* scheda chiara dentro la fascia scura: i valori del giorno */
     --accento: var(--verderame);
     --focus: var(--inchiostro);
     --bottone-sfondo: var(--inchiostro);
